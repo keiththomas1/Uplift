@@ -1,7 +1,9 @@
-340-project
+Pending Title
 ===========
 
-A depot for the mobile app which is a student project at University of Illinois at Chicago. 
+A mobile app to encompass all of your weight-lifting needs.
+
+Made by students at University of Illinois at Chicago. 
 
 <b>Features:</b>
 - Custom-build your own workout.
@@ -9,8 +11,7 @@ A depot for the mobile app which is a student project at University of Illinois 
 - See real-time stats of your own progress.
 
 [Project Proposal] (http://resrc.io/list/10/list-of-free-programming-books/)
-[Mind Map] (https://coggle.it/diagram/525c9041e9e230370503dd26)
 
-Pending title: LiftBook
+[Mind Map] (https://coggle.it/diagram/525c9041e9e230370503dd26)
 
 Keith Thomas | Erik Boyle | Tamer Dissi | Jake Vercimak
