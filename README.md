@@ -3,13 +3,14 @@
 
 A depot for the mobile app which is a student project at University of Illinois at Chicago. 
 
-Pending title: WeightBook
+<b>Features:</b>
+- Custom-build your own workout.
+- Re-use exercises inbetween workouts.
+- See real-time stats of your own progress.
+
+Pending title: LiftBook
 
 Keith Thomas
-<<<<<<< HEAD
 Erik Boyle
-=======
-Erik Doyle
->>>>>>> 49bb05f5568818e633440f41e21a46771f0f6dff
-Tamer Dissi TRYING TO COMMIT
+Tamer Dissi
 Jake Vercimak
