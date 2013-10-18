@@ -1,22 +1,22 @@
 #include <QCoreApplication>
+#include "exercise.h"
 #include <iostream>
 using namespace std;
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    cout << "Start of application." << endl;
+    cout << "Start of application." << endl << endl;
 
-    // Exercise( string name, int setCount, int* repCount, ? )
-    //int sets = 3;
-    //int repCount[3] = { 10, 8, 6 };
-    // Exercise e("Bench Press", sets, repCount)
+    string name = "Bench Press";
+    int setCount = 3;
+    int repCounts[3] = { 10, 8, 6 };
+    float repWeights[3] = { 120, 130, 140 };
 
-    // cout << e.getName() << endl;
-    // cout << e.getSets() << endl;
-    // int* reps = e.getReps();
-    // cout << reps << endl;
+    Exercise e( name, setCount, repWeights, repCounts );
 
-    cout << "End of application." << endl;
+    e.PrintInfo();
+
+    cout << endl << "End of application." << endl;
     return a.exec();
 }
