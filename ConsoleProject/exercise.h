@@ -1,33 +1,37 @@
 #ifndef EXERCISE_H
 #define EXERCISE_H
-
 #include <QObject>
 #include <iostream>
+#include <map>
+
 using namespace std;
 
 class Exercise : public QObject
 {
     Q_OBJECT
 public:
-    explicit Exercise( string newName, int newSetCount, float* newRepWeights, int* newRepCounts );
+    Exercise(string name, int reps, int weight, int id) :
+        m_name(name), m_reps(reps), m_weight(weight), m_exercise_id(id)
+    {
+        cout << "exercise_id: " << id << endl;
+        printf("%s\n", m_name.c_str());
+    }
+    virtual ~Exercise() {}
 
-    string const GetName() { return name; }
-    int GetSetCount() { return setCount; }
-    float* GetRepWeights() { return repWeights; }
-    int* GetRepCounts() { return repCounts; }
+    //Get methods
+    string GetName() { return m_name;}
+    int GetReps() { return m_reps;}
+    int GetWeight() { return m_weight;}
+    int GetWorkoutID() { return m_workout_id;}
+    int GetExerciseID() { return m_exercise_id;}
 
-    void SetName( string newName ) { name = newName; }
-    void SetSetCount( int newSetCount ) { setCount = newSetCount; }
-    void SetRepWeights( float* newRepWeights ) { repWeights = newRepWeights; }
-    void SetRepCounts( int* newRepCounts ) { repCounts = newRepCounts; }
-
-    void PrintInfo();
-  
 private:
-    string name;
-    int setCount;
-    float* repWeights;
-    int* repCounts;
+    string m_name;
+    int m_reps;
+    int m_weight;
+    int m_exercise_id;
+    int m_workout_id;
+
 
 signals:
 
