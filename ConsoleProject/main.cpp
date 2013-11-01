@@ -13,20 +13,36 @@ int main(int argc, char *argv[])
 
     int menuOption;
     CoreDS *core_ds = new CoreDS();
+    Exercise *ex = new Exercise("Squat", 15, 180, core_ds->GetNextExerciseID());
+    core_ds->AddExercise(ex);
+    /*
+    ex = new Exercise("Squat", 15, 180, core_ds->GetNextExerciseID());
+    core_ds->AddExercise(ex);
+    ex = new Exercise(exercise_name, reps, weight, core_ds->GetNextExerciseID());
+    core_ds->AddExercise(ex);
+    ex = new Exercise(exercise_name, reps, weight, core_ds->GetNextExerciseID());
+    core_ds->AddExercise(ex);
+    ex = new Exercise(exercise_name, reps, weight, core_ds->GetNextExerciseID());
+    core_ds->AddExercise(ex);
+    ex = new Exercise(exercise_name, reps, weight, core_ds->GetNextExerciseID());
+    core_ds->AddExercise(ex);
+    */
     while (1) {
+        cout << endl;
         cout << "Choose an option: " << endl;
         cout << "1. Create Exercise" << endl;
         cout << "2. Show Exercises" << endl;
 
         cout << "-> ";
-
         cin >> menuOption;
+        cout << endl;
 
         if (menuOption == 1) {
             string exercise_name;
             int reps, weight;
             cout << "Enter an exercise name: ";
-            cin >> exercise_name; //this is garbage
+            std::getline(cin, exercise_name);
+            std::getline(cin, exercise_name);
             cout << exercise_name << endl;
             cout << "Enter number of reps: ";
             cin >> reps;

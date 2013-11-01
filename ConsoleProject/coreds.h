@@ -6,6 +6,7 @@ typedef std::map<int, Exercise*> ExerciseIDMap;
 typedef std::pair<int, Exercise*> ExerciseIDPair;
 typedef std::map<string, Exercise*> ExerciseStringMap;
 typedef std::pair<string, Exercise*> ExerciseStringPair;
+//typedef std::vector<Exercise*> ExerciseVector;
 
 class CoreDS
 {
@@ -22,7 +23,6 @@ public:
     Exercise* GetExercise(int ID);
 
     void PrintExercises();
-
 
     //Exercise* GetExercise(string name);
     //Exercise* GetExercise(int timestamp);

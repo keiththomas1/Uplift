@@ -7,8 +7,7 @@ void CoreDS::AddExercise(Exercise *ex)
 
 }
 
-Exercise *
-CoreDS::GetExercise(int ID)
+Exercise* CoreDS::GetExercise(int ID)
 {
     ExerciseIDMap::iterator m_it = m_exercise_id_map.find(ID);
     if (m_it == m_exercise_id_map.end()) {

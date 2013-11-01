@@ -16,11 +16,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    exercise.cpp \
     workout.cpp \
-    coreds.cpp
+    coreds.cpp \
+    exercise.cpp
 
 HEADERS += \
-    exercise.h \
     workout.h \
-    coreds.h
+    coreds.h \
+    exercise.h
