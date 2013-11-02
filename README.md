@@ -1,14 +1,15 @@
-Pending Title
+UPLIFT
 ===========
 
 A mobile app to encompass all of your weight-lifting needs.
 
-Made by students at University of Illinois at Chicago. 
+Created by students at University of Illinois at Chicago. 
 
 <b>Features:</b>
 - Custom-build your own workout.
-- Re-use exercises inbetween workouts.
-- See real-time stats of your own progress.
+- Define your own exercises.
+- Share exercises between workouts.
+- See real-time stats of your progress.
 
 [Project Proposal] (http://resrc.io/list/10/list-of-free-programming-books/)
 
