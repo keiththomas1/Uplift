@@ -33,11 +33,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    ui->listWidget->addItem("this is a new item");
-}
-
-void MainWindow::on_pushButton_3_clicked()
-{
-    std::cout << "omg exit button works" << std::endl;
-    exit(0);
+    ui->listWidget->addItem("ur gay");
 }
