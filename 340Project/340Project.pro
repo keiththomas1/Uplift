@@ -20,4 +20,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     label.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    ListOfExecersize.ui \
+    form.ui
