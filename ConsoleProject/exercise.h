@@ -1,3 +1,11 @@
+//Doxygen stuff
+/**
+*@file exercise.h
+*@author
+*@version
+*@section DESCRIPTION
+*/
+
 #ifndef EXERCISE_H
 #define EXERCISE_H
 #include <QObject>
