@@ -11,6 +11,9 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
+    //need to catch the user login: new_user() or user_login()
+    //A separate function can take care of this.
+
     int menuOption;
     CoreDS *core_ds = new CoreDS();
     /*
