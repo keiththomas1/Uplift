@@ -35,3 +35,5 @@ int main(int argc, char *argv[])
     */
     return a.exec();
 }
+
+//why isn't this pushing to git?
