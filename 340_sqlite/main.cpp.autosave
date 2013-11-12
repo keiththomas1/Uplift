@@ -1,0 +1,15 @@
+#include <QCoreApplication>
+
+namespace uplift_database
+{
+    class MainClass
+    {
+        
+    };
+}
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    return a.exec();
+}
