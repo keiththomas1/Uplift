@@ -31,32 +31,35 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_5_clicked()
+//work out button
+void MainWindow::on_WorkoutButton_clicked()
 {
-    ui->listWidget->addItem("hey");
+    ui->TabWidgets->setCurrentIndex(0);
+
 }
 
-
-// Workout button.
-void MainWindow::on_pushButton_clicked()
+//exercise button
+void MainWindow::on_ExercisesButton_clicked()
 {
-    ui->tabWidget->setCurrentIndex(0);
+    ui->TabWidgets->setCurrentIndex(1);
+
 }
 
-// Exercise button.
-void MainWindow::on_pushButton_2_clicked()
+//stats button
+void MainWindow::on_StatsButton_clicked()
 {
-    ui->tabWidget->setCurrentIndex(1);
+    ui->TabWidgets->setCurrentIndex(3);
+
 }
 
-// Calendar button.
-void MainWindow::on_pushButton_3_clicked()
+//calendar button
+void MainWindow::on_CalenderButton_clicked()
 {
-    ui->tabWidget->setCurrentIndex(2);
+    ui->TabWidgets->setCurrentIndex(2);
 }
 
-// Stats button.
-void MainWindow::on_pushButton_4_clicked()
+void MainWindow::on_addWorkoutButton_clicked()
 {
-    ui->tabWidget->setCurrentIndex(3);
+    ui->WorkoutList->addItem("hey");
+
 }
