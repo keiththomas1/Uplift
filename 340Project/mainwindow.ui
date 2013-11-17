@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>321</width>
-    <height>496</height>
+    <width>675</width>
+    <height>592</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTextBrowser" name="textBrowser">
+   <widget class="QTextBrowser" name="Title">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
+      <x>170</x>
+      <y>20</y>
       <width>321</width>
       <height>41</height>
      </rect>
@@ -32,207 +32,185 @@
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'NoviasHand'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'NoviasHand'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:18pt; font-weight:600;&quot;&gt;LiftBook&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>10</y>
-      <width>321</width>
-      <height>401</height>
+      <x>70</x>
+      <y>100</y>
+      <width>534</width>
+      <height>431</height>
      </rect>
     </property>
-    <property name="currentIndex">
-     <number>3</number>
-    </property>
-    <widget class="QWidget" name="workoutTab">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <attribute name="title">
-      <string>W</string>
-     </attribute>
-     <widget class="QListWidget" name="listWidget">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>271</width>
-        <height>191</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_5">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>250</y>
-        <width>271</width>
-        <height>91</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Tam press me</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>10</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Workouts</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="exerciseTab">
-     <attribute name="title">
-      <string>E</string>
-     </attribute>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>10</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Exercises</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="calendarTab">
-     <attribute name="title">
-      <string>C</string>
-     </attribute>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>10</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Calendar</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="statsTab">
-     <attribute name="title">
-      <string>S</string>
-     </attribute>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>10</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Stats</string>
-      </property>
-     </widget>
-    </widget>
+    <layout class="QVBoxLayout" name="MainLayout">
+     <item>
+      <widget class="QTabWidget" name="TabWidgets">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="workoutTab">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <attribute name="title">
+         <string>W</string>
+        </attribute>
+        <widget class="QWidget" name="verticalLayoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>40</y>
+           <width>211</width>
+           <height>251</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="WorkOutTabLayout">
+          <item>
+           <widget class="QLabel" name="WorkoutLabel">
+            <property name="font">
+             <font>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Workouts</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="WorkoutList"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="aButton">
+            <property name="text">
+             <string>Tam press me</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="exerciseTab">
+        <attribute name="title">
+         <string>E</string>
+        </attribute>
+        <widget class="QLabel" name="label">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>0</y>
+           <width>91</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Exercises</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="calendarTab">
+        <attribute name="title">
+         <string>C</string>
+        </attribute>
+        <widget class="QLabel" name="label_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>10</y>
+           <width>91</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Calendar</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="statsTab">
+        <attribute name="title">
+         <string>S</string>
+        </attribute>
+        <widget class="QLabel" name="label_3">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>10</y>
+           <width>91</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Stats</string>
+         </property>
+        </widget>
+        <zorder>label_3</zorder>
+        <zorder>Title</zorder>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="MainButtonLayout">
+       <item>
+        <widget class="QPushButton" name="StatsButton">
+         <property name="text">
+          <string>Stats</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="CalenderButton">
+         <property name="text">
+          <string>Calendar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="ExercisesButton">
+         <property name="text">
+          <string>Exercises</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="WorkoutButton">
+         <property name="text">
+          <string>Workouts</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>410</y>
-      <width>80</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Stats</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>410</y>
-      <width>80</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Calendar</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>410</y>
-      <width>80</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Exercises</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>410</y>
-      <width>80</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Workouts</string>
-    </property>
-   </widget>
-   <zorder>tabWidget</zorder>
-   <zorder>textBrowser</zorder>
-   <zorder>pushButton_4</zorder>
-   <zorder>pushButton_3</zorder>
-   <zorder>pushButton_2</zorder>
-   <zorder>pushButton</zorder>
+   <zorder>Title</zorder>
+   <zorder>verticalLayoutWidget</zorder>
+   <zorder>TabWidgets</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>321</width>
-     <height>21</height>
+     <width>675</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
