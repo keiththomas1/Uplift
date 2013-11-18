@@ -19,6 +19,16 @@ TEMPLATE = app
 SOURCES += \
     BusinessLayer.cpp \
     DataAccessLayer.cpp \
-    PresentationLayer.cpp
+    PresentationLayer.cpp \
+    exercise_set.cpp \
+    workout.cpp \
+    exercise.cpp \
+    user.cpp
 
-HEADERS +=
+HEADERS += \
+    BusinessLayer.h \
+    DataAccessLayer.h \
+    exercise_set.h \
+    workout.h \
+    exercise.h \
+    user.h
