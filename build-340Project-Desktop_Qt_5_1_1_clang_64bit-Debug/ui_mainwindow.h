@@ -13,7 +13,9 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -22,6 +24,7 @@
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -30,18 +33,27 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QTextBrowser *textBrowser;
-    QTabWidget *tabWidget;
-    QWidget *tab_1;
-    QListWidget *listWidget;
-    QPushButton *pushButton_5;
-    QWidget *tab_2;
-    QWidget *tab_3;
-    QWidget *tab_4;
-    QPushButton *pushButton_4;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton;
+    QTextBrowser *Title;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *MainLayout;
+    QTabWidget *TabWidgets;
+    QWidget *workoutTab;
+    QWidget *verticalLayoutWidget_2;
+    QVBoxLayout *WorkOutTabLayout;
+    QLabel *WorkoutLabel;
+    QListWidget *WorkoutList;
+    QPushButton *addWorkoutButton;
+    QWidget *exerciseTab;
+    QLabel *label;
+    QWidget *calendarTab;
+    QLabel *label_2;
+    QWidget *statsTab;
+    QLabel *label_3;
+    QHBoxLayout *MainButtonLayout;
+    QPushButton *WorkoutButton;
+    QPushButton *ExercisesButton;
+    QPushButton *StatsButton;
+    QPushButton *CalenderButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -50,58 +62,108 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(321, 496);
+        MainWindow->resize(675, 592);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        textBrowser = new QTextBrowser(centralWidget);
-        textBrowser->setObjectName(QStringLiteral("textBrowser"));
-        textBrowser->setGeometry(QRect(0, 0, 321, 41));
+        Title = new QTextBrowser(centralWidget);
+        Title->setObjectName(QStringLiteral("Title"));
+        Title->setGeometry(QRect(190, 10, 321, 41));
         QFont font;
         font.setFamily(QStringLiteral("NoviasHand"));
-        textBrowser->setFont(font);
-        tabWidget = new QTabWidget(centralWidget);
-        tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 301, 391));
-        tab_1 = new QWidget();
-        tab_1->setObjectName(QStringLiteral("tab_1"));
-        listWidget = new QListWidget(tab_1);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-        listWidget->setGeometry(QRect(10, 20, 271, 191));
-        pushButton_5 = new QPushButton(tab_1);
-        pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
-        pushButton_5->setGeometry(QRect(10, 220, 271, 91));
-        tabWidget->addTab(tab_1, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QStringLiteral("tab_2"));
-        tabWidget->addTab(tab_2, QString());
-        tab_3 = new QWidget();
-        tab_3->setObjectName(QStringLiteral("tab_3"));
-        tabWidget->addTab(tab_3, QString());
-        tab_4 = new QWidget();
-        tab_4->setObjectName(QStringLiteral("tab_4"));
-        tabWidget->addTab(tab_4, QString());
-        pushButton_4 = new QPushButton(centralWidget);
-        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
-        pushButton_4->setGeometry(QRect(240, 410, 80, 51));
-        pushButton_3 = new QPushButton(centralWidget);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(160, 410, 80, 51));
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(80, 410, 80, 51));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(0, 410, 80, 51));
+        Title->setFont(font);
+        verticalLayoutWidget = new QWidget(centralWidget);
+        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
+        verticalLayoutWidget->setGeometry(QRect(70, 70, 534, 461));
+        MainLayout = new QVBoxLayout(verticalLayoutWidget);
+        MainLayout->setSpacing(6);
+        MainLayout->setContentsMargins(11, 11, 11, 11);
+        MainLayout->setObjectName(QStringLiteral("MainLayout"));
+        MainLayout->setContentsMargins(0, 0, 0, 0);
+        TabWidgets = new QTabWidget(verticalLayoutWidget);
+        TabWidgets->setObjectName(QStringLiteral("TabWidgets"));
+        workoutTab = new QWidget();
+        workoutTab->setObjectName(QStringLiteral("workoutTab"));
+        verticalLayoutWidget_2 = new QWidget(workoutTab);
+        verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
+        verticalLayoutWidget_2->setGeometry(QRect(10, 10, 501, 331));
+        WorkOutTabLayout = new QVBoxLayout(verticalLayoutWidget_2);
+        WorkOutTabLayout->setSpacing(6);
+        WorkOutTabLayout->setContentsMargins(11, 11, 11, 11);
+        WorkOutTabLayout->setObjectName(QStringLiteral("WorkOutTabLayout"));
+        WorkOutTabLayout->setContentsMargins(0, 0, 0, 0);
+        WorkoutLabel = new QLabel(verticalLayoutWidget_2);
+        WorkoutLabel->setObjectName(QStringLiteral("WorkoutLabel"));
+        QFont font1;
+        font1.setPointSize(16);
+        WorkoutLabel->setFont(font1);
+
+        WorkOutTabLayout->addWidget(WorkoutLabel);
+
+        WorkoutList = new QListWidget(verticalLayoutWidget_2);
+        WorkoutList->setObjectName(QStringLiteral("WorkoutList"));
+
+        WorkOutTabLayout->addWidget(WorkoutList);
+
+        addWorkoutButton = new QPushButton(verticalLayoutWidget_2);
+        addWorkoutButton->setObjectName(QStringLiteral("addWorkoutButton"));
+
+        WorkOutTabLayout->addWidget(addWorkoutButton);
+
+        TabWidgets->addTab(workoutTab, QString());
+        exerciseTab = new QWidget();
+        exerciseTab->setObjectName(QStringLiteral("exerciseTab"));
+        label = new QLabel(exerciseTab);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(10, 0, 91, 31));
+        label->setFont(font1);
+        TabWidgets->addTab(exerciseTab, QString());
+        calendarTab = new QWidget();
+        calendarTab->setObjectName(QStringLiteral("calendarTab"));
+        label_2 = new QLabel(calendarTab);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(0, 10, 91, 31));
+        label_2->setFont(font1);
+        TabWidgets->addTab(calendarTab, QString());
+        statsTab = new QWidget();
+        statsTab->setObjectName(QStringLiteral("statsTab"));
+        label_3 = new QLabel(statsTab);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(0, 10, 91, 31));
+        label_3->setFont(font1);
+        TabWidgets->addTab(statsTab, QString());
+
+        MainLayout->addWidget(TabWidgets);
+
+        MainButtonLayout = new QHBoxLayout();
+        MainButtonLayout->setSpacing(6);
+        MainButtonLayout->setObjectName(QStringLiteral("MainButtonLayout"));
+        WorkoutButton = new QPushButton(verticalLayoutWidget);
+        WorkoutButton->setObjectName(QStringLiteral("WorkoutButton"));
+
+        MainButtonLayout->addWidget(WorkoutButton);
+
+        ExercisesButton = new QPushButton(verticalLayoutWidget);
+        ExercisesButton->setObjectName(QStringLiteral("ExercisesButton"));
+
+        MainButtonLayout->addWidget(ExercisesButton);
+
+        StatsButton = new QPushButton(verticalLayoutWidget);
+        StatsButton->setObjectName(QStringLiteral("StatsButton"));
+
+        MainButtonLayout->addWidget(StatsButton);
+
+        CalenderButton = new QPushButton(verticalLayoutWidget);
+        CalenderButton->setObjectName(QStringLiteral("CalenderButton"));
+
+        MainButtonLayout->addWidget(CalenderButton);
+
+
+        MainLayout->addLayout(MainButtonLayout);
+
         MainWindow->setCentralWidget(centralWidget);
-        tabWidget->raise();
-        textBrowser->raise();
-        pushButton_4->raise();
-        pushButton_3->raise();
-        pushButton_2->raise();
-        pushButton->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 321, 21));
+        menuBar->setGeometry(QRect(0, 0, 675, 22));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -112,7 +174,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        TabWidgets->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -121,23 +183,27 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        textBrowser->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        Title->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'NoviasHand'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'NoviasHand'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:18pt; font-weight:600;\">LiftBook</span></p></body></html>", 0));
 #ifndef QT_NO_TOOLTIP
-        tab_1->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
+        workoutTab->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
-        pushButton_5->setText(QApplication::translate("MainWindow", "Tam press me", 0));
-        tabWidget->setTabText(tabWidget->indexOf(tab_1), QApplication::translate("MainWindow", "Tab 1", 0));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
-        tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Page", 0));
-        tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainWindow", "Page", 0));
-        pushButton_4->setText(QApplication::translate("MainWindow", "Stats", 0));
-        pushButton_3->setText(QApplication::translate("MainWindow", "Calendar", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Exercises", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "Workouts", 0));
+        WorkoutLabel->setText(QApplication::translate("MainWindow", "Workouts", 0));
+        addWorkoutButton->setText(QApplication::translate("MainWindow", "Add Workout Button", 0));
+        TabWidgets->setTabText(TabWidgets->indexOf(workoutTab), QApplication::translate("MainWindow", "W", 0));
+        label->setText(QApplication::translate("MainWindow", "Exercises", 0));
+        TabWidgets->setTabText(TabWidgets->indexOf(exerciseTab), QApplication::translate("MainWindow", "E", 0));
+        label_2->setText(QApplication::translate("MainWindow", "Calendar", 0));
+        TabWidgets->setTabText(TabWidgets->indexOf(calendarTab), QApplication::translate("MainWindow", "C", 0));
+        label_3->setText(QApplication::translate("MainWindow", "Stats", 0));
+        TabWidgets->setTabText(TabWidgets->indexOf(statsTab), QApplication::translate("MainWindow", "S", 0));
+        WorkoutButton->setText(QApplication::translate("MainWindow", "Workouts", 0));
+        ExercisesButton->setText(QApplication::translate("MainWindow", "Exercises", 0));
+        StatsButton->setText(QApplication::translate("MainWindow", "Stats", 0));
+        CalenderButton->setText(QApplication::translate("MainWindow", "Calendar", 0));
     } // retranslateUi
 
 };
