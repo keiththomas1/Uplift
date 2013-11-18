@@ -49,7 +49,7 @@ p, li { white-space: pre-wrap; }
      <item>
       <widget class="QTabWidget" name="TabWidgets">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="workoutTab">
         <property name="toolTip">
@@ -97,7 +97,7 @@ p, li { white-space: pre-wrap; }
         <attribute name="title">
          <string>E</string>
         </attribute>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="ExerciseLabel">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -114,6 +114,28 @@ p, li { white-space: pre-wrap; }
          <property name="text">
           <string>Exercises</string>
          </property>
+        </widget>
+        <widget class="QWidget" name="verticalLayoutWidget_3">
+         <property name="geometry">
+          <rect>
+           <x>9</x>
+           <y>31</y>
+           <width>511</width>
+           <height>341</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QListWidget" name="ExerciseList"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="addExercise">
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </widget>
        <widget class="QWidget" name="calendarTab">

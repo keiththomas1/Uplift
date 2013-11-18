@@ -39,6 +39,8 @@ private slots:
 
     void on_addWorkoutButton_clicked();
 
+    void on_addExercise_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

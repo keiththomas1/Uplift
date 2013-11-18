@@ -44,7 +44,11 @@ public:
     QListWidget *WorkoutList;
     QPushButton *addWorkoutButton;
     QWidget *exerciseTab;
-    QLabel *label;
+    QLabel *ExerciseLabel;
+    QWidget *verticalLayoutWidget_3;
+    QVBoxLayout *verticalLayout;
+    QListWidget *ExerciseList;
+    QPushButton *addExercise;
     QWidget *calendarTab;
     QLabel *label_2;
     QWidget *statsTab;
@@ -112,10 +116,28 @@ public:
         TabWidgets->addTab(workoutTab, QString());
         exerciseTab = new QWidget();
         exerciseTab->setObjectName(QStringLiteral("exerciseTab"));
-        label = new QLabel(exerciseTab);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(10, 0, 91, 31));
-        label->setFont(font1);
+        ExerciseLabel = new QLabel(exerciseTab);
+        ExerciseLabel->setObjectName(QStringLiteral("ExerciseLabel"));
+        ExerciseLabel->setGeometry(QRect(10, 0, 91, 31));
+        ExerciseLabel->setFont(font1);
+        verticalLayoutWidget_3 = new QWidget(exerciseTab);
+        verticalLayoutWidget_3->setObjectName(QStringLiteral("verticalLayoutWidget_3"));
+        verticalLayoutWidget_3->setGeometry(QRect(9, 31, 511, 341));
+        verticalLayout = new QVBoxLayout(verticalLayoutWidget_3);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        ExerciseList = new QListWidget(verticalLayoutWidget_3);
+        ExerciseList->setObjectName(QStringLiteral("ExerciseList"));
+
+        verticalLayout->addWidget(ExerciseList);
+
+        addExercise = new QPushButton(verticalLayoutWidget_3);
+        addExercise->setObjectName(QStringLiteral("addExercise"));
+
+        verticalLayout->addWidget(addExercise);
+
         TabWidgets->addTab(exerciseTab, QString());
         calendarTab = new QWidget();
         calendarTab->setObjectName(QStringLiteral("calendarTab"));
@@ -174,7 +196,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        TabWidgets->setCurrentIndex(0);
+        TabWidgets->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -194,7 +216,8 @@ public:
         WorkoutLabel->setText(QApplication::translate("MainWindow", "Workouts", 0));
         addWorkoutButton->setText(QApplication::translate("MainWindow", "Add Workout Button", 0));
         TabWidgets->setTabText(TabWidgets->indexOf(workoutTab), QApplication::translate("MainWindow", "W", 0));
-        label->setText(QApplication::translate("MainWindow", "Exercises", 0));
+        ExerciseLabel->setText(QApplication::translate("MainWindow", "Exercises", 0));
+        addExercise->setText(QApplication::translate("MainWindow", "Add", 0));
         TabWidgets->setTabText(TabWidgets->indexOf(exerciseTab), QApplication::translate("MainWindow", "E", 0));
         label_2->setText(QApplication::translate("MainWindow", "Calendar", 0));
         TabWidgets->setTabText(TabWidgets->indexOf(calendarTab), QApplication::translate("MainWindow", "C", 0));

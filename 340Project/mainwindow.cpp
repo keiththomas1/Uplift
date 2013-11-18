@@ -2,6 +2,8 @@
 #include <iostream>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "newExerciseDialog.h"
+#include "ui_newExerciseDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -62,4 +64,10 @@ void MainWindow::on_addWorkoutButton_clicked()
 {
     ui->WorkoutList->addItem("hey");
 
+}
+
+void MainWindow::on_addExercise_clicked()
+{
+    newExerciseDialog *anExercise = new newExerciseDialog(this);
+    anExercise->show();
 }
