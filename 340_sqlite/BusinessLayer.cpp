@@ -46,7 +46,7 @@ int ModifySet(); //not sure how to implement this
 
 /***************** CONVERSIONS ********************/
 
-//all take some sqlobject param
+//NEED TO KNOW WHAT TYPE OF OBJECT WILL BE RETURNED FROM DB
 List <Workout> ConvertToWorkoutList();
 List <Exercise_Set> ConvertToExerciseList();
 List <string> ConverToStringList();
