@@ -1,4 +1,4 @@
-#include "dbaseman.h"
+#include "DataAccessLayer.h"
 
 using namespace std;
 
@@ -36,6 +36,11 @@ void DBaseMan::testDatabase(){
     //qDebug() << command.lastError();
     queryPtr->exec("SELECT * FROM crap");
     //qDebug() << queryPtr->lastError();
+}
+
+QSqlQuery* DBaseMan::executeQuery(QString command){
+    queryPtr->exec(command);
+    return queryPtr;
 }
 
 //!This function is supposed to print the query to standard output.  This is mostly a debugging function.

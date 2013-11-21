@@ -48,9 +48,12 @@ public:
  */
 
 //public function list
+    //!This function ascertains that a database exists.
+    bool check_for_database();
     //!This function sets up a new, non-existing database.
     void setupDatabase();
-    //void openDatabase();
+    //!This function executes a given database query and returns the result.
+    QSqlQuery* executeQuery(QString command);
     //!This function is a debugging function, used to test that queries are being retreived from the database.
     void printQuery();
     //!This function closes the database connection.

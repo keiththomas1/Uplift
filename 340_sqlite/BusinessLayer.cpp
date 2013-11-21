@@ -1,8 +1,12 @@
 #include <iostream>
+#include <string.h>
+#include <string>
+#include <QString>
 #include <QtSql>
 
 //gets the workout_name_id from the name
 //returns -1 for error
+
 int GetWorkoutNameID(string name) {
     string query = "SELECT workout_name_id FROM workout_table WHERE workout_name == " + name;
 }
@@ -43,7 +47,6 @@ int AddSet(Exercise_Set*) {
 }
 int ModifySet(); //not sure how to implement this
 
-
 /***************** CONVERSIONS ********************/
 
 //NEED TO KNOW WHAT TYPE OF OBJECT WILL BE RETURNED FROM DB
@@ -52,6 +55,7 @@ List <Exercise_Set> ConvertToExerciseList();
 List <string> ConverToStringList();
 
 /***************** STATISTICS ********************/
+
 
 //returns a list of all occurences of a specified workout
 List <Workout> GetWorkoutHistory(string name) {

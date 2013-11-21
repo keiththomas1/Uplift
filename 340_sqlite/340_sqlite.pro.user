@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!-- Written by QtCreator 2.8.1, 2013-11-20T09:44:49. -->
 =======
 <!-- Written by QtCreator 2.8.1, 2013-11-20T00:05:08. -->
 >>>>>>> b645a6623dcb43833bdbbbedf540e9dd8a273974
+=======
+<!-- Written by QtCreator 2.8.1, 2013-11-21T12:08:17. -->
+>>>>>>> Fixed the Database stuff
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
