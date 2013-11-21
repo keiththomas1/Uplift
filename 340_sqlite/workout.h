@@ -1,5 +1,7 @@
 #ifndef WORKOUT_H
 #define WORKOUT_H
+#include <string>
+using namespace std;
 
 class Workout
 {
@@ -12,6 +14,7 @@ public:
 
     string GetWorkoutName() { return m_WorkoutName;}
     int GetWorkoutID()      { return m_WorkoutID;}
+    int GetWorkoutTime()    { return m_Timestamp;}
 
 private:
     string m_WorkoutName;

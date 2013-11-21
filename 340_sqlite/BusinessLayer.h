@@ -1,6 +1,13 @@
 #ifndef BUSINESSLAYER_H
 #define BUSINESSLAYER_H
 #include <ctime>
+#include <list>
+#include <string>
+#include "exercise.h"
+#include "exercise_set.h"
+#include "workout.h"
+#include "user.h"
+
 using namespace std;
 
 class BusinessTier
@@ -31,10 +38,10 @@ public:
     int AddUser(User*);
     int AddSet(Exercise_Set*);
     int ModifySet(); //not sure how to implement this
-    List <Workout> GetWorkoutHistory(string);
-    List <Exercise_Set> GetExercise(string);
-    List <string> DisplayExercises();
-    List <string> DisplayWorkouts();
+    list <Workout> GetWorkoutHistory(string);
+    list <Exercise_Set> GetExercise(string);
+    list <string> DisplayExercises();
+    list <string> DisplayWorkouts();
 
 private:
     int m_NextWorkoutID;
@@ -49,9 +56,9 @@ private:
     int GetWorkoutNameID(string);
 
     //all take some sqlobject param
-    List <Workout> ConvertToWorkoutList();
-    List <Exercise_Set> ConvertToExerciseList();
-    List <string> ConverToStringList();
+    list <Workout> ConvertToWorkoutList();
+    list <Exercise_Set> ConvertToExerciseList();
+    list <string> ConverToStringList();
 };
 
 

@@ -1,5 +1,7 @@
 #ifndef EXERCISE_SET_H
 #define EXERCISE_SET_H
+#include <string>
+using namespace std;
 
 class Exercise_Set {
 

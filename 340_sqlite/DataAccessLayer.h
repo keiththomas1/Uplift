@@ -3,7 +3,7 @@
 
 #include <QCoreApplication>
 #include <iostream>
-#include <string.h>
+//#include <string.h>
 #include <QString>
 #include <QSqlQuery>
 #include <QObject>
