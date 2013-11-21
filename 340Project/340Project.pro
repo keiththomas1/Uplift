@@ -15,13 +15,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    label.cpp \
-    newExerciseDialog.cpp
+    newexercisedialog.cpp
 
 HEADERS  += mainwindow.h \
-    label.h \
-    newExerciseDialog.h
+    newexercisedialog.h
 
 FORMS    += mainwindow.ui \
-    form.ui \
-    newExerciseDialog.ui
+    newexercisedialog.ui
