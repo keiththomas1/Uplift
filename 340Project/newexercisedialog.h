@@ -18,6 +18,8 @@ public:
 private slots:
     void on_Cancel_clicked();
 
+    void on_OK_clicked();
+
 private:
     Ui::NewExerciseDialog *ui;
 };
