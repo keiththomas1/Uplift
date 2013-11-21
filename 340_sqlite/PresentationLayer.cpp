@@ -27,7 +27,7 @@ void database_command(QSqlDatabase *db, struct command){
 
 }
 
-void setupDatabase(SqlDatabase *db){
+void setupDatabase(QSqlDatabase *db){
     //create basic tables, etc.
     QSqlQuery query("CREATE TABLE exercises (ExerciseID int, Name varchar(255), Type int", *db);
     QSqlQuery query("CREATE TABLE users (UserID int, username varchar(255), password varchar(255)", *db);
