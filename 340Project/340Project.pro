@@ -15,10 +15,20 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    newexercisedialog.cpp
+    newexercisedialog.cpp \
+    exercise_set.cpp \
+    exercise.cpp \
+    DataAccessLayer.cpp \
+    BusinessLayer.cpp \
+    workout.cpp
 
 HEADERS  += mainwindow.h \
-    newexercisedialog.h
+    newexercisedialog.h \
+    exercise_set.h \
+    exercise.h \
+    DataAccessLayer.h \
+    BusinessLayer.h \
+    workout.h
 
 FORMS    += mainwindow.ui \
     newexercisedialog.ui
