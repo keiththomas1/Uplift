@@ -1,20 +1,24 @@
 #ifndef BUSINESSLAYER_H
 #define BUSINESSLAYER_H
 #include <ctime>
-#include <list>
-#include <string>
+#include <vector>
+#include <QString>
 #include "exercise.h"
 #include "exercise_set.h"
 #include "workout.h"
 #include "user.h"
+#include "DataAccessLayer.h"
 
 using namespace std;
 
 class BusinessTier
 {
 public:
-    BusinessTier()  //should only be called once
+    BusinessTier()
     {
+        dt = new DBaseMan();
+
+        //seed all the ID counters with 0
         m_NextWorkoutID = 0;
         m_NextWorkoutNameID = 0;
         m_NextExerciseID = 0;
@@ -24,26 +28,21 @@ public:
     }
     virtual ~BusinessTier() {}
 
-    //ID management
-    int GetNextWorkoutID()      { return m_NextWorkoutID++;}
-    int GetNextWorkoutNameID()  { return m_NextWorkoutNameID++;}
-    int GetNextExerciseID()     { return m_NextExerciseID++;}
-    int GetNextExerciseSetID()  { return m_NextExerciseSetID++;}
-    int GetNextExerciseNameID() { return m_NextExerciseNameID++;}
-    int GetNextUserID()         { return m_NextUserID++;}
-
     int GetTime()               { return (int)time(NULL);}
-    int AddExercise(Exercise*);
-    int AddWorkout(Workout*);
+    int AddExercise(QString);
+    int AddWorkout(QString);
     int AddUser(User*);
     int AddSet(Exercise_Set*);
     int ModifySet(); //not sure how to implement this
-    list <Workout> GetWorkoutHistory(string);
-    list <Exercise_Set> GetExercise(string);
-    list <string> DisplayExercises();
-    list <string> DisplayWorkouts();
 
+    vector <Workout> GetWorkoutHistory(QString);
+    vector <Exercise_Set> GetExercise(QString);
+    vector <QString> DisplayExercises();
+    vector <QString> DisplayWorkouts();
+DBaseMan *dt;
 private:
+
+
     int m_NextWorkoutID;
     int m_NextWorkoutNameID;
     int m_NextExerciseID;
@@ -51,14 +50,15 @@ private:
     int m_NextExerciseNameID;
     int m_NextUserID;
 
-    bool DoesExerciseExist(string);
-    bool DoesWorkoutExist(string);
-    int GetWorkoutNameID(string);
+    bool DoesExerciseExist(QString);
+    bool DoesWorkoutExist(QString);
+    int GetWorkoutNameID(QString);
+    int GetExerciseNameID(QString);
 
     //all take some sqlobject param
-    list <Workout> ConvertToWorkoutList();
-    list <Exercise_Set> ConvertToExerciseList();
-    list <string> ConverToStringList();
+    vector <Workout> ConvertToWorkoutList();
+    vector <Exercise_Set> ConvertToExerciseList();
+    vector <QString> ConverToStringList();
 };
 
 
