@@ -3,7 +3,6 @@
 
 #include <QCoreApplication>
 #include <iostream>
-//#include <string.h>
 #include <QString>
 #include <QSqlQuery>
 #include <QObject>
@@ -20,49 +19,54 @@
 using namespace std;
 
 //!This class manages the fundamentals of the database storage of the information.
-class DBaseMan{
-
-    //!This variable manages the database connection on the stack.
-    QSqlDatabase db;
-    //!This variable manages the database query results dynamically on the heap.
-    QSqlQuery* queryPtr;
-
+class DBaseMan
+{
 public:
     //!This constuctor makes a persisting instance of the database.
-    DBaseMan() : db(QSqlDatabase::addDatabase("QSQLITE")),queryPtr(0)
+    DBaseMan()
     {
-        db.setDatabaseName("database.db");
-        if(!db.open())
-            return;
-        queryPtr = new QSqlQuery(db);
-    }
-    //!This deconstructor frees up the query information which is kept on the heap.
-    ~DBaseMan()
-    {
-        delete queryPtr; queryPtr = 0;
+        db = QSqlDatabase::addDatabase("QSQLITE", "Connection");
+        db.setDatabaseName("uplift.db");
+        if(!db.open()) {
+            qDebug("Error opening database");
+            qDebug("%s", qPrintable(db.lastError().text())); //qPrintable for formatted output
+            exit(0);
+        }
+
+        //create tables if they don't already exist
+        QSqlQuery tmp(db);
+        query = tmp;
+        bool success;
+        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_table (exercise_name_id INT PRIMARY KEY, exercise_name TEXT)");
+        if (!success) {
+            qDebug("Error creating exercise_table");
+            qDebug("%s", qPrintable(db.lastError().text()));
+            exit(0);
+        }
+        query.exec("CREATE TABLE IF NOT EXISTS workout_table (workout_name_id INT PRIMARY KEY, workout_name TEXT)");
+        query.exec("CREATE TABLE IF NOT EXISTS workout_pairs (workout_name_id INT, exercise_name_id INT, workout_order INT)");
+        query.exec("CREATE TABLE IF NOT EXISTS user_table (user_id INT PRIMARY KEY, username TEXT, password TEXT)");
+        query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_id INT PRIMARY KEY, workout_name_id, timestamp datetime default current_timestamp)");
+        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (exercise_set_log_id INT PRIMARY KEY, workout_id INT, user_id INT, timestamp INT, reps INT, weight INT)");
+        if (!success) qDebug() << "CREATE exercise_set_log failed";
     }
 
-/*
- *I've definitely got some more functions to add here, but this thing should sucessfully build the basic database.
- *Don't ask me to add and query for stuff yet.
- */
+    //!This destructor frees up the query information which is kept on the heap.
+    ~DBaseMan() {}
 
-//public function list
-    //!This function ascertains that a database exists.
-    bool check_for_database();
-    //!This function sets up a new, non-existing database.
-    void setupDatabase();
+    //!This function is a debugging function which runs queries on the database to test its functionality.
+    void testDatabase();
     //!This function executes a given database query and returns the result.
-    QSqlQuery* executeQuery(QString command);
-    //!This function is a debugging function, used to test that queries are being retreived from the database.
-    void printQuery();
+    QSqlQuery executeQuery(QString);
     //!This function closes the database connection.
     void closeDatabase();
 
-//debug functions
-public:
-    //!This function is a debugging function which runs queries on the database to test its functionality.
-    void testDatabase();
+private:
+    //!This variable manages the database connection on the stack.
+    QSqlDatabase db;
+    //!This variable manages the database query results dynamically on the heap.
+    QSqlQuery query;
+
 };
 
 #endif // DATAACCESSLAYER_H
