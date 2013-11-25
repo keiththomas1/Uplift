@@ -51,6 +51,7 @@ void Widget::on_addWorkoutNameDoneButton_clicked() {    //DONE
     ui->workoutList->clear();                           //clear workoutList text box
     bt->AddWorkout(ui->addWorkoutNameLine->text());     //add workout from line edit
     ui->workoutList->addItems(bt->GetWorkoutList());    //repopulate workout list from db
+    ui->workoutList->sortItems(Qt::AscendingOrder);      //sort list alphabetically
     ui->addWorkoutNameLine->clear();                    //clear line edit
     ui->workoutsStack->setCurrentIndex(0);              //switch back to workout page
 }
@@ -72,8 +73,9 @@ void Widget::on_addExerciseButton_clicked() {           //DONE
 }
 void Widget::on_addExerciseNameDoneButton_clicked() {     //DONE
     ui->exerciseList->clear();                            //clear exerciseList text box
-    bt->AddExercise(ui->addExerciseNameLine->text());     //add exercise from line edit
-    ui->exerciseList->addItems(bt->GetExerciseList());    //repopulate exercise list from db
+    bt->AddExercise(ui->addExerciseNameLine->text());     //add exercise to DB (from line edit)
+    ui->exerciseList->addItems(bt->GetExerciseList());    //repopulate exercise list from DB
+    ui->exerciseList->sortItems(Qt::AscendingOrder);      //sort list alphabetically
     ui->addExerciseNameLine->clear();                     //clear line edit
     ui->exercisesStack->setCurrentIndex(0);               //switch back to exercises page
 }
