@@ -55,7 +55,7 @@ void Widget::on_addWorkoutNameDoneButton_clicked() {    //DONE
     ui->workoutsStack->setCurrentIndex(0);              //switch back to workout page
 }
 void Widget::on_deleteWorkoutButton_clicked() {
-
+    if (ui->workoutList->count() == 0) return;
     bt->RemoveWorkout(ui->workoutList->currentItem()->text());
     workoutList.removeOne(ui->workoutList->currentItem()->text());
     ui->workoutList->clear();
@@ -77,10 +77,8 @@ void Widget::on_addExerciseNameDoneButton_clicked() {     //DONE
     ui->addExerciseNameLine->clear();                     //clear line edit
     ui->exercisesStack->setCurrentIndex(0);               //switch back to exercises page
 }
-
-//TODO we need to check if the if the exercise exists before trying to delete it.  The gui is crashing with nothing is clicked.
 void Widget::on_deleteExerciseButton_clicked() {
-    if(ui->exerciseList->currentItem()->text() == NULL) return;
+    if(ui->exerciseList->count() == 0) return;
     bt->RemoveExercise(ui->exerciseList->currentItem()->text());
     exerciseList.removeOne(ui->exerciseList->currentItem()->text());
     ui->exerciseList->clear();
