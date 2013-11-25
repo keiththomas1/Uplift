@@ -25,6 +25,7 @@ public:
         dt = new DBaseMan();
 
         //This is probably obsolete at this point.
+        /*
         QSqlQuery tmp = dt->executeQuery("SELECT * FROM id_table");
         if (tmp.next()) {
             //seed all the ID counters with db value
@@ -44,6 +45,7 @@ public:
             m_NextExerciseNameID = 0;
             m_NextUserID = 0;
         }
+        */
     }
     //!This is the destructor.
     virtual ~BusinessTier() {}
