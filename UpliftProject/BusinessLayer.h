@@ -59,6 +59,7 @@ public:
     int RemoveSet();
     int ModifySet(); //not sure how to implement this
     void StoreIDs();
+    void CloseDB();
     QStringList GetWorkoutList();
     QStringList GetExerciseList();
 

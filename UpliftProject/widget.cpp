@@ -17,7 +17,7 @@ Widget::Widget(QWidget *parent) :
 
 Widget::~Widget()
 {
-    bt->StoreIDs();
+    //bt->StoreIDs();
     delete ui;
     delete bt;
 }
@@ -39,7 +39,8 @@ void Widget::closeEvent(QCloseEvent *event) { //DONE
     event->accept();
 }
 void Widget::cleanup_before_quit() {        //MAYBE FREE SOME DATA?
-    bt->StoreIDs();
+    //bt->StoreIDs();
+    bt->CloseDB();
 }
 
 /************** WORKOUTS PAGE ****************/

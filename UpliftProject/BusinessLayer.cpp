@@ -256,3 +256,7 @@ list <QString> DisplayWorkouts() {
 
 }
 */
+
+void BusinessTier::CloseDB() {
+    dt->closeDatabase();
+}
