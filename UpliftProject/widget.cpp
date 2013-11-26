@@ -31,7 +31,6 @@ void Widget::UpdateExerciseList() {
     ui->exerciseList->addItems(bt->GetExerciseList());    //repopulate exercise list from DB
     ui->exerciseList->sortItems(Qt::AscendingOrder);      //sort list alphabetically
 }
-
 void Widget::on_workoutsButton_clicked() {  //DONE
     ui->pagesStack->setCurrentIndex(0);
 }
@@ -119,6 +118,10 @@ void Widget::on_performExerciseButton_clicked() {
     currExercise = ui->performWorkoutExerciseList->currentItem()->text();
     ui->performExerciseTitle->setText(currExercise);
     ui->performExerciseCurrWorkoutTitle->setText(currWorkout);
+    ui->performExerciseHistoryList->clear();
+    ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise));
+    ui->performExerciseReps->clear();
+    ui->performExerciseWeight->clear();
     ui->workoutsStack->setCurrentIndex(5);
 
 }
@@ -132,7 +135,13 @@ void Widget::on_performExerciseAddButton_clicked() {
     int weight = ui->performExerciseWeight->value();
     int reps = ui->performExerciseReps->value();
     bt->AddSet(0, currWorkout, currExercise, weight, reps);
-
+    ui->performExerciseHistoryList->clear();
+    ui->performExerciseReps->clear();
+    ui->performExerciseWeight->clear();
+    ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise));
+}
+void Widget::on_performExerciseBackButton_clicked() {
+    ui->workoutsStack->setCurrentIndex(4);
 }
 
 

@@ -564,8 +564,8 @@
       <widget class="QLabel" name="performExerciseWeightLabel">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>100</y>
+         <x>20</x>
+         <y>160</y>
          <width>62</width>
          <height>16</height>
         </rect>
@@ -577,8 +577,8 @@
       <widget class="QLabel" name="performExerciseRepsLabel">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>150</y>
+         <x>90</x>
+         <y>160</y>
          <width>62</width>
          <height>16</height>
         </rect>
@@ -590,10 +590,10 @@
       <widget class="QPushButton" name="performExerciseAddButton">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>140</y>
-         <width>114</width>
-         <height>32</height>
+         <x>180</x>
+         <y>180</y>
+         <width>101</width>
+         <height>21</height>
         </rect>
        </property>
        <property name="text">
@@ -603,21 +603,46 @@
       <widget class="QSpinBox" name="performExerciseReps">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>170</y>
+         <x>90</x>
+         <y>180</y>
          <width>49</width>
          <height>24</height>
         </rect>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+       <property name="singleStep">
+        <number>10</number>
        </property>
       </widget>
       <widget class="QSpinBox" name="performExerciseWeight">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>120</y>
+         <x>20</x>
+         <y>180</y>
          <width>49</width>
          <height>24</height>
         </rect>
+       </property>
+       <property name="maximum">
+        <number>999</number>
+       </property>
+       <property name="singleStep">
+        <number>10</number>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="performExerciseBackButton">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>90</y>
+         <width>41</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>&lt;-</string>
        </property>
       </widget>
      </widget>
