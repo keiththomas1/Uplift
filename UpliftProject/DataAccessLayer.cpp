@@ -12,11 +12,12 @@ QSqlQuery DBaseMan::executeQuery(QString command){
     return query;
 }
 
+/*
 void DBaseMan::testDatabase() {
     //commands
     query.exec("INSERT INTO exercise_table VALUES (99, 'squat')");
     query.exec("INSERT INTO workout_table VALUES (99, 'all pro')");
-    query.exec("INSERT INTO workout_pairs VALUES (99, 99, 99)");
+    query.exec("INSERT INTO workout_pairs VALUES ('test','test', 99)");
     query.exec("INSERT INTO user_table VALUES (99, 'user', 'pass')");
     query.exec("INSERT INTO workout_log VALUES (99, 99, NULL)");
     if (!query.exec("INSERT INTO exercise_set_log VALUES (99, 99, 99, 99, 99, 99)")) {
@@ -33,7 +34,7 @@ void DBaseMan::testDatabase() {
     if (query.value(0).toInt() == 99 && query.value(1).toString() == "all pro")
         t2 = true;
     query.exec("SELECT * from workout_pairs"); query.next();
-    if (query.value(0).toInt() == 99 && query.value(1).toInt() == 99 && query.value(2).toInt() == 99)
+    if (query.value(0).toString == "test" && query.value(1).toString() == "test" && query.value(2).toInt() == 99)
         t3 = true;
     query.exec("SELECT * from user_table"); query.next();
     if (query.value(0).toInt() == 99 && query.value(1).toString() == "user" && query.value(2).toString() == "pass")
@@ -57,7 +58,9 @@ void DBaseMan::testDatabase() {
 
 
 }
+*/
 
+//UNUSED: Database is currently managing IDs (pass NULL)
 void DBaseMan::StoreIDs(int id1, int id2, int id3, int id4, int id5, int id6) {
     if (!query.exec("DELETE FROM id_table")) {
         qDebug("Deleting IDs FAILED");
