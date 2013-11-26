@@ -561,16 +561,6 @@
         <string>Previous Sets:</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="performExerciseWeightLine">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>120</y>
-         <width>101</width>
-         <height>21</height>
-        </rect>
-       </property>
-      </widget>
       <widget class="QLabel" name="performExerciseWeightLabel">
        <property name="geometry">
         <rect>
@@ -597,16 +587,6 @@
         <string>Reps:</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="performExerciseRepsLine">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>170</y>
-         <width>101</width>
-         <height>21</height>
-        </rect>
-       </property>
-      </widget>
       <widget class="QPushButton" name="performExerciseAddButton">
        <property name="geometry">
         <rect>
@@ -618,6 +598,26 @@
        </property>
        <property name="text">
         <string>Add Set</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="performExerciseReps">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>49</width>
+         <height>24</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="performExerciseWeight">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>49</width>
+         <height>24</height>
+        </rect>
        </property>
       </widget>
      </widget>
