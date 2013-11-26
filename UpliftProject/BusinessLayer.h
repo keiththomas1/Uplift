@@ -55,7 +55,7 @@ public:
     int AddWorkout      (QString);
     int AddWorkoutPair  (QString, QString, int);
     int AddUser         (QString, QString);
-    int AddSet          (int currUserID, QString currWorkout, QString currExercise, int weight, int reps);
+    int AddSet          (int userID, QString workout, QString exercise, int weight, int reps);
     int RemoveExercise  (QString);
     int RemoveWorkout   (QString);
     int RemoveWorkoutPair (QString, QString);
@@ -70,6 +70,7 @@ public:
     int GetExerciseNameID(QString);
     int GetUserID(QString);
     QStringList GetExercisesInWorkout(QString workoutName);
+    QStringList GetExerciseHistory(QString exercise);
     QStringList GetWorkoutList();
     QStringList GetExerciseList();
 

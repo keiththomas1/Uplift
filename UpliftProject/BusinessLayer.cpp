@@ -140,12 +140,15 @@ int BusinessTier::AddExercise(QString name) // PENDING TODO
     return 1;
 }
 //IN PROGRESS: waiting on GetID to work
-int BusinessTier::AddSet(int currUserID, QString currWorkout, QString currExercise, int reps, int weight)
+//(exercise_set_log_id INT PRIMARY KEY, currWorkout TEXT, currExercise TEXT, user_id INT, timestamp, reps INT, weight INT)
+int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps, int weight)
 {
-    QString command = "INSERT INTO exercise_set_log VALUES (NULL, " +
-            QString::number(currUserID) + ", " + "'" + currWorkout + "','" + currExercise + "'"
-            ", " + QString::number(reps) + ", " + QString::number(weight) + ")";
-    qDebug() << "Addset: " << command;
+    QString command = "INSERT INTO exercise_set_log VALUES (NULL, '" +
+            workout + "', '" + exercise + "', " + QString::number(userID) +
+            ", NULL, " + QString::number(reps) + ", " + QString::number(weight) + ")";
+    //qDebug() << "Addset: " << command;
+    QSqlQuery result = dt->executeQuery(command);
+    return 1;
 }
 
 //add a workout to the workout table
@@ -241,11 +244,6 @@ int BusinessTier::RemoveUser(QString username, QString password)
 }
 
 /*
-//adds an exercise_set to the exercise_set_log
-int BusinessTier::AddSet(Exercise_Set*)
-{
-    return 0;
-}
 int BusinessTier::ModifySet()
 {
     //not sure how to implement yet
@@ -278,6 +276,25 @@ QStringList BusinessTier::GetExerciseList() //DO I NEED TO FREE LIST OBJECT SOME
     }
     //qDebug() << exerciseList;
     return exerciseList;
+
+}
+
+QStringList BusinessTier::GetExerciseHistory(QString exercise)
+{
+    QString command = "SELECT exercise, reps, weight FROM exercise_set_log "
+            "WHERE exercise == '" + exercise + "'";
+    QSqlQuery result = dt->executeQuery(command);
+    QStringList historyList;
+    QString name, weight, reps;
+    while (result.next()) {
+        //tmp = result.value(1).toString();
+        //tmp = result.value(0).toString() + "\t" + result.value(1).toString() + "\t" + result.value(2);
+        name = result.value(0).toString();
+        reps = result.value(1).toString();
+        weight = result.value(2).toString();
+        historyList << name + "\t" + reps + "\t" + weight;
+    }
+    return historyList;
 
 }
 
