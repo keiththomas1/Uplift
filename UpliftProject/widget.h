@@ -45,12 +45,17 @@ public slots:
     void on_addWorkoutNameDoneButton_clicked();
     void on_addWorkoutNameCancelButton_clicked();
     void on_deleteWorkoutButton_clicked();
+    void on_startWorkoutButton_clicked();
 
     //edit workout page
     void on_editWorkoutButton_clicked();
     void on_editWorkoutAddButton_clicked();
     void on_editWorkoutDoneButton_clicked();
     void on_editWorkoutDeleteButton_clicked();
+
+    //perform workout page
+    void on_performExerciseButton_clicked();
+    void on_finishWorkoutButton_clicked();
 
     //add to workout page
     void on_addToWorkoutBackButton_clicked();
@@ -66,6 +71,9 @@ public slots:
     void on_editExerciseButton_clicked();
     void on_editExerciseDoneButton_clicked();
     void on_editExerciseCancelButton_clicked();
+
+    //perform exercise page
+    void on_performExerciseAddButton_clicked();
 
     //cleanup
     void cleanup_before_quit();

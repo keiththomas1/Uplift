@@ -87,6 +87,13 @@ void Widget::on_editWorkoutButton_clicked() {
     ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout));
     ui->workoutsStack->setCurrentIndex(2);                  //switch to edit workout page
 }
+void Widget::on_startWorkoutButton_clicked() {
+    currWorkout = ui->workoutList->currentItem()->text();
+    ui->performWorkoutExerciseList->clear();
+    ui->performWorkoutExerciseList->addItems(bt->GetExercisesInWorkout(currWorkout));
+    ui->performWorkoutTitle->setText(currWorkout);
+    ui->workoutsStack->setCurrentIndex(4);
+}
 
 /************** EDIT WORKOUT PAGE ****************/
 void Widget::on_editWorkoutAddButton_clicked() {
@@ -106,6 +113,28 @@ void Widget::on_editWorkoutDeleteButton_clicked() {
     ui->editWorkoutExercisesList->clear();
     ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout));
 }
+
+/************** PERFORM WORKOUT PAGE ****************/
+void Widget::on_performExerciseButton_clicked() {
+    currExercise = ui->performWorkoutExerciseList->currentItem()->text();
+    ui->performExerciseTitle->setText(currExercise);
+    ui->performExerciseCurrWorkoutTitle->setText(currWorkout);
+    ui->workoutsStack->setCurrentIndex(5);
+
+}
+void Widget::on_finishWorkoutButton_clicked() {
+    ui->performWorkoutExerciseList->clear();
+    ui->workoutsStack->setCurrentIndex(0);
+}
+
+/************** PERFORM EXERCISE PAGE ****************/
+void Widget::on_performExerciseAddButton_clicked() {
+    //QString weight = ui->performExerciseWeightLine->text();
+    //QString reps = ui->performExerciseRepsLine->text();
+    //bt->AddSet(0, currWorkout, weight, reps);
+
+}
+
 
 /************** ADD TO WORKOUT PAGE ****************/
 //currWorkout was saved when edit workout button pressed, so it should be correct
