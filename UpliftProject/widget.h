@@ -50,6 +50,7 @@ public slots:
     void on_editWorkoutButton_clicked();
     void on_editWorkoutAddButton_clicked();
     void on_editWorkoutDoneButton_clicked();
+    void on_editWorkoutDeleteButton_clicked();
 
     //add to workout page
     void on_addToWorkoutBackButton_clicked();

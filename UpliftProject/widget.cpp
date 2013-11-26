@@ -99,6 +99,13 @@ void Widget::on_editWorkoutDoneButton_clicked() {
     Widget::UpdateWorkoutList();
     ui->workoutsStack->setCurrentIndex(0);                              //switch to main workouts page
 }
+void Widget::on_editWorkoutDeleteButton_clicked() {
+    qDebug() << "currWorkout: " << currWorkout;
+    qDebug() << "currExercise: " << ui->editWorkoutExercisesList->currentItem()->text();
+    bt->RemoveWorkoutPair(currWorkout, ui->editWorkoutExercisesList->currentItem()->text());
+    ui->editWorkoutExercisesList->clear();
+    ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout));
+}
 
 /************** ADD TO WORKOUT PAGE ****************/
 //currWorkout was saved when edit workout button pressed, so it should be correct
