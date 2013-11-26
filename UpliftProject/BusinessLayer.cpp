@@ -106,6 +106,13 @@ bool BusinessTier::DoesWorkoutExist(QString name) // DONE
     //qDebug() << "workoutNameID exists";
     return true;
 }
+bool BusinessTier::DoesPairExist(QString workoutName, QString exerciseName)
+{
+    QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "' AND exercise_name == '" + exerciseName + "'";
+    QSqlQuery result = dt->executeQuery(command);
+    if (result.next()) return true;
+    return false;
+}
 
 //!This function checks to see if a user exists for login or addition purposes and returns a boolean value.
 //!/param username This string represents the desired or login username.
@@ -157,9 +164,10 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
 }
 //IN PROGRESS: waiting on GetID to work
 //TODO: make sure the workoutPair doesn't already exist
-int BusinessTier::AddWorkoutPair(QString currWorkoutName, QString exerciseName, int workoutOrder)
+int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int workoutOrder)
 {
-    QString command = "INSERT INTO workout_pairs VALUES ('" + currWorkoutName + "', '" + exerciseName + "', NULL)";
+    if (DoesPairExist(workoutName, exerciseName)) return 0;
+    QString command = "INSERT INTO workout_pairs VALUES ('" + workoutName + "', '" + exerciseName + "', NULL)";
     //qDebug() << "AddWorkoutPair: " << command;
     QSqlQuery result = dt->executeQuery(command);
 }
@@ -203,6 +211,14 @@ int BusinessTier::RemoveWorkout(QString name)
     //if it exists, remove it
     QString command = "DELETE FROM workout_table WHERE workout_name == \"" + name + "\"";
     //qDebug() << command;
+    QSqlQuery result = dt->executeQuery(command);
+    return 1;
+}
+
+int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName)
+{
+    if (!DoesPairExist(workoutName, exerciseName)) return 0;
+    QString command = "DELETE FROM workout_pairs WHERE workout_name == '" + workoutName + "' AND exercise_name == '" + exerciseName + "'";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }

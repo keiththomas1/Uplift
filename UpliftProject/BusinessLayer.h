@@ -58,6 +58,7 @@ public:
     int AddSet          (int currUserID, int currWorkoutID, int weight, int reps);
     int RemoveExercise  (QString);
     int RemoveWorkout   (QString);
+    int RemoveWorkoutPair (QString, QString);
     int RemoveUser      (QString, QString);
     int RemoveSet();
     int ModifySet(); //not sure how to implement this
@@ -86,6 +87,7 @@ private:
     bool DoesExerciseExist(QString);
     bool DoesWorkoutExist(QString);
     bool DoesUserExist(QString);
+    bool DoesPairExist(QString, QString);
 
 };
 
