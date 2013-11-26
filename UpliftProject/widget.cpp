@@ -21,6 +21,16 @@ Widget::~Widget()
     delete ui;
     delete bt;
 }
+void Widget::UpdateWorkoutList() {
+    ui->workoutList->clear();
+    ui->workoutList->addItems(bt->GetWorkoutList());    //repopulate workout list from db
+    ui->workoutList->sortItems(Qt::AscendingOrder);     //sort list alphabetically
+}
+void Widget::UpdateExerciseList() {
+    ui->exerciseList->clear();
+    ui->exerciseList->addItems(bt->GetExerciseList());    //repopulate exercise list from DB
+    ui->exerciseList->sortItems(Qt::AscendingOrder);      //sort list alphabetically
+}
 
 void Widget::on_workoutsButton_clicked() {  //DONE
     ui->pagesStack->setCurrentIndex(0);
@@ -51,8 +61,7 @@ void Widget::on_addWorkoutButton_clicked() {    //DONE
 void Widget::on_addWorkoutNameDoneButton_clicked() {
     ui->workoutList->clear();                           //clear workoutList text box
     bt->AddWorkout(ui->addWorkoutNameLine->text());     //add workout from line edit
-    ui->workoutList->addItems(bt->GetWorkoutList());    //repopulate workout list from db
-    ui->workoutList->sortItems(Qt::AscendingOrder);     //sort list alphabetically
+    Widget::UpdateWorkoutList();
     ui->addWorkoutNameLine->clear();                    //clear line edit
     ui->workoutsStack->setCurrentIndex(0);              //switch back to workout page
 }
@@ -69,8 +78,21 @@ void Widget::on_deleteWorkoutButton_clicked() {
     ui->workoutList->addItems(workoutList);
     ui->workoutList->addItems(bt->GetWorkoutList());
 }
+//TODO: don't allow edit when no workouts exist
 void Widget::on_editWorkoutButton_clicked() {
-    ui->workoutsStack->setCurrentIndex(2);
+    currWorkout = ui->workoutList->currentItem()->text();   //save the workout name
+    ui->editWorkoutNameLine->setText(currWorkout);          //populate the edit workout line edit with workout name
+    ui->workoutsStack->setCurrentIndex(2);                  //switch to edit workout page
+}
+void Widget::on_editWorkoutAddButton_clicked() {
+    ui->workoutsStack->setCurrentIndex(3);
+}
+//CURRENT
+//TODO: don't allow edit with empty nameLine.
+void Widget::on_editWorkoutDoneButton_clicked() {
+    bt->UpdateWorkout(currWorkout, ui->editWorkoutNameLine->text());    //update name in DB
+    Widget::UpdateWorkoutList();
+    ui->workoutsStack->setCurrentIndex(0);                              //switch to main workouts page
 }
 
 /************** EXERCISES PAGE ****************/
@@ -81,8 +103,7 @@ void Widget::on_addExerciseButton_clicked() {           //DONE
 void Widget::on_addExerciseNameDoneButton_clicked() {
     ui->exerciseList->clear();                            //clear exerciseList text box
     bt->AddExercise(ui->addExerciseNameLine->text());     //add exercise to DB (from line edit)
-    ui->exerciseList->addItems(bt->GetExerciseList());    //repopulate exercise list from DB
-    ui->exerciseList->sortItems(Qt::AscendingOrder);      //sort list alphabetically
+    Widget::UpdateExerciseList();
     ui->addExerciseNameLine->clear();                     //clear line edit
     ui->exercisesStack->setCurrentIndex(0);               //switch back to exercises page
 }

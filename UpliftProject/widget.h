@@ -20,8 +20,12 @@ public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
     //QStringList workoutExerciseList;
-    //QString currWorkout;
-    //QString currExercise;
+    QString currWorkout;
+    QString currExercise;
+    int currWorkoutID;
+    int currExerciseID;
+    void UpdateWorkoutList();
+    void UpdateExerciseList();
 
 private:
     Ui::Widget *ui;
@@ -41,7 +45,11 @@ public slots:
     void on_addWorkoutNameDoneButton_clicked();
     void on_addWorkoutNameCancelButton_clicked();
     void on_deleteWorkoutButton_clicked();
+
+    //edit workout page
     void on_editWorkoutButton_clicked();
+    void on_editWorkoutAddButton_clicked();
+    void on_editWorkoutDoneButton_clicked();
 
     //exercises page buttons
     void on_addExerciseButton_clicked();
