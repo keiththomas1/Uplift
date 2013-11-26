@@ -41,7 +41,7 @@ public:
         query.exec("CREATE TABLE IF NOT EXISTS workout_pairs (workout_name TEXT, exercise_name TEXT, workout_order INT)");
         query.exec("CREATE TABLE IF NOT EXISTS user_table (user_id INT PRIMARY KEY, username TEXT, password TEXT)");
         query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_id INT PRIMARY KEY, workout_name_id, timestamp datetime default current_timestamp)");
-        query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (exercise_set_log_id INT PRIMARY KEY, currWorkout TEXT, currExercise TEXT, user_id INT, timestamp datetime default current_timestamp, reps INT, weight INT)");
+        query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (exercise_set_log_id INT PRIMARY KEY, workout TEXT, exercise TEXT, user_id INT, timestamp datetime default current_timestamp, reps INT, weight INT)");
         //query.exec("CREATE TABLE IF NOT EXISTS id_table (NextWorkoutID INT, NextWorkoutNameID INT, NextExerciseID INT, NextExerciseSetID INT, NextExerciseNameID INT, NextUserID INT)");
     }
 
