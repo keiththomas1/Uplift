@@ -140,11 +140,11 @@ int BusinessTier::AddExercise(QString name) // PENDING TODO
     return 1;
 }
 //IN PROGRESS: waiting on GetID to work
-int BusinessTier::AddSet(int currUserID, int currWorkoutID, int weight, int reps)
+int BusinessTier::AddSet(int currUserID, QString currWorkout, QString currExercise, int reps, int weight)
 {
     QString command = "INSERT INTO exercise_set_log VALUES (NULL, " +
-           QString::number(currUserID) + ", " + QString::number(currWorkoutID) +
-            ", NULL, " + QString::number(reps) + ", " + QString::number(weight) + ")";
+            QString::number(currUserID) + ", " + "'" + currWorkout + "','" + currExercise + "'"
+            ", " + QString::number(reps) + ", " + QString::number(weight) + ")";
     qDebug() << "Addset: " << command;
 }
 
