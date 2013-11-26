@@ -87,7 +87,6 @@ void Widget::on_editWorkoutButton_clicked() {
 void Widget::on_editWorkoutAddButton_clicked() {
     ui->workoutsStack->setCurrentIndex(3);
 }
-//CURRENT
 //TODO: don't allow edit with empty nameLine.
 void Widget::on_editWorkoutDoneButton_clicked() {
     bt->UpdateWorkout(currWorkout, ui->editWorkoutNameLine->text());    //update name in DB
@@ -111,7 +110,6 @@ void Widget::on_addExerciseNameCancelButton_clicked() {
     ui->addExerciseNameLine->clear();
     ui->exercisesStack->setCurrentIndex(0);
 }
-
 void Widget::on_deleteExerciseButton_clicked() {
     if(ui->exerciseList->count() == 0) return;
     bt->RemoveExercise(ui->exerciseList->currentItem()->text());
@@ -119,6 +117,24 @@ void Widget::on_deleteExerciseButton_clicked() {
     ui->exerciseList->clear();
     ui->exerciseList->addItems(bt->GetExerciseList());
 }
+//TODO: don't allow edit when no exercises exist
+void Widget::on_editExerciseButton_clicked() {
+    currExercise = ui->exerciseList->currentItem()->text();   //save the Exercise name
+    ui->editExerciseLine->setText(currExercise);          //populate the edit Exercise line edit with Exercise name
+    ui->exercisesStack->setCurrentIndex(2);                  //switch to edit Exercise page
+}
+//CURRENT
+//TODO: don't allow edit with empty nameLine.
+void Widget::on_editExerciseDoneButton_clicked() {
+    bt->UpdateExercise(currExercise, ui->editExerciseLine->text());    //update name in DB
+    Widget::UpdateExerciseList();
+    ui->exercisesStack->setCurrentIndex(0);                              //switch to main workouts page
+}
+void Widget::on_editExerciseCancelButton_clicked() {
+    ui->editExerciseLine->clear();
+    ui->exercisesStack->setCurrentIndex(0);
+}
+
 
 
 

@@ -57,6 +57,11 @@ public slots:
     void on_addExerciseNameCancelButton_clicked();
     void on_deleteExerciseButton_clicked();
 
+    //edit exercise page
+    void on_editExerciseButton_clicked();
+    void on_editExerciseDoneButton_clicked();
+    void on_editExerciseCancelButton_clicked();
+
     //cleanup
     void cleanup_before_quit();
 
