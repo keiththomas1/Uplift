@@ -52,7 +52,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="WorkoutsPage">
     <property name="minimumSize">
@@ -368,8 +368,8 @@
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="editWorkoutAddExercisePage">
-      <widget class="QListWidget" name="editWorkoutExerciseList">
+     <widget class="QWidget" name="addToWorkoutPage">
+      <widget class="QListWidget" name="addToWorkoutList">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -379,7 +379,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QPushButton" name="editWorkoutSaveExerciseButton">
+      <widget class="QPushButton" name="addToWorkoutAddButton">
        <property name="geometry">
         <rect>
          <x>260</x>
@@ -392,7 +392,7 @@
         <string>Add</string>
        </property>
       </widget>
-      <widget class="QLabel" name="editWorkoutExerciseTitle">
+      <widget class="QLabel" name="addToWorkoutTitle">
        <property name="geometry">
         <rect>
          <x>70</x>
@@ -414,7 +414,7 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="editWorkoutExerciseBackButton">
+      <widget class="QPushButton" name="addToWorkoutBackButton">
        <property name="geometry">
         <rect>
          <x>20</x>

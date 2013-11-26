@@ -94,6 +94,12 @@ void Widget::on_editWorkoutDoneButton_clicked() {
     ui->workoutsStack->setCurrentIndex(0);                              //switch to main workouts page
 }
 
+/************** ADD TO WORKOUT PAGE ****************/
+void Widget::on_addToWorkoutBackButton_clicked() {
+    ui->addToWorkoutList->clear();
+    ui->workoutsStack->setCurrentIndex(2);
+}
+
 /************** EXERCISES PAGE ****************/
 void Widget::on_addExerciseButton_clicked() {           //DONE
     ui->exercisesStack->setCurrentIndex(1);
