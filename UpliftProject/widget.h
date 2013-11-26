@@ -53,6 +53,7 @@ public slots:
 
     //add to workout page
     void on_addToWorkoutBackButton_clicked();
+    void on_addToWorkoutAddButton_clicked();
 
     //exercises page buttons
     void on_addExerciseButton_clicked();

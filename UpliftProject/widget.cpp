@@ -81,11 +81,17 @@ void Widget::on_deleteWorkoutButton_clicked() {
 //TODO: don't allow edit when no workouts exist
 void Widget::on_editWorkoutButton_clicked() {
     currWorkout = ui->workoutList->currentItem()->text();   //save the workout name
+    ui->editWorkoutNameLine->clear();
+    ui->editWorkoutExercisesList->clear();
     ui->editWorkoutNameLine->setText(currWorkout);          //populate the edit workout line edit with workout name
+    ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout));
     ui->workoutsStack->setCurrentIndex(2);                  //switch to edit workout page
 }
+
+/************** EDIT WORKOUT PAGE ****************/
 void Widget::on_editWorkoutAddButton_clicked() {
-    ui->workoutsStack->setCurrentIndex(3);
+    ui->addToWorkoutList->addItems(bt->GetExerciseList());  //populate addToWorkoutList with all exercises availble
+    ui->workoutsStack->setCurrentIndex(3);                  //switch to addToWorkout page
 }
 //TODO: don't allow edit with empty nameLine.
 void Widget::on_editWorkoutDoneButton_clicked() {
@@ -95,9 +101,17 @@ void Widget::on_editWorkoutDoneButton_clicked() {
 }
 
 /************** ADD TO WORKOUT PAGE ****************/
+//currWorkout was saved when edit workout button pressed, so it should be correct
 void Widget::on_addToWorkoutBackButton_clicked() {
     ui->addToWorkoutList->clear();
+    ui->editWorkoutExercisesList->clear();
+    ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout));
     ui->workoutsStack->setCurrentIndex(2);
+}
+//IN PROGRESS
+void Widget::on_addToWorkoutAddButton_clicked() {
+    //last param is TEMPORARY!
+    bt->AddWorkoutPair(currWorkout, ui->addToWorkoutList->currentItem()->text(), 0);    //add the workout pair to DB
 }
 
 /************** EXERCISES PAGE ****************/
