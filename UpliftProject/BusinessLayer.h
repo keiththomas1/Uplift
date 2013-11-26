@@ -53,8 +53,9 @@ public:
     int GetTime()       { return (int)time(NULL);}
     int AddExercise     (QString);
     int AddWorkout      (QString);
+    int AddWorkoutPair  (QString, QString, int);
     int AddUser         (QString, QString);
-    int AddSet          (Exercise_Set*);
+    int AddSet          (int currUserID, int currWorkoutID, int weight, int reps);
     int RemoveExercise  (QString);
     int RemoveWorkout   (QString);
     int RemoveUser      (QString, QString);
@@ -64,6 +65,10 @@ public:
     void UpdateExercise  (QString, QString);
     void StoreIDs();
     void CloseDB();
+    int GetWorkoutNameID(QString);
+    int GetExerciseNameID(QString);
+    int GetUserID(QString);
+    QStringList GetExercisesInWorkout(QString workoutName);
     QStringList GetWorkoutList();
     QStringList GetExerciseList();
 
@@ -81,9 +86,7 @@ private:
     bool DoesExerciseExist(QString);
     bool DoesWorkoutExist(QString);
     bool DoesUserExist(QString);
-    int GetWorkoutNameID(QString);
-    int GetExerciseNameID(QString);
-    int GetUserID(QString);
+
 };
 
 

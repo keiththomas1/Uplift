@@ -11,7 +11,7 @@ using namespace std;
 //!/param name This string is the name of the corresponding workout.
 int BusinessTier::GetWorkoutNameID(QString name) // DONE
 {
-    QString command = "SELECT workout_name_id FROM workout_table WHERE workout_name == '" + name + "'";
+    QString command = "SELECT rowid FROM workout_table WHERE workout_name == '" + name + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()) {
@@ -25,13 +25,24 @@ int BusinessTier::GetWorkoutNameID(QString name) // DONE
 //!/param name This string represents the name of the exercise.
 int BusinessTier::GetExerciseNameID(QString name) // DONE
 {
-    QString command = "SELECT exercise_name_id FROM exercise_table WHERE exercise_name == '" + name + "'";
+    QString command = "SELECT rowid FROM exercise_table WHERE exercise_name == '" + name + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()) {
         return result.value(0).toInt();
     }
     return -1; //failed
+}
+QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
+{
+    QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "'";
+    QSqlQuery result = dt->executeQuery(command);
+    QStringList exercisesList;
+    while (result.next()) {
+        exercisesList << result.value(0).toString();
+    }
+    return exercisesList;
+
 }
 
 void BusinessTier::UpdateWorkout(QString oldName, QString newName)
@@ -44,8 +55,8 @@ void BusinessTier::UpdateWorkout(QString oldName, QString newName)
 }
 void BusinessTier::UpdateExercise(QString oldName, QString newName)
 {
-    qDebug() << "oldName: " + oldName;
-    qDebug() << "newName: " + newName;
+    //qDebug() << "oldName: " + oldName;
+    //qDebug() << "newName: " + newName;
     QString command = "UPDATE exercise_table "
             "SET exercise_name='" + newName + "' "
             "WHERE exercise_name='" + oldName + "'";
@@ -57,7 +68,7 @@ void BusinessTier::UpdateExercise(QString oldName, QString newName)
 //!/param username This string represents the username.
 int BusinessTier::GetUserID(QString username)
 {
-    QString command = "SELECT user_id FROM user_table WHERE username == '" + username + "'";
+    QString command = "SELECT rowid FROM user_table WHERE username == '" + username + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()) {
@@ -72,7 +83,9 @@ int BusinessTier::GetUserID(QString username)
 //!/param name This string represents the name of the exercise.
 bool BusinessTier::DoesExerciseExist(QString name) // DONE
 {
-    if (GetExerciseNameID(name) < 0) {
+    int ID = GetExerciseNameID(name);
+    //qDebug() << "name: " << name << "ID: " << ID;
+    if (ID < 0) {
         //qDebug() << "exerciseNameID doesn't exist";
         return false;
     }
@@ -119,6 +132,14 @@ int BusinessTier::AddExercise(QString name) // PENDING TODO
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
+//IN PROGRESS: waiting on GetID to work
+int BusinessTier::AddSet(int currUserID, int currWorkoutID, int weight, int reps)
+{
+    QString command = "INSERT INTO exercise_set_log VALUES (NULL, " +
+           QString::number(currUserID) + ", " + QString::number(currWorkoutID) +
+            ", NULL, " + QString::number(reps) + ", " + QString::number(weight) + ")";
+    qDebug() << "Addset: " << command;
+}
 
 //add a workout to the workout table
 //TODO: how to tell if it failed?
@@ -133,6 +154,14 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
     QString command = "INSERT INTO workout_table VALUES (NULL, \"" + name + "\")";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
+}
+//IN PROGRESS: waiting on GetID to work
+//TODO: make sure the workoutPair doesn't already exist
+int BusinessTier::AddWorkoutPair(QString currWorkoutName, QString exerciseName, int workoutOrder)
+{
+    QString command = "INSERT INTO workout_pairs VALUES ('" + currWorkoutName + "', '" + exerciseName + "', NULL)";
+    //qDebug() << "AddWorkoutPair: " << command;
+    QSqlQuery result = dt->executeQuery(command);
 }
 
 //add a user to the user table
