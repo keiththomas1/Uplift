@@ -61,6 +61,7 @@ public:
     int RemoveSet();
     int ModifySet(); //not sure how to implement this
     void UpdateWorkout   (QString, QString);
+    void UpdateExercise  (QString, QString);
     void StoreIDs();
     void CloseDB();
     QStringList GetWorkoutList();

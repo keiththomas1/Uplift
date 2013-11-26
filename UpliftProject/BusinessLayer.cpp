@@ -42,6 +42,16 @@ void BusinessTier::UpdateWorkout(QString oldName, QString newName)
     //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
 }
+void BusinessTier::UpdateExercise(QString oldName, QString newName)
+{
+    qDebug() << "oldName: " + oldName;
+    qDebug() << "newName: " + newName;
+    QString command = "UPDATE exercise_table "
+            "SET exercise_name='" + newName + "' "
+            "WHERE exercise_name='" + oldName + "'";
+    //qDebug() << command;
+    QSqlQuery result = dt->executeQuery(command);
+}
 
 //!This function retrieves the id of the user for other database queries.
 //!/param username This string represents the username.
