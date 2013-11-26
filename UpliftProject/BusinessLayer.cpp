@@ -34,6 +34,15 @@ int BusinessTier::GetExerciseNameID(QString name) // DONE
     return -1; //failed
 }
 
+void BusinessTier::UpdateWorkout(QString oldName, QString newName)
+{
+    QString command = "UPDATE workout_table "
+            "SET workout_name='" + newName + "' "
+            "WHERE workout_name='" + oldName + "'";
+    //qDebug() << command;
+    QSqlQuery result = dt->executeQuery(command);
+}
+
 //!This function retrieves the id of the user for other database queries.
 //!/param username This string represents the username.
 int BusinessTier::GetUserID(QString username)

@@ -60,6 +60,7 @@ public:
     int RemoveUser      (QString, QString);
     int RemoveSet();
     int ModifySet(); //not sure how to implement this
+    void UpdateWorkout   (QString, QString);
     void StoreIDs();
     void CloseDB();
     QStringList GetWorkoutList();
