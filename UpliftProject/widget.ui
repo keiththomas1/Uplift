@@ -209,14 +209,14 @@
       <widget class="QPushButton" name="addWorkoutNameDoneButton">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>160</x>
          <y>180</y>
-         <width>261</width>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
        <property name="text">
-        <string>DONE</string>
+        <string>SAVE</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="addWorkoutNameLine">
@@ -227,6 +227,19 @@
          <width>261</width>
          <height>31</height>
         </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="addWorkoutNameCancelButton">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>180</y>
+         <width>131</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>CANCEL</string>
        </property>
       </widget>
      </widget>
@@ -500,14 +513,14 @@
       <widget class="QPushButton" name="addExerciseNameDoneButton">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>160</x>
          <y>180</y>
-         <width>261</width>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
        <property name="text">
-        <string>DONE</string>
+        <string>SAVE</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="addExerciseNameLine">
@@ -518,6 +531,19 @@
          <width>261</width>
          <height>31</height>
         </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="addExerciseNameCancelButton">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>180</y>
+         <width>131</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>CANCEL</string>
        </property>
       </widget>
      </widget>

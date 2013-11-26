@@ -39,12 +39,14 @@ public slots:
     //workouts page buttons
     void on_addWorkoutButton_clicked();
     void on_addWorkoutNameDoneButton_clicked();
+    void on_addWorkoutNameCancelButton_clicked();
     void on_deleteWorkoutButton_clicked();
     void on_editWorkoutButton_clicked();
 
     //exercises page buttons
     void on_addExerciseButton_clicked();
     void on_addExerciseNameDoneButton_clicked();
+    void on_addExerciseNameCancelButton_clicked();
     void on_deleteExerciseButton_clicked();
 
     //cleanup
