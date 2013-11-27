@@ -123,7 +123,6 @@ void Widget::on_performExerciseButton_clicked() {
     ui->performExerciseReps->clear();
     ui->performExerciseWeight->clear();
     ui->workoutsStack->setCurrentIndex(5);
-
 }
 void Widget::on_finishWorkoutButton_clicked() {
     ui->performWorkoutExerciseList->clear();
@@ -138,6 +137,7 @@ void Widget::on_performExerciseAddButton_clicked() {
     ui->performExerciseHistoryList->clear();
     ui->performExerciseReps->clear();
     ui->performExerciseWeight->clear();
+    //TODO: need date/time. Should only show last workout sets.
     ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise));
 }
 void Widget::on_performExerciseBackButton_clicked() {
