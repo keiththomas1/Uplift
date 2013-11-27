@@ -35,14 +35,40 @@ public:
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));
-            exit(0);
+            //exit(0);
         }
-        query.exec("CREATE TABLE IF NOT EXISTS workout_table (workout_name_id INT PRIMARY KEY, workout_name TEXT)");
-        query.exec("CREATE TABLE IF NOT EXISTS workout_pairs (workout_name TEXT, exercise_name TEXT, workout_order INT)");
-        query.exec("CREATE TABLE IF NOT EXISTS user_table (user_id INT PRIMARY KEY, username TEXT, password TEXT)");
-        query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_id INT PRIMARY KEY, workout_name_id, timestamp datetime default current_timestamp)");
-        query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (exercise_set_log_id INT PRIMARY KEY, workout TEXT, exercise TEXT, user_id INT, timestamp datetime default current_timestamp, reps INT, weight INT)");
-        //query.exec("CREATE TABLE IF NOT EXISTS id_table (NextWorkoutID INT, NextWorkoutNameID INT, NextExerciseID INT, NextExerciseSetID INT, NextExerciseNameID INT, NextUserID INT)");
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_table (workout_name_id INT PRIMARY KEY, workout_name TEXT)");
+        if (!success) {
+            qDebug("Error creating exercise_table");
+            qDebug("%s", qPrintable(db.lastError().text()));
+            //exit(0);
+        }
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_pairs (workout_name TEXT, exercise_name TEXT, workoutOrder INT)");
+        if (!success) {
+            qDebug("Error creating exercise_table");
+            qDebug("%s", qPrintable(db.lastError().text()));
+            //exit(0);
+        }
+        success = query.exec("CREATE TABLE IF NOT EXISTS user_table (user_id INT PRIMARY KEY, username TEXT, password TEXT)");
+        if (!success) {
+            qDebug("Error creating exercise_table");
+            qDebug("%s", qPrintable(db.lastError().text()));
+            //exit(0);
+        }
+        //insert volume into here eventually?
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_instance_id INT PRIMARY KEY, workout_name TEXT, time timestamp default (strftime('%s', 'now')))");
+        if (!success) {
+            qDebug("Error creating exercise_table");
+            qDebug("%s", qPrintable(db.lastError().text()));
+            //exit(0);
+        }
+        //don't pass in anything for set_id or time (especially not NULL). It will auto inc set_id and stamp time by default
+        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (set_id INT PRIMARY KEY, workout TEXT, exercise TEXT, user_id INT, time timestamp default (strftime('%s', 'now')), reps INT, weight INT, one_rep_max INT)");
+        if (!success) {
+            qDebug("Error creating exercise_table");
+            qDebug("%s", qPrintable(db.lastError().text()));
+            //exit(0);
+        }
     }
 
     //!This destructor frees up the query information which is kept on the heap.

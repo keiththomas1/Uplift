@@ -59,26 +59,6 @@ void DBaseMan::testDatabase() {
 
 }
 */
-
-//UNUSED: Database is currently managing IDs (pass NULL)
-void DBaseMan::StoreIDs(int id1, int id2, int id3, int id4, int id5, int id6) {
-    if (!query.exec("DELETE FROM id_table")) {
-        qDebug("Deleting IDs FAILED");
-        qDebug("\tERROR: %s\n", qPrintable(query.lastError().text()));
-    }
-    query.prepare("INSERT INTO id_table VALUES (?, ?, ?, ?, ?, ?)");
-    query.addBindValue(id1);
-    query.addBindValue(id2);
-    query.addBindValue(id3);
-    query.addBindValue(id4);
-    query.addBindValue(id5);
-    query.addBindValue(id6);
-    if (!query.exec()) {
-        qDebug("Storing IDs FAILED");
-        qDebug("\tERROR: %s\n", qPrintable(query.lastError().text()));
-    }
-}
-
 //!This is used to close the database on exit of the program.
 void DBaseMan::closeDatabase() {
     db.close();
