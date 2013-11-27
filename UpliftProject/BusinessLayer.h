@@ -23,29 +23,6 @@ public:
     {
         //!This is the instance of the database manager object, DBaseMan.
         dt = new DBaseMan();
-
-        //This is probably obsolete at this point.
-        /*
-        QSqlQuery tmp = dt->executeQuery("SELECT * FROM id_table");
-        if (tmp.next()) {
-            //seed all the ID counters with db value
-            m_NextWorkoutID         = tmp.value(0).toInt();
-            m_NextWorkoutNameID     = tmp.value(1).toInt();
-            m_NextExerciseID        = tmp.value(2).toInt();
-            m_NextExerciseSetID     = tmp.value(3).toInt();
-            m_NextExerciseNameID    = tmp.value(4).toInt();
-            m_NextUserID            = tmp.value(5).toInt();
-        }
-        else {
-            //seed all the ID counters with 0
-            m_NextWorkoutID = 0;
-            m_NextWorkoutNameID = 0;
-            m_NextExerciseID = 0;
-            m_NextExerciseSetID = 0;
-            m_NextExerciseNameID = 0;
-            m_NextUserID = 0;
-        }
-        */
     }
     //!This is the destructor.
     virtual ~BusinessTier() {}
@@ -53,7 +30,7 @@ public:
     int GetTime()       { return (int)time(NULL);}
     int AddExercise     (QString);
     int AddWorkout      (QString);
-    int AddWorkoutPair  (QString, QString, int);
+    int AddWorkoutPair  (QString, QString, int order);
     int AddUser         (QString, QString);
     int AddSet          (int userID, QString workout, QString exercise, int weight, int reps);
     int RemoveExercise  (QString);
@@ -76,15 +53,6 @@ public:
 
     DBaseMan *dt; //SHOULD BE PRIVATE, PUBLIC FOR TESTING
 private:
-
-    //These probably can be removed.
-    int m_NextWorkoutID;
-    int m_NextWorkoutNameID;
-    int m_NextExerciseID;
-    int m_NextExerciseSetID;
-    int m_NextExerciseNameID;
-    int m_NextUserID;
-
     bool DoesExerciseExist(QString);
     bool DoesWorkoutExist(QString);
     bool DoesUserExist(QString);

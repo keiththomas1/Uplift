@@ -33,6 +33,7 @@ int BusinessTier::GetExerciseNameID(QString name) // DONE
     }
     return -1; //failed
 }
+//need to order by 'order'
 QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 {
     QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "'";
@@ -68,7 +69,7 @@ void BusinessTier::UpdateExercise(QString oldName, QString newName)
 //!/param username This string represents the username.
 int BusinessTier::GetUserID(QString username)
 {
-    QString command = "SELECT rowid FROM user_table WHERE username == '" + username + "'";
+    QString command = "SELECT user_id FROM user_table WHERE username == '" + username + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()) {
@@ -135,17 +136,16 @@ int BusinessTier::AddExercise(QString name) // PENDING TODO
 
     //if it doesn't already exist, add it
     //int id = m_NextExerciseNameID++;
-    QString command = "INSERT INTO exercise_table VALUES (NULL, \"" + name + "\")";
+    QString command = "INSERT INTO exercise_table (exercise_name) VALUES ('" + name + "')";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
-//IN PROGRESS: waiting on GetID to work
 //(exercise_set_log_id INT PRIMARY KEY, currWorkout TEXT, currExercise TEXT, user_id INT, timestamp, reps INT, weight INT)
 int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps, int weight)
 {
-    QString command = "INSERT INTO exercise_set_log VALUES (NULL, '" +
-            workout + "', '" + exercise + "', " + QString::number(userID) +
-            ", NULL, " + QString::number(reps) + ", " + QString::number(weight) + ")";
+    QString command = "INSERT INTO exercise_set_log (workout, exercise, user_id, reps, weight, one_rep_max) "
+            "VALUES ('" + workout + "', '" + exercise + "', " + QString::number(userID) +
+            ", " + QString::number(reps) + ", " + QString::number(weight) + ", 999)";
     //qDebug() << "Addset: " << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
@@ -161,16 +161,15 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
 
     //if id doesn't already exist, add it
     //int id = m_NextWorkoutNameID++;
-    QString command = "INSERT INTO workout_table VALUES (NULL, \"" + name + "\")";
+    QString command = "INSERT INTO workout_table (workout_name) VALUES ('" + name + "')";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
-//IN PROGRESS: waiting on GetID to work
 //TODO: make sure the workoutPair doesn't already exist
-int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int workoutOrder)
+int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)
 {
     if (DoesPairExist(workoutName, exerciseName)) return 0;
-    QString command = "INSERT INTO workout_pairs VALUES ('" + workoutName + "', '" + exerciseName + "', NULL)";
+    QString command = "INSERT INTO workout_pairs VALUES ('" + workoutName + "', '" + exerciseName + "', 999)";
     //qDebug() << "AddWorkoutPair: " << command;
     QSqlQuery result = dt->executeQuery(command);
 }
@@ -184,9 +183,7 @@ int BusinessTier::AddUser(QString username, QString password)
     if (DoesUserExist(username)) return 0;
 
     //if user doesn't exist, add them
-    //int id = m_NextUserID++;
-    //QString command = "INSERT INTO user_table VALUES (" + QString::number(id) + ", '" + username + "', '" + password + "')";
-    QString command = "INSERT INTO user_table VALUES (NULL, \"" + username + "\", \"" + password + "\")";
+    QString command = "INSERT INTO user_table (username, password) VALUES ('" + username + "', '" + password + "')";
     //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
@@ -243,13 +240,6 @@ int BusinessTier::RemoveUser(QString username, QString password)
     return 1;
 }
 
-/*
-int BusinessTier::ModifySet()
-{
-    //not sure how to implement yet
-}
-*/
-
 /***************** LISTS ********************/
 //!This function retreives the workout list from the database for display, and returns a QStringList object.
 QStringList BusinessTier::GetWorkoutList()  //DO I NEED TO FREE LIST OBJECT SOMEWHERE?
@@ -278,33 +268,22 @@ QStringList BusinessTier::GetExerciseList() //DO I NEED TO FREE LIST OBJECT SOME
     return exerciseList;
 
 }
-
+//TODO: add user id requirement
 QStringList BusinessTier::GetExerciseHistory(QString exercise)
 {
-    QString command = "SELECT exercise, reps, weight FROM exercise_set_log "
-            "WHERE exercise == '" + exercise + "'";
+    QString command = "SELECT exercise, reps, weight, date(time, 'unixepoch', 'localtime') as datetime FROM exercise_set_log "
+            "WHERE exercise == '" + exercise + "' ORDER BY time DESC" ;
     QSqlQuery result = dt->executeQuery(command);
     QStringList historyList;
-    QString name, weight, reps;
+    QString name, weight, reps, date;
     while (result.next()) {
-        //tmp = result.value(1).toString();
-        //tmp = result.value(0).toString() + "\t" + result.value(1).toString() + "\t" + result.value(2);
-        name = result.value(0).toString();
         reps = result.value(1).toString();
         weight = result.value(2).toString();
-        historyList << name + "\t" + reps + "\t" + weight;
+        date = result.value(3).toString();
+        historyList << date + "\t" + weight + " x " + reps;
     }
     return historyList;
 
-}
-
-//This function is defunct.
-//!This function was once used for managing a separate primary key management table, which was replaced with better functionality.
-void BusinessTier::StoreIDs() {
-    //qDebug() << "m_NextWorkoutNameID: " << m_NextWorkoutNameID;
-    //qDebug() << "m_NextExerciseNameID: " << m_NextExerciseNameID;
-    dt->StoreIDs(m_NextWorkoutID, m_NextWorkoutNameID, m_NextExerciseID,
-                 m_NextExerciseSetID, m_NextExerciseNameID, m_NextUserID);
 }
 
 /***************** STATISTICS ********************/
