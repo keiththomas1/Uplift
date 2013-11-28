@@ -11,54 +11,6 @@ QSqlQuery DBaseMan::executeQuery(QString command){
     }
     return query;
 }
-
-/*
-void DBaseMan::testDatabase() {
-    //commands
-    query.exec("INSERT INTO exercise_table VALUES (99, 'squat')");
-    query.exec("INSERT INTO workout_table VALUES (99, 'all pro')");
-    query.exec("INSERT INTO workout_pairs VALUES ('test','test', 99)");
-    query.exec("INSERT INTO user_table VALUES (99, 'user', 'pass')");
-    query.exec("INSERT INTO workout_log VALUES (99, 99, NULL)");
-    if (!query.exec("INSERT INTO exercise_set_log VALUES (99, 99, 99, 99, 99, 99)")) {
-        qDebug() << "insert to exercise_set_log failed";
-    }
-
-    bool t1 = false, t2 = false, t3 = false, t4 = false, t5 = false, t6 = false;
-
-    //tests
-    query.exec("SELECT * from exercise_table"); query.next();
-    if (query.value(0).toInt() == 99 && query.value(1).toString() == "squat")
-        t1 = true;
-    query.exec("SELECT * from workout_table"); query.next();
-    if (query.value(0).toInt() == 99 && query.value(1).toString() == "all pro")
-        t2 = true;
-    query.exec("SELECT * from workout_pairs"); query.next();
-    if (query.value(0).toString == "test" && query.value(1).toString() == "test" && query.value(2).toInt() == 99)
-        t3 = true;
-    query.exec("SELECT * from user_table"); query.next();
-    if (query.value(0).toInt() == 99 && query.value(1).toString() == "user" && query.value(2).toString() == "pass")
-        t4 = true;
-    query.exec("SELECT * from workout_log"); query.next();
-    if (query.value(0).toInt() == 99 && query.value(1).toInt() == 99)
-        t5 = true;
-    query.exec("SELECT * from exercise_set_log"); query.next();
-    if (query.value(0).toInt() == 99 && query.value(1).toInt() == 99 && query.value(2).toInt() == 99 &&
-            query.value(3).toInt() == 99 && query.value(4).toInt() == 99) {
-        t6 = true;
-    }
-
-    //results
-    qDebug() << "t1: " << t1;
-    qDebug() << "t2: " << t2;
-    qDebug() << "t3: " << t3;
-    qDebug() << "t4: " << t4;
-    qDebug() << "t5: " << t5;
-    qDebug() << "t6: " << t6;
-
-
-}
-*/
 //!This is used to close the database on exit of the program.
 void DBaseMan::closeDatabase() {
     db.close();
