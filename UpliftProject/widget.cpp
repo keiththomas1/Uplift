@@ -2,6 +2,8 @@
 #include "ui_widget.h"
 #include <QDebug>
 
+using namespace std;
+
 Widget::Widget(QWidget *parent) :
     QWidget(parent), ui(new Ui::Widget)
 {
@@ -31,6 +33,7 @@ void Widget::UpdateExerciseList() {
     ui->exerciseList->addItems(bt->GetExerciseList());    //repopulate exercise list from DB
     ui->exerciseList->sortItems(Qt::AscendingOrder);      //sort list alphabetically
 }
+
 void Widget::on_workoutsButton_clicked() {  //DONE
     ui->pagesStack->setCurrentIndex(0);
 }
@@ -118,11 +121,8 @@ void Widget::on_performExerciseButton_clicked() {
     currExercise = ui->performWorkoutExerciseList->currentItem()->text();
     ui->performExerciseTitle->setText(currExercise);
     ui->performExerciseCurrWorkoutTitle->setText(currWorkout);
-    ui->performExerciseHistoryList->clear();
-    ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise));
-    ui->performExerciseReps->clear();
-    ui->performExerciseWeight->clear();
     ui->workoutsStack->setCurrentIndex(5);
+
 }
 void Widget::on_finishWorkoutButton_clicked() {
     ui->performWorkoutExerciseList->clear();
@@ -135,13 +135,8 @@ void Widget::on_performExerciseAddButton_clicked() {
     int reps = ui->performExerciseReps->value();
     bt->AddSet(0, currWorkout, currExercise, weight, reps);
     ui->performExerciseHistoryList->clear();
-    ui->performExerciseReps->clear();
-    ui->performExerciseWeight->clear();
-    //TODO: need date/time. Should only show last workout sets.
-    ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise));
-}
-void Widget::on_performExerciseBackButton_clicked() {
-    ui->workoutsStack->setCurrentIndex(4);
+    ui->performExerciseHistoryList->addItems(exerciseList);  //compiler is complaining about this, check out.
+
 }
 
 

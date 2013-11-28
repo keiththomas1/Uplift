@@ -74,7 +74,7 @@ public slots:
 
     //perform exercise page
     void on_performExerciseAddButton_clicked();
-    void on_performExerciseBackButton_clicked();
+    //void on_performExerciseBackButton_clicked();  //linker was complaining about this.
 
     //cleanup
     void cleanup_before_quit();

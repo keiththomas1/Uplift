@@ -30,7 +30,7 @@ public:
     int GetTime()       { return (int)time(NULL);}
     int AddExercise     (QString);
     int AddWorkout      (QString);
-    int AddWorkoutPair  (QString, QString, int order);
+    int AddWorkoutPair  (QString, QString, int order); // don't know why order is on here.
     int AddUser         (QString, QString);
     int AddSet          (int userID, QString workout, QString exercise, int weight, int reps);
     int RemoveExercise  (QString);

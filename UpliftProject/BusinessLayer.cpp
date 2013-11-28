@@ -25,7 +25,7 @@ using namespace std;
 //!/param name This string is the name of the corresponding workout.
 int BusinessTier::GetWorkoutNameID(QString name) // DONE
 {
-    QString command = "SELECT rowid FROM workout_table WHERE workout_name == '" + name + "'";
+    QString command = "SELECT workout_name_id FROM workout_table WHERE workout_name == '" + name + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()) {
@@ -39,7 +39,7 @@ int BusinessTier::GetWorkoutNameID(QString name) // DONE
 //!/param name This string represents the name of the exercise.
 int BusinessTier::GetExerciseNameID(QString name) // DONE
 {
-    QString command = "SELECT rowid FROM exercise_table WHERE exercise_name == '" + name + "'";
+    QString command = "SELECT exercise_name_id FROM exercise_table WHERE exercise_name == '" + name + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()) {
@@ -52,7 +52,13 @@ int BusinessTier::GetExerciseNameID(QString name) // DONE
 QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 {
     //THIS NEEDS AN INNER JOIN
-    QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "'";
+    QString command = "SELECT exercise_table.exercise_name "
+                      "FROM exercise_table INNER JOIN "
+                            "(SELECT * FROM workout_pairs "
+                            "INNER JOIN workout_table "
+                            "ON workout_pairs.workout_name_id = workout_table.workout_name_id) "
+                      "ON exercise_table.exercise_name_id = workout_pairs.exercise_name_id "
+                      "WHERE workout_table.workout_name == '" + workoutName + "'";
     QSqlQuery result = dt->executeQuery(command);
     QStringList exercisesList;
     while (result.next()) {
@@ -137,7 +143,15 @@ bool BusinessTier::DoesWorkoutExist(QString name) // DONE
 //!/param exerciseName This string represents the name of the exercise.
 bool BusinessTier::DoesPairExist(QString workoutName, QString exerciseName)
 {
-    QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "' AND exercise_name == '" + exerciseName + "'";
+    QString command = "SELECT exercise_table.exercise_name "
+                      "FROM exercise_table INNER JOIN "
+                            "(SELECT * FROM workout_pairs "
+                            "INNER JOIN workout_table "
+                            "ON workout_pairs.workout_name_id = workout_table.workout_name_id) "
+                      "ON exercise_table.exercise_name_id = workout_pairs.exercise_name_id "
+                      "WHERE workout_table.workout_name == '" + workoutName + "' AND exercise_table.exercise_name == '" + exerciseName + "'";
+
+    //QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "' AND exercise_name == '" + exerciseName + "'";
     QSqlQuery result = dt->executeQuery(command);
     if (result.next()) return true;
     return false;
@@ -174,8 +188,10 @@ int BusinessTier::AddExercise(QString name) // PENDING TODO
 //THIS NEEDS THE PRIMARY KEY CHANGE
 int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps, int weight)
 {
-    QString command = "INSERT INTO exercise_set_log (workout, exercise, user_id, reps, weight, one_rep_max) "
-            "VALUES ('" + workout + "', '" + exercise + "', " + QString::number(userID) +
+    int workout_name_id = GetWorkoutNameID(workout);
+    int exercise_name_id = GetExerciseNameID(exercise);
+    QString command = "INSERT INTO exercise_set_log (workout_name_id, exercise_name_id, user_id, reps, weight, one_rep_max) "
+            "VALUES ('" + QString::number(workout_name_id) + "', '" + QString::number(exercise_name_id) + "', " + QString::number(userID) +
             ", " + QString::number(reps) + ", " + QString::number(weight) + ", 999)";
     //qDebug() << "Addset: " << command;
     QSqlQuery result = dt->executeQuery(command);
@@ -201,12 +217,16 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
 //TODO: make sure the workoutPair doesn't already exist
 
 //THIS NEEDS TO HAVE THE PRIMARY KEY CHANGE
-int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)
+int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)  //don't know what order is for.
 {
+    int workout_name_id = GetWorkoutNameID(workoutName);
+    int exercise_name_id = GetExerciseNameID(exerciseName);
+
     if (DoesPairExist(workoutName, exerciseName)) return 0;
-    QString command = "INSERT INTO workout_pairs VALUES ('" + workoutName + "', '" + exerciseName + "', 999)";
+    QString command = "INSERT INTO workout_pairs VALUES (\"" + QString::number(workout_name_id) + "\", \"" + QString::number(exercise_name_id) + "\", 999)";
     //qDebug() << "AddWorkoutPair: " << command;
     QSqlQuery result = dt->executeQuery(command);
+    return 1;
 }
 
 //add a user to the user table
@@ -252,10 +272,14 @@ int BusinessTier::RemoveWorkout(QString name)
     return 1;
 }
 
+//THIS NEEDS A NEW FUNCTION TO HELP GET THE WORKOUT NAMES.
 int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName)
 {
+    int workout_name_id = GetWorkoutNameID(workoutName);
+    int exercise_name_id = GetExerciseNameID(exerciseName);
+
     if (!DoesPairExist(workoutName, exerciseName)) return 0;
-    QString command = "DELETE FROM workout_pairs WHERE workout_name == '" + workoutName + "' AND exercise_name == '" + exerciseName + "'";
+    QString command = "DELETE FROM workout_pairs WHERE workout_name_id == '" + QString::number(workout_name_id) + "' AND exercise_name_id == '" + QString::number(exercise_name_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -308,7 +332,7 @@ QStringList BusinessTier::GetExerciseList() //DO I NEED TO FREE LIST OBJECT SOME
 //TODO: add user id requirement
 QStringList BusinessTier::GetExerciseHistory(QString exercise)
 {
-    QString command = "SELECT exercise, reps, weight, date(time, 'unixepoch', 'localtime') as datetime FROM exercise_set_log "
+    QString command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime FROM exercise_set_log "
             "WHERE exercise == '" + exercise + "' ORDER BY time DESC" ;
     QSqlQuery result = dt->executeQuery(command);
     QStringList historyList;
