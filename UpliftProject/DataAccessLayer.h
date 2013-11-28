@@ -31,6 +31,8 @@ public:
         QSqlQuery tmp(db);
         query = tmp;
         bool success;
+
+        //This table is the only place that the exercise name needs to exist.  All other locations should only have the id number (in case of edits to the name).
         success = query.exec("CREATE TABLE IF NOT EXISTS exercise_table (exercise_name_id INT PRIMARY KEY, exercise_name TEXT)");
         if (!success) {
             qDebug("Error creating exercise_table");
@@ -43,7 +45,7 @@ public:
             qDebug("%s", qPrintable(db.lastError().text()));
             //exit(0);
         }
-        success = query.exec("CREATE TABLE IF NOT EXISTS workout_pairs (workout_name TEXT, exercise_name TEXT, workoutOrder INT)");
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_pairs (workout_id INT, exercise_id INT, workoutOrder INT)");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));
@@ -55,15 +57,16 @@ public:
             qDebug("%s", qPrintable(db.lastError().text()));
             //exit(0);
         }
-        //insert volume into here eventually?
-        success = query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_instance_id INT PRIMARY KEY, workout_name TEXT, time timestamp default (strftime('%s', 'now')))");
+        //--->insert volume into here eventually?
+        //Not necessarily.  We can just run a count query on the numebr of logs, selecting by user_id.
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_instance_id INT PRIMARY KEY, user_id INT, workout_name TEXT, time timestamp default (strftime('%s', 'now')))");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));
             //exit(0);
         }
         //don't pass in anything for set_id or time (especially not NULL). It will auto inc set_id and stamp time by default
-        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (set_id INT PRIMARY KEY, workout TEXT, exercise TEXT, user_id INT, time timestamp default (strftime('%s', 'now')), reps INT, weight INT, one_rep_max INT)");
+        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (set_id INT PRIMARY KEY, workout_id INT, exercise_id INT, user_id INT, time timestamp default (strftime('%s', 'now')), reps INT, weight INT, one_rep_max INT)");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));

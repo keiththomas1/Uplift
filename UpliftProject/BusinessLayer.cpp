@@ -1,6 +1,20 @@
 //  TODO:
 //  Are QSqlQuery objects automatically destructed?
 //  How do we tell if an insert failed?
+//
+//  TODO (Primary Key Change)
+//  GetExercisesInWorkout
+/*  GetExercisesInWorkout
+ *  DoesPairExist
+ *  Add Exercise
+ *  Add Set
+ *  AddWorkout
+ *  AddWorkoutPair
+ *
+ *  TODO fix primary key
+ *  RemoveExercise
+ *  RemoveWorkout
+ */
 #include "BusinessLayer.h"
 
 using namespace std;
@@ -34,8 +48,10 @@ int BusinessTier::GetExerciseNameID(QString name) // DONE
     return -1; //failed
 }
 //need to order by 'order'
+//THIS NEEDS TO BE UPDATED WITH THE NEW PRIMARY KEY SCHEME.
 QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 {
+    //THIS NEEDS AN INNER JOIN
     QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "'";
     QSqlQuery result = dt->executeQuery(command);
     QStringList exercisesList;
@@ -46,6 +62,9 @@ QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 
 }
 
+//!This function changes the name of the workout upon request.
+//!/param oldName This string represents the old workout name.
+//!/param newMan This string represents the name to which the workout is being changed.
 void BusinessTier::UpdateWorkout(QString oldName, QString newName)
 {
     QString command = "UPDATE workout_table "
@@ -54,6 +73,10 @@ void BusinessTier::UpdateWorkout(QString oldName, QString newName)
     //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
 }
+
+//!This function updates the name of the exercise.
+//!/param oldName This string represents the old exercise name.
+//!/param newMan This string represents the name to which the exercise is being changed.
 void BusinessTier::UpdateExercise(QString oldName, QString newName)
 {
     //qDebug() << "oldName: " + oldName;
@@ -107,6 +130,11 @@ bool BusinessTier::DoesWorkoutExist(QString name) // DONE
     //qDebug() << "workoutNameID exists";
     return true;
 }
+
+//This function needs to be fixed for primary keys.
+//!This function checks to see if an exercise pair and workout exists in the pair table.  It returns a boolean value.
+//!/param workoutName This string represents the name of the workout.
+//!/param exerciseName This string represents the name of the exercise.
 bool BusinessTier::DoesPairExist(QString workoutName, QString exerciseName)
 {
     QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "' AND exercise_name == '" + exerciseName + "'";
@@ -128,6 +156,8 @@ bool BusinessTier::DoesUserExist(QString username)
 //adds an exercise to the exercise table
 //returns 0 if already exists, and 1 on success
 //TODO: how to tell if it failed?
+
+//This function needs updated in with the new primary key scheme.
 //!This function adds a new exercise to the database and returns an int: 1 success, 0 if already exists.
 //!/param name This string represents the name of the exercise to be added to the database.
 int BusinessTier::AddExercise(QString name) // PENDING TODO
@@ -141,6 +171,7 @@ int BusinessTier::AddExercise(QString name) // PENDING TODO
     return 1;
 }
 //(exercise_set_log_id INT PRIMARY KEY, currWorkout TEXT, currExercise TEXT, user_id INT, timestamp, reps INT, weight INT)
+//THIS NEEDS THE PRIMARY KEY CHANGE
 int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps, int weight)
 {
     QString command = "INSERT INTO exercise_set_log (workout, exercise, user_id, reps, weight, one_rep_max) "
@@ -153,6 +184,8 @@ int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps
 
 //add a workout to the workout table
 //TODO: how to tell if it failed?
+
+//THIS NEEDS THE PRIMARY KEY CHANGE
 //!This function adds a new workout to the database and returns an int: 1 on success, 0 on already exists.
 //!/param name This string represents the name of the workout to be added to the database.
 int BusinessTier::AddWorkout(QString name) // PENDING TODO
@@ -166,6 +199,8 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
     return 1;
 }
 //TODO: make sure the workoutPair doesn't already exist
+
+//THIS NEEDS TO HAVE THE PRIMARY KEY CHANGE
 int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)
 {
     if (DoesPairExist(workoutName, exerciseName)) return 0;
@@ -191,6 +226,7 @@ int BusinessTier::AddUser(QString username, QString password)
 
 //!This function removes an exercise from the database, and returns an int: 1 on success, 0 on already exists.
 //!/param name This string represents the name of the exercise to be removed.
+//THIS SHOULD BE FINE WITH PRIMARY KEYS
 int BusinessTier::RemoveExercise(QString name)
 {
     if (!DoesExerciseExist(name)) return 0; //can't remove, doesn't exist
@@ -204,6 +240,7 @@ int BusinessTier::RemoveExercise(QString name)
 
 //!This function removes a workout from the database.
 //!/param name This string represents the name of the workout.
+//THIS SHOULD BE FINE, NEEDS TO CHECK FOR USER ID.
 int BusinessTier::RemoveWorkout(QString name)
 {
     if (!DoesWorkoutExist(name)) return 0; //can't remove, doesn't exist
