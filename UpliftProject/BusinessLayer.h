@@ -23,11 +23,11 @@ public:
     {
         //!This is the instance of the database manager object, DBaseMan.
         dt = new DBaseMan();
+        ValidateBusinessTier();
     }
     //!This is the destructor.
     virtual ~BusinessTier() {}
 
-    int GetTime()       { return (int)time(NULL);}
     int AddExercise     (QString);
     int AddWorkout      (QString);
     int AddWorkoutPair  (QString, QString, int order); // don't know why order is on here.
@@ -41,7 +41,6 @@ public:
     int ModifySet(); //not sure how to implement this
     void UpdateWorkout   (QString, QString);
     void UpdateExercise  (QString, QString);
-    void StoreIDs();
     void CloseDB();
     int GetWorkoutNameID(QString);
     int GetExerciseNameID(QString);
@@ -50,6 +49,8 @@ public:
     QStringList GetExerciseHistory(QString exercise);
     QStringList GetWorkoutList();
     QStringList GetExerciseList();
+    QStringList GetUserList();
+    void ValidateBusinessTier();
 
     DBaseMan *dt; //SHOULD BE PRIVATE, PUBLIC FOR TESTING
 private:

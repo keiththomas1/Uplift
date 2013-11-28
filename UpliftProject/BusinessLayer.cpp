@@ -10,6 +10,7 @@
  *  Add Set
  *  AddWorkout
  *  AddWorkoutPair
+ *  Need DoesUserExist()
  *
  *  TODO fix primary key
  *  RemoveExercise
@@ -327,7 +328,6 @@ QStringList BusinessTier::GetExerciseList() //DO I NEED TO FREE LIST OBJECT SOME
     }
     //qDebug() << exerciseList;
     return exerciseList;
-
 }
 //TODO: add user id requirement
 QStringList BusinessTier::GetExerciseHistory(QString exercise)
@@ -344,7 +344,17 @@ QStringList BusinessTier::GetExerciseHistory(QString exercise)
         historyList << date + "\t" + weight + " x " + reps;
     }
     return historyList;
-
+}
+QStringList BusinessTier::GetUserList()
+{
+    QString command = "SELECT username FROM user_table";
+    QSqlQuery result = dt->executeQuery(command);
+    QStringList userList;
+    while (result.next()) {
+        userList << result.value(0).toString();
+    }
+    //qDebug() << userList;
+    return userList;
 }
 
 /***************** STATISTICS ********************/
@@ -381,3 +391,147 @@ list <QString> DisplayWorkouts() {
 void BusinessTier::CloseDB() {
     dt->closeDatabase();
 }
+
+/***************** TESTING ********************/
+void BusinessTier::ValidateBusinessTier() {
+
+    /* '//' MEANS TESTED BELOW, ELSE UNTESTED
+    //int AddUser         (QString, QString);
+    //int AddExercise     (QString);
+    //int AddWorkout      (QString);
+    //int AddWorkoutPair  (QString, QString, int order); // don't know why order is on here.
+    int AddSet          (int userID, QString workout, QString exercise, int weight, int reps);
+
+    //int GetWorkoutNameID(QString);
+    //int GetExerciseNameID(QString);
+    //int GetUserID(QString);
+    //QStringList GetExercisesInWorkout(QString workoutName);
+    QStringList GetExerciseHistory(QString exercise);
+    //QStringList GetWorkoutList();
+    //QStringList GetExerciseList();
+    //QStringList GetUserList();
+
+    //bool DoesExerciseExist(QString);
+    //bool DoesWorkoutExist(QString);
+    //bool DoesUserExist(QString);
+    //bool DoesPairExist(QString, QString);
+    //int RemoveExercise  (QString);
+    //int RemoveWorkout   (QString);
+    //int RemoveWorkoutPair (QString, QString);
+    //int RemoveUser      (QString, QString);
+    int RemoveSet();
+    int ModifySet(); //not sure how to implement this
+    //void UpdateWorkout   (QString, QString);
+    //void UpdateExercise  (QString, QString);
+    */
+
+
+    //USER TESTS
+    //AddUser()
+    //GetUserID()
+    //GetUserList()
+    //DoesUserExist()
+    bool userTest1 = false, userTest2 = false, userTest3 = false, userRemoveTest = false;
+    AddUser("user1", "password1");
+    AddUser("user2", "password2");
+    QStringList userList = GetUserList();
+    int userID = GetUserID("user2");
+    if (userID > 0) userTest1 = true;
+    if (userList.value(1) == "user2") userTest2 = true;
+    userTest3 = DoesUserExist("user2");
+
+    //test remove
+    RemoveUser("user1", "password1");
+    if (!RemoveUser("user1", "password1")) userRemoveTest = true;
+
+    // EXERCISE TESTS
+    //AddExercise()
+    //GetExerciseNameID()
+    //GetExerciseList()
+    //DoesExerciseExist()
+    bool exerTest1 = false, exerTest2 = false, exerTest3 = false, exerTest4 = false, removeExerciseTest = false;
+    AddExercise("test_exercise1");
+    AddExercise("test_exercise2");
+    UpdateExercise("test_exercise1", "test_exercise3");
+    QStringList exerList = GetExerciseList();
+    int exerID = GetExerciseNameID("test_exercise2");
+    if (exerID > 0) exerTest1 = true;
+    if (exerList.value(1) == "test_exercise2") exerTest2 = true;
+    if (exerList.value(0) == "test_exercise3") exerTest4 = true;
+    exerTest3 = DoesExerciseExist("test_exercise2");
+
+
+    //exercise remove
+    RemoveExercise("test_exercise2");
+    if (!RemoveExercise("test_exercise2")) removeExerciseTest = true;
+
+
+    //  WORKOUT TESTS
+    //AddWorkout()
+    //GetWorkoutNameID()
+    //GetWorkoutList()
+    //DoesWorkoutExist()
+    bool workoutTest1 = false, workoutTest2 = false, workoutTest3 = false, workoutTest4 = false, removeWorkoutTest = false;
+    AddWorkout("test_workout1");
+    AddWorkout("test_workout2");
+    UpdateWorkout("test_workout1", "test_workout3");
+    QStringList workoutList = GetWorkoutList();
+    int workoutID = GetWorkoutNameID("test_workout2");
+    if (workoutID > 0) workoutTest1 = true;
+    if (workoutList.value(1) == "test_workout2") workoutTest2 = true; //add workout
+    if (workoutList.value(0) == "test_workout3") workoutTest4 = true; //update workout
+    workoutTest3 = DoesWorkoutExist("test_workout2");
+
+
+    //workout remove
+    RemoveWorkout("test_workout2");
+    if (!RemoveWorkout("test_workout2")) removeWorkoutTest = true;
+
+
+    // WORKOUT PAIRS TESTS
+    bool pairTest1 = false, pairTest2 = false, pairRemoveTest = false;
+    AddWorkout("workout_pair");
+    AddExercise("exercise_pair");
+    AddWorkoutPair("workout_pair", "exercise_pair", 0);
+    pairTest2 = DoesPairExist("workout_pair", "exercise_pair");
+    QStringList pairsList = GetExercisesInWorkout("workout_pair");
+    if (pairsList.value(0) == "exercise_pair") pairTest1 = true;
+
+    RemoveWorkoutPair("workout_pair", "exercise_pair");
+    if (!RemoveWorkoutPair("workout_pair", "exercise_pair")) pairRemoveTest = true;
+
+    /*
+    //set testing
+    AddWorkout("set_workout");
+    AddExercise("set_exercise");
+    AddSet(0, "set_workout", "set_exercise", 999, 999);
+    QStringList exerciseHistory = GetExerciseHistory("set_exercise");
+    if (exerciseHistory.value(0) == )
+    */
+
+
+
+    //print results
+    qDebug() << "GetUserID:         " << userTest1;
+    qDebug() << "AddUser:           " << userTest2;
+    qDebug() << "DoesUserExist:     " << userTest3;
+    qDebug() << "RemoveUser:        " << userRemoveTest;
+    qDebug() << "GetExerciseNameID: " << exerTest1;
+    qDebug() << "AddExercise:       " << exerTest2;
+    qDebug() << "DoesExerciseExist: " << exerTest3;
+    qDebug() << "UpdateExercise:    " << exerTest4;
+    qDebug() << "RemoveExercise:    " << removeExerciseTest;
+    qDebug() << "GetWorkoutNameID:  " << workoutTest1;
+    qDebug() << "AddWorkout:        " << workoutTest2;
+    qDebug() << "DoesWorkoutExist:  " << workoutTest3;
+    qDebug() << "UpdateWorkout:     " << workoutTest4;
+    qDebug() << "RemoveWorkout:    " << removeWorkoutTest;
+    qDebug() << "AddWorkoutPair:    " << pairTest1;
+    qDebug() << "DoesPairExist:     " << pairTest2;
+    qDebug() << "RemoveWorkoutPair: " << pairRemoveTest;
+
+
+
+
+}
+
