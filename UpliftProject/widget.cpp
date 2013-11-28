@@ -22,9 +22,7 @@ Widget::Widget(QWidget *parent) :
     connect(ui->exerciseList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_exercise_buttons()));
     connect(ui->editWorkoutExercisesList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_editWorkout_buttons()));
     connect(ui->performWorkoutExerciseList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_performWorkout_buttons()));
-
 }
-
 Widget::~Widget()
 {
     //bt->StoreIDs();
@@ -124,6 +122,7 @@ void Widget::on_addWorkoutButton_clicked() {    //DONE
 }
 //TODO: make sure empty string is not added
 void Widget::on_addWorkoutNameDoneButton_clicked() {
+    if (ui->addWorkoutNameLine->text() == "") return;
     ui->workoutList->clear();                           //clear workoutList text box
     bt->AddWorkout(ui->addWorkoutNameLine->text());     //add workout from line edit
     Widget::UpdateWorkoutList();
@@ -169,6 +168,7 @@ void Widget::on_editWorkoutAddButton_clicked() {
 }
 //TODO: don't allow edit with empty nameLine.
 void Widget::on_editWorkoutDoneButton_clicked() {
+    if (ui->editWorkoutNameLine->text() == "") return;
     bt->UpdateWorkout(currWorkout, ui->editWorkoutNameLine->text());    //update name in DB
     Widget::UpdateWorkoutList();
     ui->workoutsStack->setCurrentIndex(0);                              //switch to main workouts page
@@ -212,7 +212,6 @@ void Widget::on_performExerciseBackButton_clicked() {
     ui->workoutsStack->setCurrentIndex(4);
 }
 
-
 /************** ADD TO WORKOUT PAGE ****************/
 //currWorkout was saved when edit workout button pressed, so it should be correct
 void Widget::on_addToWorkoutBackButton_clicked() {
@@ -233,6 +232,7 @@ void Widget::on_addExerciseButton_clicked() {           //DONE
 }
 //TODO: don't allow empty string to be added
 void Widget::on_addExerciseNameDoneButton_clicked() {
+    if (ui->addExerciseNameLine->text() == "") return;
     ui->exerciseList->clear();                            //clear exerciseList text box
     bt->AddExercise(ui->addExerciseNameLine->text());     //add exercise to DB (from line edit)
     Widget::UpdateExerciseList();
@@ -259,6 +259,7 @@ void Widget::on_editExerciseButton_clicked() {
 //CURRENT
 //TODO: don't allow edit with empty nameLine.
 void Widget::on_editExerciseDoneButton_clicked() {
+    if (ui->editExerciseLine->text() == "") return;
     bt->UpdateExercise(currExercise, ui->editExerciseLine->text());    //update name in DB
     Widget::UpdateExerciseList();
     disable_exercise_buttons();
