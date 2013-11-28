@@ -27,6 +27,7 @@ public:
     void UpdateWorkoutList();
     void UpdateExerciseList();
 
+
 private:
     Ui::Widget *ui;
     BusinessTier *bt;
@@ -75,6 +76,17 @@ public slots:
     //perform exercise page
     void on_performExerciseAddButton_clicked();
     //void on_performExerciseBackButton_clicked();  //linker was complaining about this.
+
+    //button management
+    void manage_workout_buttons();
+    void disable_workout_buttons();
+    void manage_exercise_buttons();
+    void disable_exercise_buttons();
+    void manage_editWorkout_buttons();
+    void disable_editWorkout_buttons();
+    void manage_performWorkout_buttons();
+    void disable_performWorkout_buttons();
+
 
     //cleanup
     void cleanup_before_quit();
