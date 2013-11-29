@@ -191,8 +191,8 @@ int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps
 {
     int workout_name_id = GetWorkoutNameID(workout);
     int exercise_name_id = GetExerciseNameID(exercise);
-    QString command = "INSERT INTO exercise_set_log (workout_name_id, exercise_name_id, user_id, reps, weight, one_rep_max) "
-            "VALUES ('" + QString::number(workout_name_id) + "', '" + QString::number(exercise_name_id) + "', " + QString::number(userID) +
+    QString command = "INSERT INTO exercise_set_log (set_id, workout_name_id, exercise_name_id, user_id, reps, weight, one_rep_max) "
+            "VALUES (NULL, '" + QString::number(workout_name_id) + "', '" + QString::number(exercise_name_id) + "', " + QString::number(userID) +
             ", " + QString::number(reps) + ", " + QString::number(weight) + ", 999)";
     //qDebug() << "Addset: " << command;
     QSqlQuery result = dt->executeQuery(command);
@@ -211,7 +211,7 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
 
     //if id doesn't already exist, add it
     //int id = m_NextWorkoutNameID++;
-    QString command = "INSERT INTO workout_table (workout_name) VALUES ('" + name + "')";
+    QString command = "INSERT INTO workout_table VALUES (NULL, '" + name + "')";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -239,7 +239,7 @@ int BusinessTier::AddUser(QString username, QString password)
     if (DoesUserExist(username)) return 0;
 
     //if user doesn't exist, add them
-    QString command = "INSERT INTO user_table (username, password) VALUES ('" + username + "', '" + password + "')";
+    QString command = "INSERT INTO user_table VALUES (NULL, '" + username + "', '" + password + "')";
     //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
