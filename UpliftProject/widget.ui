@@ -52,7 +52,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="WorkoutsPage">
     <property name="minimumSize">
@@ -981,6 +981,16 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QListView" name="listView">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>281</width>
+       <height>371</height>
+      </rect>
      </property>
     </widget>
    </widget>

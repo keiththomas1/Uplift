@@ -268,6 +268,11 @@ void Widget::on_editExerciseCancelButton_clicked() {
     ui->exercisesStack->setCurrentIndex(0);
 }
 
+/************** STATISTICS PAGE ****************/
+/*
+void Widget::on_addExerciseButton_clicked() {           //DONE
+    ui->exercisesStack->setCurrentIndex(1);
+*/
 
 
 

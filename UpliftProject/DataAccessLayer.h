@@ -59,7 +59,7 @@ public:
         }
         //--->insert volume into here eventually?
         //Not necessarily.  We can just run a count query on the numebr of logs, selecting by user_id.
-        success = query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_instance_id INT PRIMARY KEY, user_id INT, workout_name TEXT, time timestamp default (strftime('%s', 'now')))");
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_instance_id INT PRIMARY KEY, user_id INT, workout_name_id int, time timestamp default (strftime('%s', 'now')))");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));
