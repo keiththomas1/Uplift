@@ -53,13 +53,11 @@ int BusinessTier::GetExerciseNameID(QString name) // DONE
 QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 {
     //THIS NEEDS AN INNER JOIN
-    QString command = "SELECT exercise_table.exercise_name "
-                      "FROM exercise_table JOIN "
-                            "(SELECT * FROM workout_pairs "
-                            "JOIN workout_table "
-                            "ON workout_pairs.workout_id = workout_table.workout_name_id) "
-                      "ON exercise_table.exercise_name_id = workout_pairs.exercise_id "
-                      "WHERE workout_table.workout_name == '" + workoutName + "'";
+    int workout_id = GetWorkoutNameID(workoutName);
+    QString command = "SELECT exercise_name "
+                      "FROM workout_pairs as p JOIN exercise_table as e "
+                      "ON p.exercise_id=e.exercise_name_id "
+                      "WHERE p.workout_id == \"" + QString::number(workout_id) + "\"";
     QSqlQuery result = dt->executeQuery(command);
     QStringList exercisesList;
     while (result.next()) {
@@ -222,7 +220,7 @@ int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int 
 
     if (DoesPairExist(workoutName, exerciseName)) return 0;
 
-    QString command = "INSERT INTO workout_pairs VALUES (" + QString::number(workout_name_id) + "', " + QString::number(exercise_name_id) + ", 999)";
+    QString command = "INSERT INTO workout_pairs VALUES (" + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", 999)";
     //qDebug() << "AddWorkoutPair: " << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
@@ -278,7 +276,7 @@ int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName)
     int exercise_name_id = GetExerciseNameID(exerciseName);
 
     if (!DoesPairExist(workoutName, exerciseName)) return 0;
-    QString command = "DELETE FROM workout_pairs WHERE workout_name_id == '" + QString::number(workout_name_id) + "' AND exercise_name_id == '" + QString::number(exercise_name_id) + "'";
+    QString command = "DELETE FROM workout_pairs WHERE workout_id == '" + QString::number(workout_name_id) + "' AND exercise_id == '" + QString::number(exercise_name_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
