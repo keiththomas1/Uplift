@@ -32,7 +32,8 @@ int BusinessTier::GetExerciseNameID(QString name) // DONE
     return -1; //failed
 }
 
-//need to order by 'order'
+//!This function returns a list of exercises that belong to the user specified workout.
+//!/param workoutName This string is the name of the specific workout the exercises exist in.
 QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 {
     int workout_id = GetWorkoutNameID(workoutName);
@@ -173,6 +174,10 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
 }
 
 //TODO: make sure the workoutPair doesn't already exist
+//!This function adds an exercise to a specific workout (if it doesn't already exist in the workout)
+//!/param workoutName string containing the name of the workout the exercise is being added to
+//!/param exerciseName string containing the name of the exercise to be added to the workout
+//!/param order an integer containing the order the exercise should appear in the workout
 int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)  //don't know what order is for.
 {
     int workout_name_id = GetWorkoutNameID(workoutName);
@@ -216,6 +221,9 @@ int BusinessTier::RemoveWorkout(QString name)
     return 1;
 }
 
+//!This function removes an exercise from a workout
+//!/param workoutName string that holds the name of the workout to remove the exercise from
+//!/param exerciseName string that holds the name of the exercise to remove from the workout
 int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName)
 {
     int workout_name_id = GetWorkoutNameID(workoutName);
@@ -270,6 +278,8 @@ QStringList BusinessTier::GetExerciseList() //DO I NEED TO FREE LIST OBJECT SOME
     return exerciseList;
 }
 //TODO: add user id requirement
+//!This function returns a list holding the history of a specific exercise (date, weight, and reps)
+//!/param exercise string holding the name of the exercise to retrieve history for
 QStringList BusinessTier::GetExerciseHistory(QString exercise)
 {
     QString command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime FROM exercise_set_log "
@@ -285,6 +295,7 @@ QStringList BusinessTier::GetExerciseHistory(QString exercise)
     }
     return historyList;
 }
+//!This function returns a list of all usernames currently in the database
 QStringList BusinessTier::GetUserList()
 {
     QString command = "SELECT username FROM user_table";
@@ -328,11 +339,13 @@ list <QString> DisplayWorkouts() {
 }
 */
 
+//!This function closes the database connection
 void BusinessTier::CloseDB() {
     dt->closeDatabase();
 }
 
 /***************** TESTING ********************/
+//!This function validates the functionality by printing 'true' for all functions that perform as expected, 'false' otherwise
 void BusinessTier::ValidateBusinessTier() {
 
     /* '//' MEANS TESTED BELOW, ELSE UNTESTED
@@ -448,6 +461,19 @@ void BusinessTier::ValidateBusinessTier() {
     QStringList exerciseHistory = GetExerciseHistory("set_exercise");
     if (exerciseHistory.value(0) == )
     */
+
+    //remove all added users, exercises, and workouts
+    RemoveUser("user1", "password1");
+    RemoveUser("user2", "password2");
+    RemoveExercise("test_exercise1");
+    RemoveExercise("test_exercise2");
+    RemoveExercise("test_exercise3");
+    RemoveExercise("exercise_pair");
+    RemoveWorkout("test_workout1");
+    RemoveWorkout("test_workout2");
+    RemoveWorkout("test_workout3");
+    RemoveWorkout("workout_pair");
+    RemoveWorkoutPair("workout_pair", "exercise_pair");
 
 
 
