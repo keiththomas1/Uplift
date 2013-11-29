@@ -54,11 +54,11 @@ QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 {
     //THIS NEEDS AN INNER JOIN
     QString command = "SELECT exercise_table.exercise_name "
-                      "FROM exercise_table INNER JOIN "
+                      "FROM exercise_table JOIN "
                             "(SELECT * FROM workout_pairs "
-                            "INNER JOIN workout_table "
-                            "ON workout_pairs.workout_name_id = workout_table.workout_name_id) "
-                      "ON exercise_table.exercise_name_id = workout_pairs.exercise_name_id "
+                            "JOIN workout_table "
+                            "ON workout_pairs.workout_id = workout_table.workout_name_id) "
+                      "ON exercise_table.exercise_name_id = workout_pairs.exercise_id "
                       "WHERE workout_table.workout_name == '" + workoutName + "'";
     QSqlQuery result = dt->executeQuery(command);
     QStringList exercisesList;
@@ -144,14 +144,9 @@ bool BusinessTier::DoesWorkoutExist(QString name) // DONE
 //!/param exerciseName This string represents the name of the exercise.
 bool BusinessTier::DoesPairExist(QString workoutName, QString exerciseName)
 {
-    QString command = "SELECT exercise_table.exercise_name "
-                      "FROM exercise_table INNER JOIN "
-                            "(SELECT * FROM workout_pairs "
-                            "INNER JOIN workout_table "
-                            "ON workout_pairs.workout_name_id = workout_table.workout_name_id) "
-                      "ON exercise_table.exercise_name_id = workout_pairs.exercise_name_id "
-                      "WHERE workout_table.workout_name == '" + workoutName + "' AND exercise_table.exercise_name == '" + exerciseName + "'";
-
+    int workout_name_id = GetWorkoutNameID(workoutName);
+    int exercise_name_id = GetExerciseNameID(exerciseName);
+    QString command = "SELECT workout_id FROM workout_pairs WHERE workout_id == " + QString::number(workout_name_id) + " AND exercise_id == " + QString::number(exercise_name_id) + "";
     //QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "' AND exercise_name == '" + exerciseName + "'";
     QSqlQuery result = dt->executeQuery(command);
     if (result.next()) return true;
