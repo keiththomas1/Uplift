@@ -49,10 +49,8 @@ int BusinessTier::GetExerciseNameID(QString name) // DONE
     return -1; //failed
 }
 //need to order by 'order'
-//THIS NEEDS TO BE UPDATED WITH THE NEW PRIMARY KEY SCHEME.
 QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 {
-    //THIS NEEDS AN INNER JOIN
     int workout_id = GetWorkoutNameID(workoutName);
     QString command = "SELECT exercise_name "
                       "FROM workout_pairs as p JOIN exercise_table as e "
@@ -136,7 +134,6 @@ bool BusinessTier::DoesWorkoutExist(QString name) // DONE
     return true;
 }
 
-//This function needs to be fixed for primary keys.
 //!This function checks to see if an exercise pair and workout exists in the pair table.  It returns a boolean value.
 //!/param workoutName This string represents the name of the workout.
 //!/param exerciseName This string represents the name of the exercise.
@@ -165,7 +162,6 @@ bool BusinessTier::DoesUserExist(QString username)
 //returns 0 if already exists, and 1 on success
 //TODO: how to tell if it failed?
 
-//This function needs updated in with the new primary key scheme.
 //!This function adds a new exercise to the database and returns an int: 1 success, 0 if already exists.
 //!/param name This string represents the name of the exercise to be added to the database.
 int BusinessTier::AddExercise(QString name) // PENDING TODO
@@ -179,7 +175,7 @@ int BusinessTier::AddExercise(QString name) // PENDING TODO
     return 1;
 }
 //(exercise_set_log_id INT PRIMARY KEY, currWorkout TEXT, currExercise TEXT, user_id INT, timestamp, reps INT, weight INT)
-//THIS NEEDS THE PRIMARY KEY CHANGE
+
 int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps, int weight)
 {
     int workout_name_id = GetWorkoutNameID(workout);
@@ -195,7 +191,6 @@ int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps
 //add a workout to the workout table
 //TODO: how to tell if it failed?
 
-//THIS NEEDS THE PRIMARY KEY CHANGE
 //!This function adds a new workout to the database and returns an int: 1 on success, 0 on already exists.
 //!/param name This string represents the name of the workout to be added to the database.
 int BusinessTier::AddWorkout(QString name) // PENDING TODO
@@ -210,7 +205,6 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
 }
 //TODO: make sure the workoutPair doesn't already exist
 
-//THIS NEEDS TO HAVE THE PRIMARY KEY CHANGE
 int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)  //don't know what order is for.
 {
     int workout_name_id = GetWorkoutNameID(workoutName);
@@ -243,7 +237,6 @@ int BusinessTier::AddUser(QString username, QString password)
 
 //!This function removes an exercise from the database, and returns an int: 1 on success, 0 on already exists.
 //!/param name This string represents the name of the exercise to be removed.
-//THIS SHOULD BE FINE WITH PRIMARY KEYS
 int BusinessTier::RemoveExercise(QString name)
 {
     if (!DoesExerciseExist(name)) return 0; //can't remove, doesn't exist
@@ -257,7 +250,7 @@ int BusinessTier::RemoveExercise(QString name)
 
 //!This function removes a workout from the database.
 //!/param name This string represents the name of the workout.
-//THIS SHOULD BE FINE, NEEDS TO CHECK FOR USER ID.
+//NEEDS TO CHECK FOR USER ID.
 int BusinessTier::RemoveWorkout(QString name)
 {
     if (!DoesWorkoutExist(name)) return 0; //can't remove, doesn't exist
@@ -269,7 +262,6 @@ int BusinessTier::RemoveWorkout(QString name)
     return 1;
 }
 
-//THIS NEEDS A NEW FUNCTION TO HELP GET THE WORKOUT NAMES.
 int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName)
 {
     int workout_name_id = GetWorkoutNameID(workoutName);
