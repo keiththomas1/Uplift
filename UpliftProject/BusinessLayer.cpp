@@ -181,7 +181,7 @@ int BusinessTier::AddExercise(QString name) // PENDING TODO
 
     //if it doesn't already exist, add it
     //int id = m_NextExerciseNameID++;
-    QString command = "INSERT INTO exercise_table (exercise_name) VALUES ('" + name + "')";
+    QString command = "INSERT INTO exercise_table VALUES (NULL, '" + name + "')";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -192,7 +192,7 @@ int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps
     int workout_name_id = GetWorkoutNameID(workout);
     int exercise_name_id = GetExerciseNameID(exercise);
     QString command = "INSERT INTO exercise_set_log (set_id, workout_name_id, exercise_name_id, user_id, reps, weight, one_rep_max) "
-            "VALUES (NULL, '" + QString::number(workout_name_id) + "', '" + QString::number(exercise_name_id) + "', " + QString::number(userID) +
+            "VALUES (NULL, " + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", " + QString::number(userID) +
             ", " + QString::number(reps) + ", " + QString::number(weight) + ", 999)";
     //qDebug() << "Addset: " << command;
     QSqlQuery result = dt->executeQuery(command);
@@ -221,10 +221,12 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
 int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)  //don't know what order is for.
 {
     int workout_name_id = GetWorkoutNameID(workoutName);
+    //qDebug() << "Workout Name Id: " << workout_name_id;
     int exercise_name_id = GetExerciseNameID(exerciseName);
+    //qDebug() << "Exercise Name Id: " << exercise_name_id;
 
     if (DoesPairExist(workoutName, exerciseName)) return 0;
-    QString command = "INSERT INTO workout_pairs VALUES (\"" + QString::number(workout_name_id) + "\", \"" + QString::number(exercise_name_id) + "\", 999)";
+    QString command = "INSERT INTO workout_pairs VALUES (" + QString::number(workout_name_id) + "', " + QString::number(exercise_name_id) + ", 999)";
     //qDebug() << "AddWorkoutPair: " << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
