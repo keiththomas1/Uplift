@@ -1,27 +1,11 @@
 //  TODO:
 //  Are QSqlQuery objects automatically destructed?
 //  How do we tell if an insert failed?
-//
-//  TODO (Primary Key Change)
-//  GetExercisesInWorkout
-/*  GetExercisesInWorkout
- *  DoesPairExist
- *  Add Exercise
- *  Add Set
- *  AddWorkout
- *  AddWorkoutPair
- *  Need DoesUserExist()
- *
- *  TODO fix primary key
- *  RemoveExercise
- *  RemoveWorkout
- */
+
 #include "BusinessLayer.h"
 
 using namespace std;
 
-//gets the workout_name_id from the name
-//returns -1 for error
 //!This function retrieves the id of the workout for other database queries.
 //!/param name This string is the name of the corresponding workout.
 int BusinessTier::GetWorkoutNameID(QString name) // DONE
@@ -34,8 +18,7 @@ int BusinessTier::GetWorkoutNameID(QString name) // DONE
     }
     return -1; //failed
 }
-//gets the exercise_name_id from the name
-//returns -1 for error
+
 //!This funciton retrieves the id of the exercise for other database queries.
 //!/param name This string represents the name of the exercise.
 int BusinessTier::GetExerciseNameID(QString name) // DONE
@@ -48,6 +31,7 @@ int BusinessTier::GetExerciseNameID(QString name) // DONE
     }
     return -1; //failed
 }
+
 //need to order by 'order'
 QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 {
@@ -105,8 +89,7 @@ int BusinessTier::GetUserID(QString username)
 
 }
 
-//returns true if the exercise already exists
-//!This function checks to see if an exercise exists and returns a boolean value.
+//!This function checks to see if an exercise exists and returns a boolean value - true if exercise exists.
 //!/param name This string represents the name of the exercise.
 bool BusinessTier::DoesExerciseExist(QString name) // DONE
 {
@@ -127,10 +110,8 @@ bool BusinessTier::DoesExerciseExist(QString name) // DONE
 bool BusinessTier::DoesWorkoutExist(QString name) // DONE
 {
     if (GetWorkoutNameID(name) < 0) {
-        //qDebug() << "workoutNameID doesn't exists";
         return false;
     }
-    //qDebug() << "workoutNameID exists";
     return true;
 }
 
@@ -142,7 +123,6 @@ bool BusinessTier::DoesPairExist(QString workoutName, QString exerciseName)
     int workout_name_id = GetWorkoutNameID(workoutName);
     int exercise_name_id = GetExerciseNameID(exerciseName);
     QString command = "SELECT workout_id FROM workout_pairs WHERE workout_id == " + QString::number(workout_name_id) + " AND exercise_id == " + QString::number(exercise_name_id) + "";
-    //QString command = "SELECT exercise_name FROM workout_pairs WHERE workout_name == '" + workoutName + "' AND exercise_name == '" + exerciseName + "'";
     QSqlQuery result = dt->executeQuery(command);
     if (result.next()) return true;
     return false;
@@ -158,23 +138,16 @@ bool BusinessTier::DoesUserExist(QString username)
     return true;
 }
 
-//adds an exercise to the exercise table
-//returns 0 if already exists, and 1 on success
 //TODO: how to tell if it failed?
-
 //!This function adds a new exercise to the database and returns an int: 1 success, 0 if already exists.
 //!/param name This string represents the name of the exercise to be added to the database.
 int BusinessTier::AddExercise(QString name) // PENDING TODO
 {
     if (DoesExerciseExist(name)) return 0;
-
-    //if it doesn't already exist, add it
-    //int id = m_NextExerciseNameID++;
     QString command = "INSERT INTO exercise_table VALUES (NULL, '" + name + "')";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
-//(exercise_set_log_id INT PRIMARY KEY, currWorkout TEXT, currExercise TEXT, user_id INT, timestamp, reps INT, weight INT)
 
 int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps, int weight)
 {
@@ -183,54 +156,41 @@ int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps
     QString command = "INSERT INTO exercise_set_log (set_id, workout_name_id, exercise_name_id, user_id, reps, weight, one_rep_max) "
             "VALUES (NULL, " + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", " + QString::number(userID) +
             ", " + QString::number(reps) + ", " + QString::number(weight) + ", 999)";
-    //qDebug() << "Addset: " << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
 
-//add a workout to the workout table
-//TODO: how to tell if it failed?
 
+//TODO: how to tell if it failed?
 //!This function adds a new workout to the database and returns an int: 1 on success, 0 on already exists.
 //!/param name This string represents the name of the workout to be added to the database.
 int BusinessTier::AddWorkout(QString name) // PENDING TODO
 {
     if (DoesWorkoutExist(name)) return 0;
-
-    //if id doesn't already exist, add it
-    //int id = m_NextWorkoutNameID++;
     QString command = "INSERT INTO workout_table VALUES (NULL, '" + name + "')";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
-//TODO: make sure the workoutPair doesn't already exist
 
+//TODO: make sure the workoutPair doesn't already exist
 int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)  //don't know what order is for.
 {
     int workout_name_id = GetWorkoutNameID(workoutName);
-    //cout << "Workout Name Id: " << workout_name_id;
     int exercise_name_id = GetExerciseNameID(exerciseName);
-    //cout << "Exercise Name Id: " << exercise_name_id;
-
     if (DoesPairExist(workoutName, exerciseName)) return 0;
-
-    QString command = "INSERT INTO workout_pairs VALUES (" + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", 999)";
-    //qDebug() << "AddWorkoutPair: " << command;
+    QString command = "INSERT INTO workout_pairs "
+                      "VALUES (" + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", 999)";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
 
-//add a user to the user table
 //!This function adds a user to the database and returns an int: 1 on success, 0 on already exists.
 //!/param username This is the username to be added.
 //!/param password This is the new user's desired password.
 int BusinessTier::AddUser(QString username, QString password)
 {
     if (DoesUserExist(username)) return 0;
-
-    //if user doesn't exist, add them
     QString command = "INSERT INTO user_table VALUES (NULL, '" + username + "', '" + password + "')";
-    //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -240,10 +200,7 @@ int BusinessTier::AddUser(QString username, QString password)
 int BusinessTier::RemoveExercise(QString name)
 {
     if (!DoesExerciseExist(name)) return 0; //can't remove, doesn't exist
-
-    //if it exists, remove it
     QString command = "DELETE FROM exercise_table WHERE exercise_name == \"" + name + "\"";
-    //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -254,10 +211,7 @@ int BusinessTier::RemoveExercise(QString name)
 int BusinessTier::RemoveWorkout(QString name)
 {
     if (!DoesWorkoutExist(name)) return 0; //can't remove, doesn't exist
-
-    //if it exists, remove it
     QString command = "DELETE FROM workout_table WHERE workout_name == \"" + name + "\"";
-    //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -266,7 +220,6 @@ int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName)
 {
     int workout_name_id = GetWorkoutNameID(workoutName);
     int exercise_name_id = GetExerciseNameID(exerciseName);
-
     if (!DoesPairExist(workoutName, exerciseName)) return 0;
     QString command = "DELETE FROM workout_pairs WHERE workout_id == '" + QString::number(workout_name_id) + "' AND exercise_id == '" + QString::number(exercise_name_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
@@ -285,7 +238,6 @@ int BusinessTier::RemoveUser(QString username, QString password)
 
     //if user exists, remove them
     QString command = "DELETE FROM user_table WHERE username == \"" + username + "\" AND password == \"" + password + "\"";
-    //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
