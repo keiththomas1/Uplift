@@ -42,9 +42,9 @@ void Widget::UpdateExerciseList() {
     ui->exerciseList->addItems(bt->GetExerciseList());    //repopulate exercise list from DB
     ui->exerciseList->sortItems(Qt::AscendingOrder);      //sort list alphabetically
 }
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-=======
+//=======
 void Widget::manage_workout_buttons() {
     if (ui->workoutList->currentRow() < 0) {
         ui->deleteWorkoutButton->setEnabled(false);
@@ -106,7 +106,7 @@ void Widget::cleanup_before_quit() {        //MAYBE FREE SOME DATA?
 }
 
 /************** MAIN PAGE SWITCHING ****************/
->>>>>>> 83707327ca56ade8bdf831ba78d361f5cbd8cbb8
+//>>>>>>> 83707327ca56ade8bdf831ba78d361f5cbd8cbb8
 void Widget::on_workoutsButton_clicked() {  //DONE
     Widget::disable_workout_buttons();
     ui->pagesStack->setCurrentIndex(0);
