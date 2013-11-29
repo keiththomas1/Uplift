@@ -216,11 +216,12 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
 int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)  //don't know what order is for.
 {
     int workout_name_id = GetWorkoutNameID(workoutName);
-    //qDebug() << "Workout Name Id: " << workout_name_id;
+    //cout << "Workout Name Id: " << workout_name_id;
     int exercise_name_id = GetExerciseNameID(exerciseName);
-    //qDebug() << "Exercise Name Id: " << exercise_name_id;
+    //cout << "Exercise Name Id: " << exercise_name_id;
 
     if (DoesPairExist(workoutName, exerciseName)) return 0;
+
     QString command = "INSERT INTO workout_pairs VALUES (" + QString::number(workout_name_id) + "', " + QString::number(exercise_name_id) + ", 999)";
     //qDebug() << "AddWorkoutPair: " << command;
     QSqlQuery result = dt->executeQuery(command);
