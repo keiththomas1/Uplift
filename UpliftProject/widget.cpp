@@ -12,6 +12,10 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->pagesStack->setCurrentIndex(0);
+    ui->historyButton->setHidden(true);
+    ui->exercisesButton->setHidden(true);
+    ui->workoutsButton->setHidden(true);
+    ui->statsButton->setHidden(true);
     bt = new BusinessTier();
 
     //disable start page buttons until selection
@@ -280,7 +284,6 @@ void Widget::on_addExerciseButton_clicked() {           //DONE
 
 
 //TODO: need a AuthenticateUser function that returns true/false;
-//TODO: load workouts page with user exercises before switching
 void Widget::on_loginButton_clicked()
 {
     QString user = ui->userLine->text();
@@ -291,6 +294,13 @@ void Widget::on_loginButton_clicked()
         ui->exerciseList->addItems(bt->GetExerciseList(currUserID));
         Widget::disable_workout_buttons();
         Widget::disable_exercise_buttons();
+
+        //unhide the page switching buttons
+        ui->historyButton->setHidden(false);
+        ui->exercisesButton->setHidden(false);
+        ui->workoutsButton->setHidden(false);
+        ui->statsButton->setHidden(false);
+
         ui->pagesStack->setCurrentIndex(1); //go to workouts page
         ui->userLine->clear();
         ui->passwordLine->clear();

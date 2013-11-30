@@ -31,7 +31,7 @@
      <x>0</x>
      <y>0</y>
      <width>320</width>
-     <height>450</height>
+     <height>451</height>
     </rect>
    </property>
    <property name="minimumSize">
@@ -52,7 +52,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="LoginPage">
     <widget class="QStackedWidget" name="loginStack">
@@ -349,16 +349,6 @@
         <string>&lt;-</string>
        </property>
       </widget>
-      <zorder>workoutsTitle_2</zorder>
-      <zorder>createAccountLabel</zorder>
-      <zorder>createAccountUsername</zorder>
-      <zorder>createAccountPassword1</zorder>
-      <zorder>createAccountPassword2</zorder>
-      <zorder>createAccountDoneButton</zorder>
-      <zorder>createAccountPasswordLabel1</zorder>
-      <zorder>createAccountPasswordLabel2</zorder>
-      <zorder>createAccountUsernameLabel</zorder>
-      <zorder>createAccountBackButton</zorder>
      </widget>
     </widget>
    </widget>
@@ -1559,15 +1549,6 @@
         <string>DONE</string>
        </property>
       </widget>
-      <zorder>historyTitle</zorder>
-      <zorder>exerciseHistoryTitle</zorder>
-      <zorder>exerciseSortByLabel</zorder>
-      <zorder>exerciseHistoryList</zorder>
-      <zorder>exerciseSortByDate</zorder>
-      <zorder>exerciseSortByReps</zorder>
-      <zorder>exerciseSortByWeight</zorder>
-      <zorder>exerciseSortBy1RM</zorder>
-      <zorder>exerciseHistoryDoneButton</zorder>
      </widget>
      <widget class="QWidget" name="workoutHistoryPage">
       <widget class="QLabel" name="workoutHistoryTitle">
@@ -2203,10 +2184,10 @@
    </property>
   </widget>
   <zorder>historyButton</zorder>
-  <zorder>pagesStack</zorder>
   <zorder>workoutsButton</zorder>
   <zorder>exercisesButton</zorder>
   <zorder>statsButton</zorder>
+  <zorder>pagesStack</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
