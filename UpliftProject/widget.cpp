@@ -355,28 +355,50 @@ void Widget::on_createAccountDoneButton_clicked()
 
 void Widget::on_workoutHistoryButton_clicked()
 {
-    ui->historyStack->setCurrentIndex(1);
+    ui->historyStack->setCurrentIndex(2);
 }
 
 void Widget::on_exerciseHistoryButton_clicked()
 {
-    ui->historyStack->setCurrentIndex(0);
+    ui->historyStack->setCurrentIndex(1);
 
 }
 
+void Widget::on_chooseExerciseHistoryBackButton_clicked()
+{
+    ui->historyStack->setCurrentIndex(0);
+}
+
+//TODO: disable button unless selection made
 void Widget::on_chooseExerciseHistoryDoneButton_clicked()
 {
-
+    currExerciseHistory = ui->chooseExerciseHistoryList->currentItem()->text();
+    ui->exerciseHistoryList->clear();
+    ui->exerciseHistoryList->addItems(bt->GetExerciseHistory(currExerciseHistory, currUserID));
+    ui->historyStack->setCurrentIndex(3);
 }
 
+void Widget::on_chooseWorkoutHistoryBackButton_clicked()
+{
+    ui->historyStack->setCurrentIndex(0);
+}
+
+//TODO: disable button unless selection made
+//TODO: need GetWorkoutHistory function
 void Widget::on_chooseWorkoutHistoryDoneButton_clicked()
 {
-
+    currWorkoutHistory = ui->chooseWorkoutHistoryList->currentItem()->text();
+    ui->workoutHistoryList->clear();
+    //ui->workoutHistoryList->addItems(bt->GetWorkoutHistory(currUserID, currWorkoutHistory));
+    ui->historyStack->setCurrentIndex(4);
 }
+
+//TODO: workoutHistoryBackButton
+//TODO: exerciseHistoryBackButton
 
 void Widget::on_exerciseHistoryDoneButton_clicked()
 {
-
+    ui->historyStack->setCurrentIndex(0);
 }
 
 void Widget::on_exerciseSortBy1RM_clicked()
@@ -401,7 +423,7 @@ void Widget::on_exerciseSortByWeight_clicked()
 
 void Widget::on_workoutHistoryDoneButton_clicked()
 {
-
+    ui->historyStack->setCurrentIndex(0);
 }
 
 void Widget::on_workoutSortByDate_clicked()
@@ -418,5 +440,9 @@ void Widget::on_workoutSortByVolume_clicked()
 {
 
 }
+
+
+
+
 
 

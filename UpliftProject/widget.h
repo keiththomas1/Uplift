@@ -22,6 +22,8 @@ public:
     //QStringList workoutExerciseList;
     QString currWorkout;
     QString currExercise;
+    QString currWorkoutHistory;
+    QString currExerciseHistory;
     int currWorkoutID;
     int currExerciseID;
     int currUserID;
@@ -114,6 +116,8 @@ private slots:
     void on_workoutSortBySets_clicked();
     void on_workoutSortByVolume_clicked();
     void on_createAccountBackButton_clicked();
+    void on_chooseExerciseHistoryBackButton_clicked();
+    void on_chooseWorkoutHistoryBackButton_clicked();
 };
 
 #endif // WIDGET_H
