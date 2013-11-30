@@ -164,9 +164,10 @@ int BusinessTier::AddSet(int user_id, QString workout, QString exercise, int rep
 {
     int workout_name_id = GetWorkoutNameID(workout, user_id);
     int exercise_name_id = GetExerciseNameID(exercise, user_id);
+    int max = OneRepMax(reps, weight);
     QString command = "INSERT INTO exercise_set_log (set_id, workout_id, exercise_id, user_id, reps, weight, one_rep_max) "
             "VALUES (NULL, " + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", " + QString::number(user_id) +
-            ", " + QString::number(reps) + ", " + QString::number(weight) + ", 999)";
+            ", " + QString::number(reps) + ", " + QString::number(weight) + ", " + QString::number(max) + ")";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
