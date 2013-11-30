@@ -198,6 +198,9 @@ void Widget::on_editWorkoutButton_clicked() {
 void Widget::on_startWorkoutButton_clicked() {
     disable_performWorkout_buttons();
     currWorkout = ui->workoutList->currentItem()->text();
+
+    //log the workout
+    bt->AddWorkoutLog(currWorkout, currUserID);
     ui->performWorkoutExerciseList->clear();
     ui->performWorkoutExerciseList->addItems(bt->GetExercisesInWorkout(currWorkout,currUserID));
     ui->performWorkoutTitle->setText(currWorkout);
