@@ -118,6 +118,7 @@ private slots:
     void on_createAccountBackButton_clicked();
     void on_chooseExerciseHistoryBackButton_clicked();
     void on_chooseWorkoutHistoryBackButton_clicked();
+    void on_performExerciseBackButton_clicked();
 };
 
 #endif // WIDGET_H
