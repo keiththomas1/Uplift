@@ -23,12 +23,15 @@ Widget::Widget(QWidget *parent) :
     ui->startWorkoutButton->setEnabled(false);
     ui->editWorkoutButton->setEnabled(false);
 
-    //this is how you do non-default signals/slots
+    //signals & slots initialization
     connect(this, SIGNAL(WidgetClosed()), this, SLOT(cleanup_before_quit()));
     connect(ui->workoutList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_workout_buttons()));
     connect(ui->exerciseList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_exercise_buttons()));
     connect(ui->editWorkoutExercisesList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_editWorkout_buttons()));
     connect(ui->performWorkoutExerciseList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_performWorkout_buttons()));
+    connect(ui->chooseExerciseHistoryList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_exerciseHistory_buttons()));
+    connect(ui->chooseWorkoutHistoryList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_workoutHistory_buttons()));
+
 }
 Widget::~Widget()
 {
@@ -81,6 +84,18 @@ void Widget::manage_performWorkout_buttons() {
     }
     else ui->performExerciseButton->setEnabled(true);
 }
+void Widget::manage_exerciseHistory_buttons() {
+    if (ui->chooseExerciseHistoryList->currentRow() < 0) {
+        ui->chooseExerciseHistoryDoneButton->setEnabled(false);
+    }
+    else ui->chooseExerciseHistoryDoneButton->setEnabled(true);
+}
+void Widget::manage_workoutHistory_buttons() {
+    if (ui->chooseWorkoutHistoryList->currentRow() < 0) {
+        ui->chooseWorkoutHistoryDoneButton->setEnabled(false);
+    }
+    else ui->chooseWorkoutHistoryDoneButton->setEnabled(true);
+}
 
 void Widget::disable_exercise_buttons() {
     ui->exerciseList->setCurrentRow(-1);
@@ -97,6 +112,14 @@ void Widget::disable_editWorkout_buttons() {
 void Widget::disable_performWorkout_buttons() {
     ui->performWorkoutExerciseList->setCurrentRow(-1);
     ui->performWorkoutExerciseList->itemSelectionChanged();
+}
+void Widget::disable_exerciseHistory_buttons() {
+    ui->chooseExerciseHistoryList->setCurrentRow(-1);
+    ui->chooseExerciseHistoryList->itemSelectionChanged();
+}
+void Widget::disable_workoutHistory_buttons() {
+    ui->chooseWorkoutHistoryList->setCurrentRow(-1);
+    ui->chooseWorkoutHistoryList->itemSelectionChanged();
 }
 
 void Widget::closeEvent(QCloseEvent *event) { //DONE
@@ -177,6 +200,7 @@ void Widget::on_editWorkoutDoneButton_clicked() {
     if (ui->editWorkoutNameLine->text() == "") return;
     bt->UpdateWorkout(currWorkout, ui->editWorkoutNameLine->text(),currUserID);    //update name in DB
     Widget::UpdateWorkoutList();
+    disable_workout_buttons();
     ui->workoutsStack->setCurrentIndex(0);                              //switch to main workouts page
 }
 void Widget::on_editWorkoutDeleteButton_clicked() {
@@ -239,6 +263,7 @@ void Widget::on_addExerciseButton_clicked() {           //DONE
 void Widget::on_addExerciseNameDoneButton_clicked() {
     if (ui->addExerciseNameLine->text() == "") return;
     ui->exerciseList->clear();                            //clear exerciseList text box
+    //qDebug() << "adding exercise with userID = " + currUserID;
     bt->AddExercise(ui->addExerciseNameLine->text(),currUserID);     //add exercise to DB (from line edit)
     Widget::UpdateExerciseList();
     ui->addExerciseNameLine->clear();                     //clear line edit
@@ -263,7 +288,7 @@ void Widget::on_editExerciseButton_clicked() {
     ui->exercisesStack->setCurrentIndex(2);                  //switch to edit Exercise page
 }
 //CURRENT
-//TODO: don't allow edit with empty nameLine.
+//TODO: check if update name works
 void Widget::on_editExerciseDoneButton_clicked() {
     if (ui->editExerciseLine->text() == "") return;
     bt->UpdateExercise(currExercise, ui->editExerciseLine->text(),currUserID);    //update name in DB
@@ -289,17 +314,24 @@ void Widget::on_loginButton_clicked()
     QString user = ui->userLine->text();
     QString password = ui->passwordLine->text();
     if (bt->DoesUserExist(user)) {
+        if (!bt->ValidateUser(user, password)) {
+            ui->userLine->clear();
+            ui->passwordLine->clear();
+            ui->userLine->setText("incorrect password");
+            return;
+        }
         currUserID = bt->GetUserID(user);
         ui->workoutList->addItems(bt->GetWorkoutList(currUserID));
         ui->exerciseList->addItems(bt->GetExerciseList(currUserID));
-        Widget::disable_workout_buttons();
-        Widget::disable_exercise_buttons();
+
 
         //unhide the page switching buttons
         ui->historyButton->setHidden(false);
         ui->exercisesButton->setHidden(false);
         ui->workoutsButton->setHidden(false);
         ui->statsButton->setHidden(false);
+        Widget::disable_workout_buttons();
+        Widget::disable_exercise_buttons();
 
         ui->pagesStack->setCurrentIndex(1); //go to workouts page
         ui->userLine->clear();
@@ -308,7 +340,7 @@ void Widget::on_loginButton_clicked()
     else {
         ui->userLine->clear();
         ui->passwordLine->clear();
-        ui->userLine->setText("invalid username or password");
+        ui->userLine->setText("user does not exist");
     }
 }
 
@@ -370,6 +402,7 @@ void Widget::on_createAccountDoneButton_clicked()
 void Widget::on_workoutHistoryButton_clicked()
 {
     ui->chooseWorkoutHistoryList->clear();
+    disable_workoutHistory_buttons();
     ui->chooseWorkoutHistoryList->addItems(bt->GetWorkoutList(currUserID));
     ui->historyStack->setCurrentIndex(2);
 }
@@ -377,6 +410,7 @@ void Widget::on_workoutHistoryButton_clicked()
 void Widget::on_exerciseHistoryButton_clicked()
 {
     ui->chooseExerciseHistoryList->clear();
+    disable_exerciseHistory_buttons();
     ui->chooseExerciseHistoryList->addItems(bt->GetExerciseList(currUserID));
     ui->historyStack->setCurrentIndex(1);
 
