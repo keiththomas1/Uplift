@@ -2,6 +2,9 @@
 #include "ui_widget.h"
 #include <QDebug>
 
+//TEMPORARY USER ID VARIABLE
+int user_id = 1;
+
 using namespace std;
 
 Widget::Widget(QWidget *parent) :
@@ -10,8 +13,8 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     ui->pagesStack->setCurrentIndex(0);
     bt = new BusinessTier();
-    ui->workoutList->addItems(bt->GetWorkoutList());
-    ui->exerciseList->addItems(bt->GetExerciseList());
+    ui->workoutList->addItems(bt->GetWorkoutList(user_id));
+    ui->exerciseList->addItems(bt->GetExerciseList(user_id));
 
     //disable start page buttons until selection
     ui->deleteWorkoutButton->setEnabled(false);
@@ -34,12 +37,12 @@ Widget::~Widget()
 /************** HELPER FUNCTIONS ****************/
 void Widget::UpdateWorkoutList() {
     ui->workoutList->clear();
-    ui->workoutList->addItems(bt->GetWorkoutList());    //repopulate workout list from db
+    ui->workoutList->addItems(bt->GetWorkoutList(user_id));    //repopulate workout list from db
     ui->workoutList->sortItems(Qt::AscendingOrder);     //sort list alphabetically
 }
 void Widget::UpdateExerciseList() {
     ui->exerciseList->clear();
-    ui->exerciseList->addItems(bt->GetExerciseList());    //repopulate exercise list from DB
+    ui->exerciseList->addItems(bt->GetExerciseList(user_id));    //repopulate exercise list from DB
     ui->exerciseList->sortItems(Qt::AscendingOrder);      //sort list alphabetically
 }
 void Widget::manage_workout_buttons() {
@@ -125,7 +128,7 @@ void Widget::on_addWorkoutButton_clicked() {    //DONE
 void Widget::on_addWorkoutNameDoneButton_clicked() {
     if (ui->addWorkoutNameLine->text() == "") return;
     ui->workoutList->clear();                           //clear workoutList text box
-    bt->AddWorkout(ui->addWorkoutNameLine->text());     //add workout from line edit
+    bt->AddWorkout(ui->addWorkoutNameLine->text(), user_id);     //add workout from line edit
     Widget::UpdateWorkoutList();
     ui->addWorkoutNameLine->clear();                    //clear line edit
     ui->workoutsStack->setCurrentIndex(0);              //switch back to workout page
@@ -137,11 +140,11 @@ void Widget::on_addWorkoutNameCancelButton_clicked() {  //DONE
 
 void Widget::on_deleteWorkoutButton_clicked() {
     if (ui->workoutList->count() == 0) return;
-    bt->RemoveWorkout(ui->workoutList->currentItem()->text());
+    bt->RemoveWorkout(ui->workoutList->currentItem()->text(),user_id);
     workoutList.removeOne(ui->workoutList->currentItem()->text());
     ui->workoutList->clear();
     ui->workoutList->addItems(workoutList);
-    ui->workoutList->addItems(bt->GetWorkoutList());
+    ui->workoutList->addItems(bt->GetWorkoutList(user_id));
     Widget::manage_workout_buttons();
 
 }
@@ -151,35 +154,35 @@ void Widget::on_editWorkoutButton_clicked() {
     ui->editWorkoutNameLine->clear();
     ui->editWorkoutExercisesList->clear();
     ui->editWorkoutNameLine->setText(currWorkout);          //populate the edit workout line edit with workout name
-    ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout));
+    ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout,user_id));
     ui->workoutsStack->setCurrentIndex(2);                  //switch to edit workout page
 }
 void Widget::on_startWorkoutButton_clicked() {
     disable_performWorkout_buttons();
     currWorkout = ui->workoutList->currentItem()->text();
     ui->performWorkoutExerciseList->clear();
-    ui->performWorkoutExerciseList->addItems(bt->GetExercisesInWorkout(currWorkout));
+    ui->performWorkoutExerciseList->addItems(bt->GetExercisesInWorkout(currWorkout,user_id));
     ui->performWorkoutTitle->setText(currWorkout);
     ui->workoutsStack->setCurrentIndex(4);
 }
 
 /************** EDIT WORKOUT PAGE ****************/
 void Widget::on_editWorkoutAddButton_clicked() {
-    ui->addToWorkoutList->addItems(bt->GetExerciseList());  //populate addToWorkoutList with all exercises availble
+    ui->addToWorkoutList->addItems(bt->GetExerciseList(user_id));  //populate addToWorkoutList with all exercises availble
     ui->workoutsStack->setCurrentIndex(3);                  //switch to addToWorkout page
 }
 void Widget::on_editWorkoutDoneButton_clicked() {
     if (ui->editWorkoutNameLine->text() == "") return;
-    bt->UpdateWorkout(currWorkout, ui->editWorkoutNameLine->text());    //update name in DB
+    bt->UpdateWorkout(currWorkout, ui->editWorkoutNameLine->text(),user_id);    //update name in DB
     Widget::UpdateWorkoutList();
     ui->workoutsStack->setCurrentIndex(0);                              //switch to main workouts page
 }
 void Widget::on_editWorkoutDeleteButton_clicked() {
     //qDebug() << "currWorkout: " << currWorkout;
     //qDebug() << "currExercise: " << ui->editWorkoutExercisesList->currentItem()->text();
-    bt->RemoveWorkoutPair(currWorkout, ui->editWorkoutExercisesList->currentItem()->text());
+    bt->RemoveWorkoutPair(currWorkout, ui->editWorkoutExercisesList->currentItem()->text(),user_id);
     ui->editWorkoutExercisesList->clear();
-    ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout));
+    ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout,user_id));
     Widget::manage_editWorkout_buttons();
 }
 
@@ -211,13 +214,13 @@ void Widget::on_performExerciseAddButton_clicked() {
 void Widget::on_addToWorkoutBackButton_clicked() {
     ui->addToWorkoutList->clear();
     ui->editWorkoutExercisesList->clear();
-    ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout));
+    ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout,user_id));
     ui->workoutsStack->setCurrentIndex(2);
 }
 //IN PROGRESS
 void Widget::on_addToWorkoutAddButton_clicked() {
     //last param is TEMPORARY!
-    bt->AddWorkoutPair(currWorkout, ui->addToWorkoutList->currentItem()->text(), 0);    //add the workout pair to DB
+    bt->AddWorkoutPair(currWorkout, ui->addToWorkoutList->currentItem()->text(),user_id,0);    //add the workout pair to DB
 }
 
 /************** EXERCISES PAGE ****************/
@@ -228,7 +231,7 @@ void Widget::on_addExerciseButton_clicked() {           //DONE
 void Widget::on_addExerciseNameDoneButton_clicked() {
     if (ui->addExerciseNameLine->text() == "") return;
     ui->exerciseList->clear();                            //clear exerciseList text box
-    bt->AddExercise(ui->addExerciseNameLine->text());     //add exercise to DB (from line edit)
+    bt->AddExercise(ui->addExerciseNameLine->text(),user_id);     //add exercise to DB (from line edit)
     Widget::UpdateExerciseList();
     ui->addExerciseNameLine->clear();                     //clear line edit
     ui->exercisesStack->setCurrentIndex(0);               //switch back to exercises page
@@ -239,10 +242,10 @@ void Widget::on_addExerciseNameCancelButton_clicked() {
 }
 void Widget::on_deleteExerciseButton_clicked() {
     if(ui->exerciseList->count() == 0) return;
-    bt->RemoveExercise(ui->exerciseList->currentItem()->text());
+    bt->RemoveExercise(ui->exerciseList->currentItem()->text(),user_id);
     exerciseList.removeOne(ui->exerciseList->currentItem()->text());
     ui->exerciseList->clear();
-    ui->exerciseList->addItems(bt->GetExerciseList());
+    ui->exerciseList->addItems(bt->GetExerciseList(user_id));
     Widget::manage_exercise_buttons();
 }
 //TODO: don't allow edit when no exercises exist
@@ -255,7 +258,7 @@ void Widget::on_editExerciseButton_clicked() {
 //TODO: don't allow edit with empty nameLine.
 void Widget::on_editExerciseDoneButton_clicked() {
     if (ui->editExerciseLine->text() == "") return;
-    bt->UpdateExercise(currExercise, ui->editExerciseLine->text());    //update name in DB
+    bt->UpdateExercise(currExercise, ui->editExerciseLine->text(),user_id);    //update name in DB
     Widget::UpdateExerciseList();
     disable_exercise_buttons();
     ui->exercisesStack->setCurrentIndex(0);                            //switch to main exercise page

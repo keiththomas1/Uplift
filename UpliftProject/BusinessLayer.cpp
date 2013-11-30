@@ -16,9 +16,9 @@ using namespace std;
 
 //!This function retrieves the id of the workout for other database queries.
 //!/param name This string is the name of the corresponding workout.
-int BusinessTier::GetWorkoutNameID(QString name) // DONE
+int BusinessTier::GetWorkoutNameID(QString name, int user_id) // DONE
 {
-    QString command = "SELECT workout_name_id FROM workout_table WHERE workout_name == '" + name + "'";
+    QString command = "SELECT workout_name_id FROM workout_table WHERE workout_name == '" + name + "' AND user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()) {
@@ -29,9 +29,9 @@ int BusinessTier::GetWorkoutNameID(QString name) // DONE
 
 //!This funciton retrieves the id of the exercise for other database queries.
 //!/param name This string represents the name of the exercise.
-int BusinessTier::GetExerciseNameID(QString name) // DONE
+int BusinessTier::GetExerciseNameID(QString name, int user_id) // DONE
 {
-    QString command = "SELECT exercise_name_id FROM exercise_table WHERE exercise_name == '" + name + "'";
+    QString command = "SELECT exercise_name_id FROM exercise_table WHERE exercise_name == '" + name + "' AND '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()) {
@@ -42,13 +42,14 @@ int BusinessTier::GetExerciseNameID(QString name) // DONE
 
 //!This function returns a list of exercises that belong to the user specified workout.
 //!/param workoutName This string is the name of the specific workout the exercises exist in.
-QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
+QStringList BusinessTier::GetExercisesInWorkout(QString workoutName, int user_id)
 {
-    int workout_id = GetWorkoutNameID(workoutName);
+    int workout_id = GetWorkoutNameID(workoutName, user_id);
     QString command = "SELECT exercise_name "
                       "FROM workout_pairs as p JOIN exercise_table as e "
                       "ON p.exercise_id=e.exercise_name_id "
-                      "WHERE p.workout_id == \"" + QString::number(workout_id) + "\"";
+                      "WHERE p.workout_id == \"" + QString::number(workout_id) + "\" "
+                      "AND e.user_id == \"" + QString::number(user_id) + "\"";
     QSqlQuery result = dt->executeQuery(command);
     QStringList exercisesList;
     while (result.next()) {
@@ -61,11 +62,12 @@ QStringList BusinessTier::GetExercisesInWorkout(QString workoutName)
 //!This function changes the name of the workout upon request.
 //!/param oldName This string represents the old workout name.
 //!/param newMan This string represents the name to which the workout is being changed.
-void BusinessTier::UpdateWorkout(QString oldName, QString newName)
+void BusinessTier::UpdateWorkout(QString oldName, QString newName, int user_id)
 {
     QString command = "UPDATE workout_table "
             "SET workout_name='" + newName + "' "
-            "WHERE workout_name='" + oldName + "'";
+            "WHERE workout_name='" + oldName + "'"
+            "AND user_id='" + QString::number(user_id) + "'";
     //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
 }
@@ -73,13 +75,14 @@ void BusinessTier::UpdateWorkout(QString oldName, QString newName)
 //!This function updates the name of the exercise.
 //!/param oldName This string represents the old exercise name.
 //!/param newMan This string represents the name to which the exercise is being changed.
-void BusinessTier::UpdateExercise(QString oldName, QString newName)
+void BusinessTier::UpdateExercise(QString oldName, QString newName, int user_id)
 {
     //qDebug() << "oldName: " + oldName;
     //qDebug() << "newName: " + newName;
     QString command = "UPDATE exercise_table "
             "SET exercise_name='" + newName + "' "
-            "WHERE exercise_name='" + oldName + "'";
+            "WHERE exercise_name='" + oldName + "' "
+            "AND user_id='" + QString::number(user_id) + "'";
     //qDebug() << command;
     QSqlQuery result = dt->executeQuery(command);
 }
@@ -100,9 +103,9 @@ int BusinessTier::GetUserID(QString username)
 
 //!This function checks to see if an exercise exists and returns a boolean value - true if exercise exists.
 //!/param name This string represents the name of the exercise.
-bool BusinessTier::DoesExerciseExist(QString name) // DONE
+bool BusinessTier::DoesExerciseExist(QString name, int user_id) // DONE
 {
-    int ID = GetExerciseNameID(name);
+    int ID = GetExerciseNameID(name, user_id);
     //qDebug() << "name: " << name << "ID: " << ID;
     if (ID < 0) {
         //qDebug() << "exerciseNameID doesn't exist";
@@ -116,9 +119,9 @@ bool BusinessTier::DoesExerciseExist(QString name) // DONE
 //returns true if the workout already exists
 //!This function checks to see if a workout exists before adding it to the databse, and returns a boolean value.
 //!/param name This represents the workout that is to be added to the database.
-bool BusinessTier::DoesWorkoutExist(QString name) // DONE
+bool BusinessTier::DoesWorkoutExist(QString name, int user_id) // DONE
 {
-    if (GetWorkoutNameID(name) < 0) {
+    if (GetWorkoutNameID(name, user_id) < 0) {
         return false;
     }
     return true;
@@ -127,10 +130,10 @@ bool BusinessTier::DoesWorkoutExist(QString name) // DONE
 //!This function checks to see if an exercise pair and workout exists in the pair table.  It returns a boolean value.
 //!/param workoutName This string represents the name of the workout.
 //!/param exerciseName This string represents the name of the exercise.
-bool BusinessTier::DoesPairExist(QString workoutName, QString exerciseName)
+bool BusinessTier::DoesPairExist(QString workoutName, QString exerciseName, int user_id)
 {
-    int workout_name_id = GetWorkoutNameID(workoutName);
-    int exercise_name_id = GetExerciseNameID(exerciseName);
+    int workout_name_id = GetWorkoutNameID(workoutName, user_id);
+    int exercise_name_id = GetExerciseNameID(exerciseName, user_id);
     QString command = "SELECT workout_id FROM workout_pairs WHERE workout_id == " + QString::number(workout_name_id) + " AND exercise_id == " + QString::number(exercise_name_id) + "";
     QSqlQuery result = dt->executeQuery(command);
     if (result.next()) return true;
@@ -150,20 +153,20 @@ bool BusinessTier::DoesUserExist(QString username)
 //TODO: how to tell if it failed?
 //!This function adds a new exercise to the database and returns an int: 1 success, 0 if already exists.
 //!/param name This string represents the name of the exercise to be added to the database.
-int BusinessTier::AddExercise(QString name) // PENDING TODO
+int BusinessTier::AddExercise(QString name, int user_id) // PENDING TODO
 {
-    if (DoesExerciseExist(name)) return 0;
-    QString command = "INSERT INTO exercise_table VALUES (NULL, '" + name + "')";
+    if (DoesExerciseExist(name, user_id)) return 0;
+    QString command = "INSERT INTO exercise_table VALUES (NULL, '" + name + "', '" + QString::number(user_id) + "')";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
 
-int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps, int weight)
+int BusinessTier::AddSet(int user_id, QString workout, QString exercise, int reps, int weight)
 {
-    int workout_name_id = GetWorkoutNameID(workout);
-    int exercise_name_id = GetExerciseNameID(exercise);
+    int workout_name_id = GetWorkoutNameID(workout, user_id);
+    int exercise_name_id = GetExerciseNameID(exercise, user_id);
     QString command = "INSERT INTO exercise_set_log (set_id, workout_name_id, exercise_name_id, user_id, reps, weight, one_rep_max) "
-            "VALUES (NULL, " + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", " + QString::number(userID) +
+            "VALUES (NULL, " + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", " + QString::number(user_id) +
             ", " + QString::number(reps) + ", " + QString::number(weight) + ", 999)";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
@@ -173,10 +176,10 @@ int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps
 //TODO: how to tell if it failed?
 //!This function adds a new workout to the database and returns an int: 1 on success, 0 on already exists.
 //!/param name This string represents the name of the workout to be added to the database.
-int BusinessTier::AddWorkout(QString name) // PENDING TODO
+int BusinessTier::AddWorkout(QString name, int user_id) // PENDING TODO
 {
-    if (DoesWorkoutExist(name)) return 0;
-    QString command = "INSERT INTO workout_table VALUES (NULL, '" + name + "')";
+    if (DoesWorkoutExist(name, user_id)) return 0;
+    QString command = "INSERT INTO workout_table VALUES (NULL, '" + name + "', '" + QString::number(user_id) + "')";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -186,11 +189,11 @@ int BusinessTier::AddWorkout(QString name) // PENDING TODO
 //!/param workoutName string containing the name of the workout the exercise is being added to
 //!/param exerciseName string containing the name of the exercise to be added to the workout
 //!/param order an integer containing the order the exercise should appear in the workout
-int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int order)  //don't know what order is for.
+int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int user_id, int order)  //don't know what order is for.
 {
-    int workout_name_id = GetWorkoutNameID(workoutName);
-    int exercise_name_id = GetExerciseNameID(exerciseName);
-    if (DoesPairExist(workoutName, exerciseName)) return 0;
+    int workout_name_id = GetWorkoutNameID(workoutName, user_id);
+    int exercise_name_id = GetExerciseNameID(exerciseName, user_id);
+    if (DoesPairExist(workoutName, exerciseName, user_id)) return 0;
     QString command = "INSERT INTO workout_pairs "
                       "VALUES (" + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", 999)";
     QSqlQuery result = dt->executeQuery(command);
@@ -210,10 +213,10 @@ int BusinessTier::AddUser(QString username, QString password)
 
 //!This function removes an exercise from the database, and returns an int: 1 on success, 0 on already exists.
 //!/param name This string represents the name of the exercise to be removed.
-int BusinessTier::RemoveExercise(QString name)
+int BusinessTier::RemoveExercise(QString name, int user_id)
 {
-    if (!DoesExerciseExist(name)) return 0; //can't remove, doesn't exist
-    QString command = "DELETE FROM exercise_table WHERE exercise_name == \"" + name + "\"";
+    if (!DoesExerciseExist(name, user_id)) return 0; //can't remove, doesn't exist
+    QString command = "DELETE FROM exercise_table WHERE exercise_name == \"" + name + "\" AND user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -221,10 +224,10 @@ int BusinessTier::RemoveExercise(QString name)
 //!This function removes a workout from the database.
 //!/param name This string represents the name of the workout.
 //NEEDS TO CHECK FOR USER ID.
-int BusinessTier::RemoveWorkout(QString name)
+int BusinessTier::RemoveWorkout(QString name, int user_id)
 {
-    if (!DoesWorkoutExist(name)) return 0; //can't remove, doesn't exist
-    QString command = "DELETE FROM workout_table WHERE workout_name == \"" + name + "\"";
+    if (!DoesWorkoutExist(name, user_id)) return 0; //can't remove, doesn't exist
+    QString command = "DELETE FROM workout_table WHERE workout_name == \"" + name + "\" AND user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -232,11 +235,11 @@ int BusinessTier::RemoveWorkout(QString name)
 //!This function removes an exercise from a workout
 //!/param workoutName string that holds the name of the workout to remove the exercise from
 //!/param exerciseName string that holds the name of the exercise to remove from the workout
-int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName)
+int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName, int user_id)
 {
-    int workout_name_id = GetWorkoutNameID(workoutName);
-    int exercise_name_id = GetExerciseNameID(exerciseName);
-    if (!DoesPairExist(workoutName, exerciseName)) return 0;
+    int workout_name_id = GetWorkoutNameID(workoutName, user_id);
+    int exercise_name_id = GetExerciseNameID(exerciseName, user_id);
+    if (!DoesPairExist(workoutName, exerciseName, user_id)) return 0;
     QString command = "DELETE FROM workout_pairs WHERE workout_id == '" + QString::number(workout_name_id) + "' AND exercise_id == '" + QString::number(exercise_name_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
@@ -249,6 +252,7 @@ int BusinessTier::RemoveUser(QString username, QString password)
 {
     //TODO: temporarly store the user_id number, so all of his info can be killed off from the other tables.
     //TODO: create commands which kill off the deleted user's stats from the other tables.
+    //TODO: create commands which kill off the deleted user's exercises and workouts from the other tables.
 
     if (!DoesUserExist(username)) return 0; //can't remove, doesn't exist
 
@@ -260,9 +264,9 @@ int BusinessTier::RemoveUser(QString username, QString password)
 
 /***************** LISTS ********************/
 //!This function retreives the workout list from the database for display, and returns a QStringList object.
-QStringList BusinessTier::GetWorkoutList()  //DO I NEED TO FREE LIST OBJECT SOMEWHERE?
+QStringList BusinessTier::GetWorkoutList(int user_id)  //DO I NEED TO FREE LIST OBJECT SOMEWHERE?
 {
-    QString command = "SELECT workout_name FROM workout_table";
+    QString command = "SELECT workout_name FROM workout_table WHERE user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
     QStringList workoutList;
     while (result.next()) {
@@ -274,9 +278,9 @@ QStringList BusinessTier::GetWorkoutList()  //DO I NEED TO FREE LIST OBJECT SOME
 }
 
 //!This function retreives the exercise list from the database for display, and returns a QStringList object.
-QStringList BusinessTier::GetExerciseList() //DO I NEED TO FREE LIST OBJECT SOMEWHERE?
+QStringList BusinessTier::GetExerciseList(int user_id) //DO I NEED TO FREE LIST OBJECT SOMEWHERE?
 {
-    QString command = "SELECT exercise_name FROM exercise_table";
+    QString command = "SELECT exercise_name FROM exercise_table WHERE user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
     QStringList exerciseList;
     while (result.next()) {
@@ -288,10 +292,10 @@ QStringList BusinessTier::GetExerciseList() //DO I NEED TO FREE LIST OBJECT SOME
 //TODO: add user id requirement
 //!This function returns a list holding the history of a specific exercise (date, weight, and reps)
 //!/param exercise string holding the name of the exercise to retrieve history for
-QStringList BusinessTier::GetExerciseHistory(QString exercise)
+QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id)
 {
     QString command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime FROM exercise_set_log "
-            "WHERE exercise == '" + exercise + "' ORDER BY time DESC" ;
+            "WHERE exercise == '" + exercise + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY time DESC" ;
     QSqlQuery result = dt->executeQuery(command);
     QStringList historyList;
     QString name, weight, reps, date;
@@ -411,20 +415,20 @@ void BusinessTier::ValidateBusinessTier() {
     //GetExerciseList()
     //DoesExerciseExist()
     bool exerTest1 = false, exerTest2 = false, exerTest3 = false, exerTest4 = false, removeExerciseTest = false;
-    AddExercise("test_exercise1");
-    AddExercise("test_exercise2");
-    UpdateExercise("test_exercise1", "test_exercise3");
-    QStringList exerList = GetExerciseList();
-    int exerID = GetExerciseNameID("test_exercise2");
+    AddExercise("test_exercise1", 1);
+    AddExercise("test_exercise2", 1);
+    UpdateExercise("test_exercise1", "test_exercise3", 1);
+    QStringList exerList = GetExerciseList(1);
+    int exerID = GetExerciseNameID("test_exercise2", 1);
     if (exerID > 0) exerTest1 = true;
     if (exerList.value(1) == "test_exercise2") exerTest2 = true;
     if (exerList.value(0) == "test_exercise3") exerTest4 = true;
-    exerTest3 = DoesExerciseExist("test_exercise2");
+    exerTest3 = DoesExerciseExist("test_exercise2",1);
 
 
     //exercise remove
-    RemoveExercise("test_exercise2");
-    if (!RemoveExercise("test_exercise2")) removeExerciseTest = true;
+    RemoveExercise("test_exercise2",1);
+    if (!RemoveExercise("test_exercise2",1)) removeExerciseTest = true;
 
 
     //  WORKOUT TESTS
@@ -433,33 +437,33 @@ void BusinessTier::ValidateBusinessTier() {
     //GetWorkoutList()
     //DoesWorkoutExist()
     bool workoutTest1 = false, workoutTest2 = false, workoutTest3 = false, workoutTest4 = false, removeWorkoutTest = false;
-    AddWorkout("test_workout1");
-    AddWorkout("test_workout2");
-    UpdateWorkout("test_workout1", "test_workout3");
-    QStringList workoutList = GetWorkoutList();
-    int workoutID = GetWorkoutNameID("test_workout2");
+    AddWorkout("test_workout1",1);
+    AddWorkout("test_workout2",1);
+    UpdateWorkout("test_workout1", "test_workout3",1);
+    QStringList workoutList = GetWorkoutList(1);
+    int workoutID = GetWorkoutNameID("test_workout2",1);
     if (workoutID > 0) workoutTest1 = true;
     if (workoutList.value(1) == "test_workout2") workoutTest2 = true; //add workout
     if (workoutList.value(0) == "test_workout3") workoutTest4 = true; //update workout
-    workoutTest3 = DoesWorkoutExist("test_workout2");
+    workoutTest3 = DoesWorkoutExist("test_workout2",1);
 
 
     //workout remove
-    RemoveWorkout("test_workout2");
-    if (!RemoveWorkout("test_workout2")) removeWorkoutTest = true;
+    RemoveWorkout("test_workout2",1);
+    if (!RemoveWorkout("test_workout2",1)) removeWorkoutTest = true;
 
 
     // WORKOUT PAIRS TESTS
     bool pairTest1 = false, pairTest2 = false, pairRemoveTest = false;
-    AddWorkout("workout_pair");
-    AddExercise("exercise_pair");
-    AddWorkoutPair("workout_pair", "exercise_pair", 0);
-    pairTest2 = DoesPairExist("workout_pair", "exercise_pair");
-    QStringList pairsList = GetExercisesInWorkout("workout_pair");
+    AddWorkout("workout_pair",1);
+    AddExercise("exercise_pair",1);
+    AddWorkoutPair("workout_pair", "exercise_pair",1,1);
+    pairTest2 = DoesPairExist("workout_pair", "exercise_pair",1);
+    QStringList pairsList = GetExercisesInWorkout("workout_pair",1);
     if (pairsList.value(0) == "exercise_pair") pairTest1 = true;
 
-    RemoveWorkoutPair("workout_pair", "exercise_pair");
-    if (!RemoveWorkoutPair("workout_pair", "exercise_pair")) pairRemoveTest = true;
+    RemoveWorkoutPair("workout_pair", "exercise_pair",1);
+    if (!RemoveWorkoutPair("workout_pair", "exercise_pair",1)) pairRemoveTest = true;
 
     /*
     //set testing
@@ -473,15 +477,15 @@ void BusinessTier::ValidateBusinessTier() {
     //remove all added users, exercises, and workouts
     RemoveUser("user1", "password1");
     RemoveUser("user2", "password2");
-    RemoveExercise("test_exercise1");
-    RemoveExercise("test_exercise2");
-    RemoveExercise("test_exercise3");
-    RemoveExercise("exercise_pair");
-    RemoveWorkout("test_workout1");
-    RemoveWorkout("test_workout2");
-    RemoveWorkout("test_workout3");
-    RemoveWorkout("workout_pair");
-    RemoveWorkoutPair("workout_pair", "exercise_pair");
+    RemoveExercise("test_exercise1",1);
+    RemoveExercise("test_exercise2",1);
+    RemoveExercise("test_exercise3",1);
+    RemoveExercise("exercise_pair",1);
+    RemoveWorkout("test_workout1",1);
+    RemoveWorkout("test_workout2",1);
+    RemoveWorkout("test_workout3",1);
+    RemoveWorkout("workout_pair",1);
+    RemoveWorkoutPair("workout_pair", "exercise_pair",1);
 
 
 

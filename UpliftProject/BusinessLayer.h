@@ -28,36 +28,36 @@ public:
     //!This is the destructor.
     virtual ~BusinessTier() {}
 
-    int AddExercise     (QString);
-    int AddWorkout      (QString);
-    int AddWorkoutPair  (QString, QString, int order); // don't know why order is on here.
+    int AddExercise     (QString, int user_id);
+    int AddWorkout      (QString, int user_id);
+    int AddWorkoutPair  (QString, QString, int user_id, int order); // don't know why order is on here.
     int AddUser         (QString, QString);
     int AddSet          (int userID, QString workout, QString exercise, int weight, int reps);
-    int RemoveExercise  (QString);
-    int RemoveWorkout   (QString);
-    int RemoveWorkoutPair (QString, QString);
+    int RemoveExercise  (QString, int user_id);
+    int RemoveWorkout   (QString, int user_id);
+    int RemoveWorkoutPair (QString, QString, int user_id);
     int RemoveUser      (QString, QString);
-    int RemoveSet();
-    int ModifySet(); //not sure how to implement this
-    void UpdateWorkout   (QString, QString);
-    void UpdateExercise  (QString, QString);
+    int RemoveSet(int user_id);
+    int ModifySet(int user_id); //not sure how to implement this
+    void UpdateWorkout   (QString, QString, int user_id);
+    void UpdateExercise  (QString, QString, int user_id);
     void CloseDB();
-    int GetWorkoutNameID(QString);
-    int GetExerciseNameID(QString);
+    int GetWorkoutNameID(QString, int user_id);
+    int GetExerciseNameID(QString, int user_id);
     int GetUserID(QString);
-    QStringList GetExercisesInWorkout(QString workoutName);
-    QStringList GetExerciseHistory(QString exercise);
-    QStringList GetWorkoutList();
-    QStringList GetExerciseList();
+    QStringList GetExercisesInWorkout(QString workoutName, int user_id);
+    QStringList GetExerciseHistory(QString exercise, int user_id);
+    QStringList GetWorkoutList(int user_id);
+    QStringList GetExerciseList(int user_id);
     QStringList GetUserList();
     void ValidateBusinessTier();
 
     DBaseMan *dt; //SHOULD BE PRIVATE, PUBLIC FOR TESTING
 private:
-    bool DoesExerciseExist(QString);
-    bool DoesWorkoutExist(QString);
+    bool DoesExerciseExist(QString, int user_id);
+    bool DoesWorkoutExist(QString, int user_id);
     bool DoesUserExist(QString);
-    bool DoesPairExist(QString, QString);
+    bool DoesPairExist(QString, QString, int user_id);
 
 };
 
