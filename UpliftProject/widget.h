@@ -24,6 +24,7 @@ public:
     QString currExercise;
     int currWorkoutID;
     int currExerciseID;
+    int currUserID;
     void UpdateWorkoutList();
     void UpdateExerciseList();
 
@@ -98,6 +99,21 @@ protected:
 private slots:
     void on_workoutHistoryButton_clicked();
     void on_exerciseHistoryButton_clicked();
+    void on_loginButton_clicked();
+    void on_newUserButton_clicked();
+    void on_createAccountDoneButton_clicked();
+    void on_chooseExerciseHistoryDoneButton_clicked();
+    void on_chooseWorkoutHistoryDoneButton_clicked();
+    void on_exerciseHistoryDoneButton_clicked();
+    void on_exerciseSortBy1RM_clicked();
+    void on_exerciseSortByDate_clicked();
+    void on_exerciseSortByReps_clicked();
+    void on_exerciseSortByWeight_clicked();
+    void on_workoutHistoryDoneButton_clicked();
+    void on_workoutSortByDate_clicked();
+    void on_workoutSortBySets_clicked();
+    void on_workoutSortByVolume_clicked();
+    void on_createAccountBackButton_clicked();
 };
 
 #endif // WIDGET_H

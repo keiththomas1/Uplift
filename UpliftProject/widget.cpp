@@ -13,8 +13,8 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     ui->pagesStack->setCurrentIndex(0);
     bt = new BusinessTier();
-    ui->workoutList->addItems(bt->GetWorkoutList(user_id));
-    ui->exerciseList->addItems(bt->GetExerciseList(user_id));
+    //ui->workoutList->addItems(bt->GetWorkoutList(user_id));
+    //ui->exerciseList->addItems(bt->GetExerciseList(user_id));
 
     //disable start page buttons until selection
     ui->deleteWorkoutButton->setEnabled(false);
@@ -108,17 +108,17 @@ void Widget::cleanup_before_quit() {        //MAYBE FREE SOME DATA?
 /************** MAIN PAGE SWITCHING ****************/
 void Widget::on_workoutsButton_clicked() {  //DONE
     Widget::disable_workout_buttons();
-    ui->pagesStack->setCurrentIndex(0);
+    ui->pagesStack->setCurrentIndex(1);
 }
 void Widget::on_exercisesButton_clicked() { //DONE
     Widget::disable_exercise_buttons();
-    ui->pagesStack->setCurrentIndex(1);
-}
-void Widget::on_historyButton_clicked() {   //DONE
     ui->pagesStack->setCurrentIndex(2);
 }
-void Widget::on_statsButton_clicked() {     //DONE
+void Widget::on_historyButton_clicked() {   //DONE
     ui->pagesStack->setCurrentIndex(3);
+}
+void Widget::on_statsButton_clicked() {     //DONE
+    ui->pagesStack->setCurrentIndex(4);
 }
 
 /************** WORKOUTS PAGE ****************/
@@ -274,6 +274,85 @@ void Widget::on_addExerciseButton_clicked() {           //DONE
     ui->exercisesStack->setCurrentIndex(1);
 */
 
+
+//TODO: need a AuthenticateUser function that returns true/false;
+//TODO: load workouts page with user exercises before switching
+void Widget::on_loginButton_clicked()
+{
+    QString user = ui->userLine->text();
+    QString password = ui->passwordLine->text();
+    if (bt->DoesUserExist(user)) {
+        currUserID = bt->GetUserID(user);
+        ui->workoutList->addItems(bt->GetWorkoutList(user_id));
+        ui->exerciseList->addItems(bt->GetExerciseList(user_id));
+        Widget::disable_workout_buttons();
+        Widget::disable_exercise_buttons();
+        ui->pagesStack->setCurrentIndex(1); //go to workouts page
+        ui->userLine->clear();
+        ui->passwordLine->clear();
+    }
+    else {
+        ui->userLine->clear();
+        ui->passwordLine->clear();
+        ui->userLine->setText("invalid username or password");
+    }
+}
+
+void Widget::on_newUserButton_clicked()
+{
+    ui->createAccountUsername->clear();
+    ui->createAccountPassword1->clear();
+    ui->createAccountPassword2->clear();
+    ui->loginStack->setCurrentIndex(1);
+}
+
+void Widget::on_createAccountBackButton_clicked()
+{
+    ui->userLine->clear();
+    ui->passwordLine->clear();
+    ui->loginStack->setCurrentIndex(0);
+}
+
+void Widget::on_createAccountDoneButton_clicked()
+{
+    QString username = ui->createAccountUsername->text();
+    QString pass1 = ui->createAccountPassword1->text();
+    QString pass2 = ui->createAccountPassword2->text();
+
+    if (bt->DoesUserExist(username)) {
+        ui->createAccountUsername->clear();
+        ui->createAccountPassword1->clear();
+        ui->createAccountPassword2->clear();
+        ui->createAccountUsername->setText("user already exists");
+    }
+    else if (username == "") {
+        ui->createAccountUsername->clear();
+        ui->createAccountPassword1->clear();
+        ui->createAccountPassword2->clear();
+        ui->createAccountUsername->setText("username cannot be empty");
+        return;
+    }
+    else if (pass1 == "") {
+        ui->createAccountUsername->clear();
+        ui->createAccountPassword1->clear();
+        ui->createAccountPassword2->clear();
+        ui->createAccountUsername->setText("password cannot be empty");
+    }
+    else if (pass1 != pass2) {
+        ui->createAccountUsername->clear();
+        ui->createAccountPassword1->clear();
+        ui->createAccountPassword2->clear();
+        ui->createAccountUsername->setText("passwords don't match");
+    }
+    else {
+        bt->AddUser(username, pass1);
+        ui->userLine->clear();
+        ui->userLine->setText(username);
+        ui->passwordLine->clear();
+        ui->loginStack->setCurrentIndex(0);
+    }
+}
+
 void Widget::on_workoutHistoryButton_clicked()
 {
     ui->historyStack->setCurrentIndex(1);
@@ -284,3 +363,60 @@ void Widget::on_exerciseHistoryButton_clicked()
     ui->historyStack->setCurrentIndex(0);
 
 }
+
+void Widget::on_chooseExerciseHistoryDoneButton_clicked()
+{
+
+}
+
+void Widget::on_chooseWorkoutHistoryDoneButton_clicked()
+{
+
+}
+
+void Widget::on_exerciseHistoryDoneButton_clicked()
+{
+
+}
+
+void Widget::on_exerciseSortBy1RM_clicked()
+{
+
+}
+
+void Widget::on_exerciseSortByDate_clicked()
+{
+
+}
+
+void Widget::on_exerciseSortByReps_clicked()
+{
+
+}
+
+void Widget::on_exerciseSortByWeight_clicked()
+{
+
+}
+
+void Widget::on_workoutHistoryDoneButton_clicked()
+{
+
+}
+
+void Widget::on_workoutSortByDate_clicked()
+{
+
+}
+
+void Widget::on_workoutSortBySets_clicked()
+{
+
+}
+
+void Widget::on_workoutSortByVolume_clicked()
+{
+
+}
+
+
