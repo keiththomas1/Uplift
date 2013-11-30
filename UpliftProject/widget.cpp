@@ -274,6 +274,13 @@ void Widget::on_addExerciseButton_clicked() {           //DONE
     ui->exercisesStack->setCurrentIndex(1);
 */
 
+void Widget::on_workoutHistoryButton_clicked()
+{
+    ui->historyStack->setCurrentIndex(1);
+}
 
+void Widget::on_exerciseHistoryButton_clicked()
+{
+    ui->historyStack->setCurrentIndex(0);
 
-
+}
