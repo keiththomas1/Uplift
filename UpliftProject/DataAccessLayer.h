@@ -10,14 +10,6 @@
 #include <QSqlError>
 #include <QDebug>
 
-//TODO:
-/*
- *Add user_id to exercise_table
- *add user_id to workout_table
- *Remove user_id from exercise_set_log (redundant data) - use inner join to get user_id
- *Remove user_id from workout_log (redundant data) - use inner join to get user_id
- */
-
 using namespace std;
 
 //!This class manages the fundamentals of the database storage of the information.
@@ -40,13 +32,14 @@ public:
         query = tmp;
         bool success;
 
-        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_table (exercise_name_id INTEGER PRIMARY KEY, exercise_name TEXT, user_id INTEGER)");
+        //This table is the only place that the exercise name needs to exist.  All other locations should only have the id number (in case of edits to the name).
+        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_table (exercise_name_id INTEGER PRIMARY KEY, exercise_name TEXT)");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));
             //exit(0);
         }
-        success = query.exec("CREATE TABLE IF NOT EXISTS workout_table (workout_name_id INTEGER PRIMARY KEY, workout_name TEXT, user_id INTEGER)");
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_table (workout_name_id INTEGER PRIMARY KEY, workout_name TEXT)");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));
@@ -66,16 +59,30 @@ public:
         }
         //--->insert volume into here eventually?
         //Not necessarily.  We can just run a count query on the numebr of logs, selecting by user_id.
-        success = query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_instance_id INTEGER PRIMARY KEY, workout_name_id INTEGER, time timestamp default (strftime('%s', 'now')))");
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_log (workout_instance_id INTEGER PRIMARY KEY, user_id INTEGER, workout_name_id INTEGER, time timestamp default (strftime('%s', 'now')))");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));
             //exit(0);
         }
         //don't pass in anything for set_id or time (especially not NULL). It will auto inc set_id and stamp time by default
-        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (set_id INTEGER PRIMARY KEY, workout_id INTEGER, exercise_id INTEGER, time timestamp default (strftime('%s', 'now')), reps INTEGER, weight INTEGER, one_rep_max INTEGER)");
+        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (set_id INTEGER PRIMARY KEY, workout_id INTEGER, exercise_id INTEGER, user_id INTEGER, time timestamp default (strftime('%s', 'now')), reps INTEGER, weight INTEGER, one_rep_max INTEGER)");
         if (!success) {
             qDebug("Error creating exercise_table");
+            qDebug("%s", qPrintable(db.lastError().text()));
+            //exit(0);
+        }
+
+        //Added tables
+        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_user_pairs (user_id INTEGER, exercise_id INTEGER)");
+        if (!success) {
+            qDebug("Error creating exercise_user_pairs");
+            qDebug("%s", qPrintable(db.lastError().text()));
+            //exit(0);
+        }
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_user_pairs (user_id INTEGER, workout_id INTEGER)");
+        if (!success) {
+            qDebug("Error creating workout_user_pairs");
             qDebug("%s", qPrintable(db.lastError().text()));
             //exit(0);
         }

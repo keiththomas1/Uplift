@@ -1,14 +1,6 @@
 //  TODO:
 //  Are QSqlQuery objects automatically destructed?
 //  How do we tell if an insert failed?
-/*  Need to modify these functions for user_id implementation:
- *
- *  GetWorkoutNameID - needs to support user_id
- *  GetExerciseNameID - needs to support user_id
- *  GetExercisesInWorkout - needs to support user_id
- *  ...
- *
- */
 
 #include "BusinessLayer.h"
 
@@ -161,6 +153,7 @@ int BusinessTier::AddExercise(QString name, int user_id) // PENDING TODO
     return 1;
 }
 
+<<<<<<< HEAD
 int BusinessTier::AddSet(int user_id, QString workout, QString exercise, int reps, int weight)
 {
     int workout_name_id = GetWorkoutNameID(workout, user_id);
@@ -168,6 +161,24 @@ int BusinessTier::AddSet(int user_id, QString workout, QString exercise, int rep
     QString command = "INSERT INTO exercise_set_log (set_id, workout_name_id, exercise_name_id, user_id, reps, weight, one_rep_max) "
             "VALUES (NULL, " + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", " + QString::number(user_id) +
             ", " + QString::number(reps) + ", " + QString::number(weight) + ", 999)";
+=======
+//TODO: this function is currently not working
+//!This function logs a set of an exercise within a workout for a specific user
+//!/param userID int holding the user ID of the user performing the set
+//!/param workout string holding the name of the workout the exercise is part of
+//!/param exercise string holding the name of the exercise the user is logging a set of
+//!/param reps int holding the number of repetitions performed of the exercise
+//!/param weight int holding the weight per repetition of the exercise
+int BusinessTier::AddSet(int userID, QString workout, QString exercise, int reps, int weight)
+{
+    int workout_name_id = GetWorkoutNameID(workout);
+    int exercise_name_id = GetExerciseNameID(exercise);
+    //int max = OneRepMax(reps, weight);
+    QString command = "INSERT INTO exercise_set_log (set_id, workout_name_id, exercise_name_id, user_id, reps, weight, one_rep_max) "
+            "VALUES (NULL, " + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", " + QString::number(userID) +
+            ", " + QString::number(reps) + ", " + QString::number(weight) + ", 999)"; //+ QString::number(max) + ")";
+    qDebug() << command;
+>>>>>>> f4029672a256eb0f23d30004b7278058d22c4a80
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -318,6 +329,13 @@ QStringList BusinessTier::GetUserList()
     }
     //qDebug() << userList;
     return userList;
+}
+//!This function returns an estimate one rep max for the given reps and weight
+//!/param reps double holding the number of reps
+//!/param weight double holding the weight
+int BusinessTier::OneRepMax(double reps, double weight) {
+     double max = weight * (1 + (reps/30));
+     return (int)(max + 0.5); //+0.5 will properly round after truncate
 }
 
 /***************** STATISTICS ********************/
@@ -507,7 +525,6 @@ void BusinessTier::ValidateBusinessTier() {
     qDebug() << "AddWorkoutPair:    " << pairTest1;
     qDebug() << "DoesPairExist:     " << pairTest2;
     qDebug() << "RemoveWorkoutPair: " << pairRemoveTest;
-
 
 
 
