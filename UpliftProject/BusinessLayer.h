@@ -23,7 +23,7 @@ public:
     {
         //!This is the instance of the database manager object, DBaseMan.
         dt = new DBaseMan();
-        ValidateBusinessTier();
+        //ValidateBusinessTier();
     }
     //!This is the destructor.
     virtual ~BusinessTier() {}
@@ -51,11 +51,11 @@ public:
     QStringList GetExerciseList(int user_id);
     QStringList GetUserList();
     void ValidateBusinessTier();
+    bool DoesUserExist(QString);
 
 private:
     bool DoesExerciseExist(QString, int user_id);
     bool DoesWorkoutExist(QString, int user_id);
-    bool DoesUserExist(QString);
     bool DoesPairExist(QString, QString, int user_id);
     int OneRepMax(double reps, double weight);
     DBaseMan *dt; //SHOULD BE PRIVATE, PUBLIC FOR TESTING
