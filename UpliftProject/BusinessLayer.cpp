@@ -196,6 +196,14 @@ int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int 
     return 1;
 }
 
+void BusinessTier::AddWorkoutLog(QString workoutName, int userID) {
+    int workoutNameID = GetWorkoutNameID(workoutName, userID);
+    QString command = "INSERT INTO workout_log (user_id, workout_name_id) "
+            "VALUES (" + QString::number(userID) + ", " + QString::number(workoutNameID) + ")";
+    //qDebug() << command;
+    dt->executeQuery(command);
+}
+
 //!This function adds a user to the database and returns an int: 1 on success, 0 on already exists.
 //!/param username This is the username to be added.
 //!/param password This is the new user's desired password.
@@ -285,9 +293,11 @@ QStringList BusinessTier::GetExerciseList(int user_id) //DO I NEED TO FREE LIST 
     //qDebug() << exerciseList;
     return exerciseList;
 }
-//TODO: add user id requirement
+
 //!This function returns a list holding the history of a specific exercise (date, weight, and reps)
 //!/param exercise string holding the name of the exercise to retrieve history for
+//!/param user_id int holding the user to get history for
+//!/param sortBy string holding the column to sort by (date, reps, weight, 1RM)
 QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id, QString sortBy)
 {
     int exerciseID = GetExerciseNameID(exercise, user_id);
@@ -321,6 +331,49 @@ QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id, QStr
     }
     return historyList;
 }
+
+/*
+ * WORKOUT HISTORY FUNCTION
+//TODO: get volume from specific workout
+//!This function returns a list holding the history of a specific workout (date, weight, and reps)
+//!/param exercise string holding the name of the workout to retrieve history for
+//!/param user_id int holding the user to get history for
+//!/param sortBy string holding the column to sort by (date, volume, sets)
+QStringList BusinessTier::GetWorkoutHistory(QString exercise, int user_id, QString sortBy)
+{
+    int exerciseID = GetExerciseNameID(exercise, user_id);
+    QString command;
+    if (sortBy == "date") {
+        command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
+            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY time DESC" ;
+    }
+    else if (sortBy == "reps") {
+        command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
+            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY reps ASC" ;
+    }
+    else if (sortBy == "weight") {
+        command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
+            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY weight ASC" ;
+    }
+    else if (sortBy == "1RM") {
+        command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
+            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY one_rep_max DESC" ;
+    }
+    QSqlQuery result = dt->executeQuery(command);
+    QStringList historyList;
+    QString name, weight, reps, date, oneRepMax;
+    while (result.next()) {
+        reps = result.value(1).toString();
+        weight = result.value(2).toString();
+        date = result.value(3).toString();
+        oneRepMax = result.value(4).toString();
+
+        historyList << date + "\t" + weight + " x " + reps + "\t" + oneRepMax + " (1RM)";
+    }
+    return historyList;
+}
+*/
+
 //!This function returns a list of all usernames currently in the database
 QStringList BusinessTier::GetUserList()
 {

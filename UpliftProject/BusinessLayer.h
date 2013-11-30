@@ -33,6 +33,7 @@ public:
     int AddWorkoutPair  (QString, QString, int user_id, int order); // don't know why order is on here.
     int AddUser         (QString, QString);
     int AddSet          (int userID, QString workout, QString exercise, int weight, int reps);
+    void AddWorkoutLog   (QString workoutName, int userID);
     int RemoveExercise  (QString, int user_id);
     int RemoveWorkout   (QString, int user_id);
     int RemoveWorkoutPair (QString, QString, int user_id);
