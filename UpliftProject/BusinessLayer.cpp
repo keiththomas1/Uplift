@@ -23,7 +23,7 @@ int BusinessTier::GetWorkoutNameID(QString name, int user_id) // DONE
 //!/param name This string represents the name of the exercise.
 int BusinessTier::GetExerciseNameID(QString name, int user_id) // DONE
 {
-    QString command = "SELECT exercise_name_id FROM exercise_table WHERE exercise_name == '" + name + "' AND '" + QString::number(user_id) + "'";
+    QString command = "SELECT exercise_name_id FROM exercise_table WHERE exercise_name == '" + name + "' AND user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()) {
@@ -326,6 +326,14 @@ QStringList BusinessTier::GetUserList()
 int BusinessTier::OneRepMax(double reps, double weight) {
      double max = weight * (1 + (reps/30));
      return (int)(max + 0.5); //+0.5 will properly round after truncate
+}
+bool BusinessTier::ValidateUser(QString user, QString pass) {
+    QString command = "SELECT username FROM user_table WHERE"
+            " username == '" + user + "' AND password == '" + pass + "'";
+    //qDebug() << command;
+    QSqlQuery result = dt->executeQuery(command);
+    if (result.next()) return true;
+    else return false;
 }
 
 /***************** STATISTICS ********************/

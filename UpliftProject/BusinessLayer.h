@@ -52,6 +52,7 @@ public:
     QStringList GetUserList();
     void ValidateBusinessTier();
     bool DoesUserExist(QString);
+    bool ValidateUser(QString user, QString pass);
 
 private:
     bool DoesExerciseExist(QString, int user_id);
