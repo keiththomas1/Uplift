@@ -1,14 +1,6 @@
 //  TODO:
 //  Are QSqlQuery objects automatically destructed?
 //  How do we tell if an insert failed?
-/*  Need to modify these functions for user_id implementation:
- *
- *  GetWorkoutNameID - needs to support user_id
- *  GetExerciseNameID - needs to support user_id
- *  GetExercisesInWorkout - needs to support user_id
- *  ...
- *
- */
 
 #include "BusinessLayer.h"
 
