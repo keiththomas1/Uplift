@@ -293,8 +293,9 @@ QStringList BusinessTier::GetExerciseList(int user_id) //DO I NEED TO FREE LIST 
 //!/param exercise string holding the name of the exercise to retrieve history for
 QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id)
 {
+    int exerciseID = GetExerciseNameID(exercise, user_id);
     QString command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime FROM exercise_set_log "
-            "WHERE exercise == '" + exercise + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY time DESC" ;
+            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY time DESC" ;
     QSqlQuery result = dt->executeQuery(command);
     QStringList historyList;
     QString name, weight, reps, date;

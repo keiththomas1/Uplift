@@ -205,7 +205,7 @@ void Widget::on_performExerciseAddButton_clicked() {
     int reps = ui->performExerciseReps->value();
     bt->AddSet(0, currWorkout, currExercise, weight, reps);
     ui->performExerciseHistoryList->clear();
-    ui->performExerciseHistoryList->addItems(exerciseList);  //compiler is complaining about this, check out.
+    ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise, 0));  //compiler is complaining about this, check out.
 
 }
 
