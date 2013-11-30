@@ -95,6 +95,9 @@ signals:
     void WidgetClosed();
 protected:
     void closeEvent(QCloseEvent *event);
+private slots:
+    void on_workoutHistoryButton_clicked();
+    void on_exerciseHistoryButton_clicked();
 };
 
 #endif // WIDGET_H
