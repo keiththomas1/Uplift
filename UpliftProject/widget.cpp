@@ -121,6 +121,19 @@ void Widget::disable_workoutHistory_buttons() {
     ui->chooseWorkoutHistoryList->setCurrentRow(-1);
     ui->chooseWorkoutHistoryList->itemSelectionChanged();
 }
+void Widget::set_exerciseSortBy_buttons(QString setButton) {
+    ui->exerciseSortBy1RM->setDown(false);
+    ui->exerciseSortByReps->setDown(false);
+    ui->exerciseSortByWeight->setDown(false);
+    ui->exerciseSortByDate->setDown(false);
+    if (setButton == "1RM") ui->exerciseSortBy1RM->setDown(true);
+    else if (setButton == "reps") ui->exerciseSortByReps->setDown(true);
+    else if (setButton == "weight") ui->exerciseSortByWeight->setDown(true);
+    else if (setButton == "date") ui->exerciseSortByDate->setDown(true);
+}
+void Widget::set_historySortBy_buttons(QString setButton) {
+
+}
 
 void Widget::closeEvent(QCloseEvent *event) { //DONE
     emit WidgetClosed();
@@ -216,7 +229,7 @@ void Widget::on_editWorkoutDeleteButton_clicked() {
 void Widget::on_performExerciseButton_clicked() {
     currExercise = ui->performWorkoutExerciseList->currentItem()->text();
     ui->performExerciseHistoryList->clear();
-    ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise, currUserID));
+    ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise, currUserID, "date"));
     ui->performExerciseTitle->setText(currExercise);
     ui->performExerciseCurrWorkoutTitle->setText(currWorkout);
     ui->workoutsStack->setCurrentIndex(5);
@@ -233,7 +246,7 @@ void Widget::on_performExerciseAddButton_clicked() {
     int reps = ui->performExerciseReps->value();
     bt->AddSet(currUserID, currWorkout, currExercise, weight, reps);
     ui->performExerciseHistoryList->clear();
-    ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise, currUserID));
+    ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise, currUserID, "date"));
 
 }
 void Widget::on_performExerciseBackButton_clicked()
@@ -421,12 +434,12 @@ void Widget::on_chooseExerciseHistoryBackButton_clicked()
     ui->historyStack->setCurrentIndex(0);
 }
 
-//TODO: disable button unless selection made
 void Widget::on_chooseExerciseHistoryDoneButton_clicked()
 {
     currExerciseHistory = ui->chooseExerciseHistoryList->currentItem()->text();
     ui->exerciseHistoryList->clear();
-    ui->exerciseHistoryList->addItems(bt->GetExerciseHistory(currExerciseHistory, currUserID));
+    ui->exerciseHistoryList->addItems(bt->GetExerciseHistory(currExerciseHistory, currUserID, "date"));
+    set_exerciseSortBy_buttons("date");
     ui->historyStack->setCurrentIndex(3);
 }
 
@@ -455,22 +468,30 @@ void Widget::on_exerciseHistoryDoneButton_clicked()
 
 void Widget::on_exerciseSortBy1RM_clicked()
 {
-
+    set_exerciseSortBy_buttons("1RM");
+    ui->exerciseHistoryList->clear();
+    ui->exerciseHistoryList->addItems(bt->GetExerciseHistory(currExerciseHistory, currUserID, "1RM"));
 }
 
 void Widget::on_exerciseSortByDate_clicked()
 {
-
+    set_exerciseSortBy_buttons("date");
+    ui->exerciseHistoryList->clear();
+    ui->exerciseHistoryList->addItems(bt->GetExerciseHistory(currExerciseHistory, currUserID, "date"));
 }
 
 void Widget::on_exerciseSortByReps_clicked()
 {
-
+    set_exerciseSortBy_buttons("reps");
+    ui->exerciseHistoryList->clear();
+    ui->exerciseHistoryList->addItems(bt->GetExerciseHistory(currExerciseHistory, currUserID, "reps"));
 }
 
 void Widget::on_exerciseSortByWeight_clicked()
 {
-
+    set_exerciseSortBy_buttons("weight");
+    ui->exerciseHistoryList->clear();
+    ui->exerciseHistoryList->addItems(bt->GetExerciseHistory(currExerciseHistory, currUserID, "weight"));
 }
 
 void Widget::on_workoutHistoryDoneButton_clicked()
