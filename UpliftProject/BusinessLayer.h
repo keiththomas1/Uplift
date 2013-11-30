@@ -52,12 +52,13 @@ public:
     QStringList GetUserList();
     void ValidateBusinessTier();
 
-    DBaseMan *dt; //SHOULD BE PRIVATE, PUBLIC FOR TESTING
 private:
+    DBaseMan *dt; //SHOULD BE PRIVATE, PUBLIC FOR TESTING
     bool DoesExerciseExist(QString);
     bool DoesWorkoutExist(QString);
     bool DoesUserExist(QString);
     bool DoesPairExist(QString, QString);
+    int OneRepMax(double reps, double weight);
 
 };
 
