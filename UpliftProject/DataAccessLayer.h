@@ -33,13 +33,13 @@ public:
         bool success;
 
         //This table is the only place that the exercise name needs to exist.  All other locations should only have the id number (in case of edits to the name).
-        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_table (exercise_name_id INTEGER PRIMARY KEY, exercise_name TEXT)");
+        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_table (exercise_name_id INTEGER PRIMARY KEY, exercise_name TEXT, user_id INTEGER)");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));
             //exit(0);
         }
-        success = query.exec("CREATE TABLE IF NOT EXISTS workout_table (workout_name_id INTEGER PRIMARY KEY, workout_name TEXT)");
+        success = query.exec("CREATE TABLE IF NOT EXISTS workout_table (workout_name_id INTEGER PRIMARY KEY, workout_name TEXT, user_id INTEGER)");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));

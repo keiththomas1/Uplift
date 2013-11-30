@@ -53,20 +53,12 @@ public:
     void ValidateBusinessTier();
 
 private:
-<<<<<<< HEAD
     bool DoesExerciseExist(QString, int user_id);
     bool DoesWorkoutExist(QString, int user_id);
     bool DoesUserExist(QString);
     bool DoesPairExist(QString, QString, int user_id);
-=======
-    DBaseMan *dt; //SHOULD BE PRIVATE, PUBLIC FOR TESTING
-    bool DoesExerciseExist(QString);
-    bool DoesWorkoutExist(QString);
-    bool DoesUserExist(QString);
-    bool DoesPairExist(QString, QString);
     int OneRepMax(double reps, double weight);
->>>>>>> f4029672a256eb0f23d30004b7278058d22c4a80
-
+    DBaseMan *dt; //SHOULD BE PRIVATE, PUBLIC FOR TESTING
 };
 
 
