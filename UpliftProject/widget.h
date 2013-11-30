@@ -89,6 +89,10 @@ public slots:
     void disable_editWorkout_buttons();
     void manage_performWorkout_buttons();
     void disable_performWorkout_buttons();
+    void manage_exerciseHistory_buttons();
+    void disable_exerciseHistory_buttons();
+    void manage_workoutHistory_buttons();
+    void disable_workoutHistory_buttons();
 
 
     //cleanup
