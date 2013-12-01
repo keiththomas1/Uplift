@@ -9,6 +9,7 @@
 #include "workout.h"
 #include "user.h"
 #include "DataAccessLayer.h"
+#include "ExerciseStats.h"
 
 using namespace std;
 
