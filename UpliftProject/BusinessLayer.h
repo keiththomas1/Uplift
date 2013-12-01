@@ -9,7 +9,6 @@
 #include "workout.h"
 #include "user.h"
 #include "DataAccessLayer.h"
-#include "ExerciseStats.h"
 
 using namespace std;
 
@@ -56,6 +55,31 @@ public:
     bool DoesUserExist(QString);
     bool ValidateUser(QString user, QString pass);
 
+    //stats functions
+    //!This function returns the time in days from the first to most recent workout.  Returns -1 on fail.
+    //!/param user_id this tracks the current user.
+    int getFirstToLastWorkout(int user_id);
+
+    //!This function returns the frequency of workouts per day for a user.  Returns -1 on fail.
+    //!/param user_id this tracks the current user.
+    int getWorkoutFrequency(int user_id);
+
+    //!This function returns the total number of workouts for a user.  Returns -1 on fail.
+    //!/param user_id this tracks the current user.
+    int getTotalNumOfWorkouts(int user_id);
+
+    //!This function returns the total number of sets for a user.  Returns -1 on fail.
+    //!/param user_id this tracks the current user.
+    int getTotalNumOfSets(int user_id);
+
+    //!This function returns the average sets per workout a user has done.  Returns -1 on fail.
+    //!/param user_id this tracks the current user.
+    int getAvgSetsPerWorkout(int user_id);
+
+    //!This function returns the average reps per set for a user.  Returns -1 on fail.
+    //!/param user_id this tracks the current user.
+    int getAvgRepsPerSet(int user_id);
+
 private:
     bool DoesExerciseExist(QString, int user_id);
     bool DoesWorkoutExist(QString, int user_id);
@@ -63,6 +87,5 @@ private:
     int OneRepMax(double reps, double weight);
     DBaseMan *dt; //SHOULD BE PRIVATE, PUBLIC FOR TESTING
 };
-
 
 #endif // BUSINESSLAYER_H

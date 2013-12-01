@@ -157,6 +157,7 @@ void Widget::on_historyButton_clicked() {   //DONE
 }
 void Widget::on_statsButton_clicked() {     //DONE
     ui->pagesStack->setCurrentIndex(4);
+    ui->totalWorkoutsVal->setText(QString::number(bt->getTotalNumOfWorkouts(currUserID)));
 }
 
 /************** WORKOUTS PAGE ****************/
