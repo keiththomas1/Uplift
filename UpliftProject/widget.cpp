@@ -469,7 +469,7 @@ void Widget::on_chooseWorkoutHistoryDoneButton_clicked()
 {
     currWorkoutHistory = ui->chooseWorkoutHistoryList->currentItem()->text();
     ui->workoutHistoryList->clear();
-    //ui->workoutHistoryList->addItems(bt->GetWorkoutHistory(currUserID, currWorkoutHistory));
+    ui->workoutHistoryList->addItems(bt->GetWorkoutHistory(currWorkoutHistory, currUserID));
     ui->historyStack->setCurrentIndex(4);
 }
 

@@ -333,15 +333,15 @@ QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id, QStr
     return historyList;
 }
 
-QStringList BusinessTier::GetWorkoutHistory(QString workout, int user_id, QString sortBy){
+QStringList BusinessTier::GetWorkoutHistory(QString workout, int user_id){
     int workoutID = GetWorkoutNameID(workout, user_id);
     QString command;
-    if (sortBy == "date") {
+    //if (sortBy == "date") {
         command = "SELECT workout_instance_id, t.workout_name, date(time, 'unixepoch', 'localtime') as datetime "
                   "FROM workout_log as w JOIN workout_table as t ON w.workout_name_id = t.workout_name_id "
                   "WHERE w.workout_name_id == '" + QString::number(workoutID) + "' AND user_id == '" + QString::number(user_id) + "'"
                   "ORDER BY time DESC";
-    }
+    //}
     //more sorting options can go here.
 
     QSqlQuery result = dt->executeQuery(command);

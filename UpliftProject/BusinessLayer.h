@@ -48,7 +48,7 @@ public:
     int GetUserID(QString);
     QStringList GetExercisesInWorkout(QString workoutName, int user_id);
     QStringList GetExerciseHistory(QString exercise, int user_id, QString sortBy);
-    QStringList GetWorkoutHistory(QString workout, int user_id, QString sortBy);
+    QStringList GetWorkoutHistory(QString workout, int user_id);
     QStringList GetWorkoutList(int user_id);
     QStringList GetExerciseList(int user_id);
     QStringList GetUserList();
