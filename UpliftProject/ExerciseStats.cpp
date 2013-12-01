@@ -132,7 +132,7 @@ int BusinessTier::getAvgVolumePerWorkout(int user_id){
     QString command = "SELECT weight, reps FROM exercise_set_log WHERE user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
 
-    if(result.next()){
+    while(result.next()){
         workoutVolTotal += ((result.value(0).toInt())*(result.value(1).toInt()));
     }
     return workoutVolTotal/workoutNum;
