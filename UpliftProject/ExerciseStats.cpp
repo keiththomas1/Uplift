@@ -7,7 +7,7 @@ QString BusinessTier::getFirstWorkoutDate(int user_id){
     if (result.next()) {
         return ((result.value(0).toString()));
     }
-    return -1; //failed*/
+    //return -1; //failed*/
 }
 
 QString BusinessTier::getLastWorkoutDate(int user_id){
@@ -17,7 +17,7 @@ QString BusinessTier::getLastWorkoutDate(int user_id){
     if (result.next()) {
         return ((result.value(0).toString()));
     }
-    return -1; //failed*/
+    //return -1; //failed*/
 }
 
 int BusinessTier::getFirstToLastWorkout(int user_id){
