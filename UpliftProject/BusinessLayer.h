@@ -56,6 +56,12 @@ public:
     bool ValidateUser(QString user, QString pass);
 
     //stats functions
+    QString getFirstWorkoutDate(int user_id);
+    QString getLastWorkoutDate(int user_id);
+    int getTotalWeight(int user_id);
+    int getTotalNumOfReps(int user_id);
+    int getAvgVolumePerWorkout(int user_id);
+
     //!This function returns the time in days from the first to most recent workout.  Returns -1 on fail.
     //!/param user_id this tracks the current user.
     int getFirstToLastWorkout(int user_id);

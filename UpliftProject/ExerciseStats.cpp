@@ -1,8 +1,24 @@
 //#include "ExerciseStats.h"
 #include "BusinessLayer.h"
 
-//Stubs created.
+QString BusinessTier::getFirstWorkoutDate(int user_id){
+    QString command = "SELECT datetime((SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time DESC LIMIT 1), 'unixepoch', 'localtime')";
+    QSqlQuery result = dt->executeQuery(command);
+    if (result.next()) {
+        return ((result.value(0).toString()));
+    }
+    return -1; //failed*/
+}
 
+QString BusinessTier::getLastWorkoutDate(int user_id){
+    QString command = "SELECT datetime((SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time ASC LIMIT 1), 'unixepoch', 'localtime')";
+    QSqlQuery result = dt->executeQuery(command);
+
+    if (result.next()) {
+        return ((result.value(0).toString()));
+    }
+    return -1; //failed*/
+}
 
 int BusinessTier::getFirstToLastWorkout(int user_id){
     QString command = "SELECT (SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time DESC LIMIT 1) - (SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time ASC LIMIT 1)";
@@ -68,18 +84,52 @@ int BusinessTier::getAvgSetsPerWorkout(int user_id){
     return -1; //failed*/
 }
 
-int BusinessTier::getAvgRepsPerSet(int user_id){
-    int setNum = getTotalNumOfSets(user_id);
-    if (setNum < 0){
-        return -1;  //setNum failure.
-    }
+int BusinessTier::getTotalNumOfReps(int user_id){
     QString command = "SELECT SUM(reps) FROM exercise_set_log WHERE user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()){
-        if(setNum > 0){  //avoid divide by zero error
-            return (result.value(0).toInt())/setNum;
-        }
+        return result.value(0).toInt();
+    }
+    return -1;  //failed*/
+}
+
+int BusinessTier::getAvgRepsPerSet(int user_id){
+    int setNum = getTotalNumOfSets(user_id);
+    int repNum = getTotalNumOfReps(user_id);
+    if (setNum < 0){
+        return -1;  //setNum failure.
+    }
+    if(repNum < 0){
+        return -1;  //repNum failure.
+    }
+    if(setNum > 0){  //avoid divide by zero error
+        return repNum/setNum;
+    }
+    return -1; //failed*/
+}
+
+int BusinessTier::getTotalWeight(int user_id){
+    QString command = "SELECT SUM(weight) FROM exercise_set_log WHERE user_id == '" + QString::number(user_id) + "'";
+    QSqlQuery result = dt->executeQuery(command);
+
+    if (result.next()){
+        return (result.value(0).toInt());
+    }
+    return -1;  //failed*/
+}
+
+int BusinessTier::getAvgVolumePerWorkout(int user_id){
+    int repNum = getTotalNumOfReps(user_id);
+    int weightNum = getTotalWeight(user_id);
+    if (weightNum < 0){
+        return -1;  //setNum failure.
+    }
+    if(repNum < 0){
+        return -1;  //repNum failure.
+    }
+    if(repNum > 0 && weightNum > 0){  //avoid null return
+        return repNum*weightNum;
     }
     return -1; //failed*/
 }

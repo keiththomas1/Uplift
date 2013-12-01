@@ -27,8 +27,7 @@ HEADERS  += exercise_set.h \
     DataAccessLayer.h \
     BusinessLayer.h \
     workout.h \
-    widget.h \
-    ExerciseStats.h
+    widget.h
 
 FORMS    += widget.ui
 
