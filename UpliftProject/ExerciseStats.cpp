@@ -120,16 +120,22 @@ int BusinessTier::getTotalWeight(int user_id){
 }
 
 int BusinessTier::getAvgVolumePerWorkout(int user_id){
-    int repNum = getTotalNumOfReps(user_id);
-    int weightNum = getTotalWeight(user_id);
-    if (weightNum < 0){
-        return -1;  //setNum failure.
+
+    int workoutNum = getTotalNumOfWorkouts(user_id);
+    if(workoutNum < 0){  //workoutNum failure
+        return -1;
     }
-    if(repNum < 0){
-        return -1;  //repNum failure.
+    if(workoutNum == 0){
+        return 0;
     }
-    if(repNum > 0 && weightNum > 0){  //avoid null return
-        return repNum*weightNum;
+    int workoutVolTotal = 0;
+    QString command = "SELECT weight, reps FROM exercise_set_log WHERE user_id == '" + QString::number(user_id) + "'";
+    QSqlQuery result = dt->executeQuery(command);
+
+    if(result.next()){
+        workoutVolTotal += ((result.value(0).toInt())*(result.value(1).toInt()));
     }
+    return workoutVolTotal/workoutNum;
+
     return -1; //failed*/
 }
