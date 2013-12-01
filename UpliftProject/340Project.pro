@@ -19,13 +19,15 @@ SOURCES += main.cpp\
     DataAccessLayer.cpp \
     BusinessLayer.cpp \
     workout.cpp \
-    widget.cpp
+    widget.cpp \
+    ExerciseStats.cpp
 
 HEADERS  += exercise_set.h \
     exercise.h \
     DataAccessLayer.h \
     BusinessLayer.h \
     workout.h \
-    widget.h
+    widget.h \
+    ExerciseStats.h
 
 FORMS    += widget.ui
