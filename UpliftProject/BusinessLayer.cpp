@@ -185,7 +185,7 @@ int BusinessTier::AddWorkout(QString name, int user_id)
 //!/param workoutName string containing the name of the workout the exercise is being added to
 //!/param exerciseName string containing the name of the exercise to be added to the workout
 //!/param order an integer containing the order the exercise should appear in the workout
-int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int user_id, int order)  //don't know what order is for.
+int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int user_id, int)  //don't know what last parameter is for.
 {
     int workout_name_id = GetWorkoutNameID(workoutName, user_id);
     int exercise_name_id = GetExerciseNameID(exerciseName, user_id);
@@ -265,6 +265,7 @@ int BusinessTier::RemoveUser(QString username, QString password)
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
+
 
 /***************** LISTS ********************/
 //!This function retreives the workout list from the database for display, and returns a QStringList object.

@@ -29,3 +29,9 @@ HEADERS  += exercise_set.h \
     widget.h
 
 FORMS    += widget.ui
+
+OTHER_FILES += \
+    Assets/UpliftBack.png
+
+RESOURCES += \
+    UIResources.qrc

@@ -131,7 +131,7 @@ void Widget::set_exerciseSortBy_buttons(QString setButton) {
     else if (setButton == "weight") ui->exerciseSortByWeight->setDown(true);
     else if (setButton == "date") ui->exerciseSortByDate->setDown(true);
 }
-void Widget::set_historySortBy_buttons(QString setButton) {
+void Widget::set_historySortBy_buttons(QString) {
 
 }
 
