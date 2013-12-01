@@ -259,10 +259,41 @@ int BusinessTier::RemoveUser(QString username, QString password)
     //TODO: create commands which kill off the deleted user's exercises and workouts from the other tables.
 
     if (!DoesUserExist(username)) return 0; //can't remove, doesn't exist
+    int user_id = GetUserID(username);
 
-    //if user exists, remove them
-    QString command = "DELETE FROM user_table WHERE username == \"" + username + "\" AND password == \"" + password + "\"";
+    //delete all of their stuff;
+
+    //workout_pairs
+    QString command = "SELECT exercise_name_id FROM exercise_table WHERE user_id == \"" + QString::number(user_id) + "\" GROUP BY exercise_name_id";
     QSqlQuery result = dt->executeQuery(command);
+    while(result.next()) {
+        QString deleteExerciseCommand = "DELETE FROM workout_pairs WHERE exercise_id == \"" + QString::number(result.value(0).toInt()) + "\"";
+        dt->executeQuery(deleteExerciseCommand);
+    }
+    command = "SELECT workout_name_id FROM workout_table WHERE user_id == \"" + QString::number(user_id) + "\" GROUP BY workout_name_id";
+    result = dt->executeQuery(command);
+    while(result.next()) {
+        QString deleteWorkoutCommand = "DELETE FROM workout_pairs WHERE workout_id == \"" + QString::number(result.value(0).toInt()) + "\"";
+        dt->executeQuery(deleteWorkoutCommand);
+    }
+
+    //exercise_table
+    command = "DELETE FROM exercise_table WHERE user_id == \"" + QString::number(user_id) + "\"";
+    result = dt->executeQuery(command);
+    //workout_table
+    command = "DELETE FROM workout_table WHERE user_id == \"" + QString::number(user_id) + "\"";
+    result = dt->executeQuery(command);
+    //workout_log
+    command = "DELETE FROM workout_log WHERE user_id == \"" + QString::number(user_id) + "\"";
+    result = dt->executeQuery(command);
+    //exercise_set_log
+    command = "DELETE FROM exercise_set_log WHERE user_id == \"" + QString::number(user_id) + "\"";
+    result = dt->executeQuery(command);
+
+    //finally, kill off the user
+    command = "DELETE FROM user_table WHERE username == \"" + username + "\" AND password == \"" + password + "\"";
+    result = dt->executeQuery(command);
+
     return 1;
 }
 
