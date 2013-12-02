@@ -359,7 +359,7 @@ QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id, QStr
         date = result.value(3).toString();
         oneRepMax = result.value(4).toString();
 
-        historyList << date + "\t" + weight + " x " + reps + "\t" + oneRepMax + " (1RM)";
+        historyList << date + "\t    " + weight + " x " + reps + "\t    " + oneRepMax + " (1RM)";
     }
     return historyList;
 }
@@ -370,7 +370,7 @@ QStringList BusinessTier::GetWorkoutHistory(QString workout, int user_id){
     //if (sortBy == "date") {
         command = "SELECT workout_instance_id, t.workout_name, date(time, 'unixepoch', 'localtime') as datetime "
                   "FROM workout_log as w JOIN workout_table as t ON w.workout_name_id = t.workout_name_id "
-                  "WHERE w.workout_name_id == '" + QString::number(workoutID) + "' AND user_id == '" + QString::number(user_id) + "'"
+                  "WHERE w.workout_name_id == '" + QString::number(workoutID) + "' AND w.user_id == '" + QString::number(user_id) + "'"
                   "ORDER BY time DESC";
     //}
     //more sorting options can go here.
