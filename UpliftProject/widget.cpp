@@ -259,7 +259,7 @@ void Widget::on_finishWorkoutButton_clicked() {
 void Widget::on_performExerciseAddButton_clicked() {
     int weight = ui->performExerciseWeight->value();
     int reps = ui->performExerciseReps->value();
-    bt->AddSet(currUserID, currWorkout, currExercise, weight, reps);
+    bt->AddSet(currUserID, currWorkout, currExercise, reps, weight);
     ui->performExerciseHistoryList->clear();
     ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise, currUserID, "date"));
 

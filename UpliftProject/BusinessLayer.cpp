@@ -340,11 +340,11 @@ QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id, QStr
     }
     else if (sortBy == "reps") {
         command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
-            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY reps ASC" ;
+            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY reps DESC" ;
     }
     else if (sortBy == "weight") {
         command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
-            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY weight ASC" ;
+            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY weight DESC" ;
     }
     else if (sortBy == "1RM") {
         command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
