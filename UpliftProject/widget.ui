@@ -56,7 +56,7 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>4</number>
    </property>
    <widget class="QWidget" name="LoginPage">
     <property name="styleSheet">
@@ -314,6 +314,9 @@ color: rgb(255, 255, 255);</string>
          <italic>false</italic>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
         <string>User:</string>
        </property>
@@ -336,6 +339,9 @@ color: rgb(255, 255, 255);</string>
          <pointsize>16</pointsize>
          <italic>false</italic>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
        </property>
        <property name="text">
         <string>Password:</string>
@@ -1911,6 +1917,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>First Workout Date:</string>
      </property>
@@ -1928,6 +1937,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>Last Workout Date:</string>
@@ -1947,6 +1959,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>First/Last Span:</string>
      </property>
@@ -1964,6 +1979,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>Total # Workouts:</string>
@@ -1983,6 +2001,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>Avg Workout Freq:</string>
      </property>
@@ -2000,6 +2021,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>Total Weight Lifted:</string>
@@ -2019,6 +2043,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>Total Sets:</string>
      </property>
@@ -2036,6 +2063,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>Total Reps:</string>
@@ -2055,6 +2085,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>Avg Volume/Workout:</string>
      </property>
@@ -2072,6 +2105,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>Avg Sets/Workout:</string>
@@ -2091,6 +2127,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>Avg Reps/Set:</string>
      </property>
@@ -2108,6 +2147,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>1</string>
@@ -2127,6 +2169,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>1</string>
      </property>
@@ -2144,6 +2189,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>1</string>
@@ -2163,6 +2211,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>1</string>
      </property>
@@ -2180,6 +2231,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>1</string>
@@ -2199,6 +2253,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>1</string>
      </property>
@@ -2216,6 +2273,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>1</string>
@@ -2235,6 +2295,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>1</string>
      </property>
@@ -2252,6 +2315,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>1</string>
@@ -2271,6 +2337,9 @@ color: rgb(255, 255, 255);</string>
        <family>Helvetica Neue</family>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+     </property>
      <property name="text">
       <string>1</string>
      </property>
@@ -2288,6 +2357,9 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Helvetica Neue</family>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>1</string>
