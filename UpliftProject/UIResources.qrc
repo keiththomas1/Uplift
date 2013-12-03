@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>Assets/UpliftBack.png</file>
         <file>Assets/BackAlpha.png</file>
+        <file>Assets/arrowLeft.png</file>
+        <file>Assets/arrowRight.png</file>
     </qresource>
 </RCC>
