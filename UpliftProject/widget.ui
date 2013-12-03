@@ -56,7 +56,7 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="LoginPage">
     <property name="styleSheet">
@@ -263,7 +263,8 @@ color: rgb(255, 255, 255);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));</string>
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
        </property>
        <property name="text">
         <string>UPLIFT</string>
@@ -388,25 +389,6 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </widget>
      <widget class="QWidget" name="loginNewUserPage">
-      <widget class="QLabel" name="createAccountLabel">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>20</y>
-         <width>261</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-         <pointsize>19</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>CREATE ACCOUNT</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="createAccountUsername">
        <property name="geometry">
         <rect>
@@ -477,6 +459,9 @@ color: rgb(255, 255, 255);</string>
          <italic>false</italic>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
         <string>Password:</string>
        </property>
@@ -499,6 +484,9 @@ color: rgb(255, 255, 255);</string>
          <pointsize>15</pointsize>
          <italic>false</italic>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
        </property>
        <property name="text">
         <string>Confirm Password:</string>
@@ -523,6 +511,9 @@ color: rgb(255, 255, 255);</string>
          <italic>false</italic>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
         <string>Username:</string>
        </property>
@@ -543,6 +534,45 @@ color: rgb(255, 255, 255);</string>
         <string>&lt;-</string>
        </property>
       </widget>
+      <widget class="QLabel" name="createAccountLabel">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>10</y>
+         <width>201</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
+       <property name="text">
+        <string>Create Account</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <zorder>createAccountUsername</zorder>
+      <zorder>createAccountPassword1</zorder>
+      <zorder>createAccountPassword2</zorder>
+      <zorder>createAccountDoneButton</zorder>
+      <zorder>createAccountPasswordLabel1</zorder>
+      <zorder>createAccountPasswordLabel2</zorder>
+      <zorder>createAccountUsernameLabel</zorder>
+      <zorder>createAccountBackButton</zorder>
+      <zorder>loginTitle_6</zorder>
+      <zorder>createAccountLabel</zorder>
      </widget>
     </widget>
    </widget>
@@ -661,7 +691,8 @@ color: rgb(255, 255, 255);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));</string>
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
        </property>
        <property name="text">
         <string>Workouts</string>
@@ -672,28 +703,6 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </widget>
      <widget class="QWidget" name="addWorkoutPage">
-      <widget class="QLabel" name="addWorkoutTitle">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>10</y>
-         <width>251</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-         <pointsize>20</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>ADD WORKOUT</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
       <widget class="QLabel" name="addWorkoutNameLabel">
        <property name="geometry">
         <rect>
@@ -707,6 +716,9 @@ color: rgb(255, 255, 255);</string>
         <font>
          <pointsize>16</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
        </property>
        <property name="text">
         <string>Name:</string>
@@ -751,6 +763,35 @@ color: rgb(255, 255, 255);</string>
         <string>CANCEL</string>
        </property>
       </widget>
+      <widget class="QLabel" name="addWorkoutTitle">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>10</y>
+         <width>201</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
+       <property name="text">
+        <string>Add Workout</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="editWorkoutPage">
       <widget class="QLineEdit" name="editWorkoutNameLine">
@@ -790,33 +831,14 @@ color: rgb(255, 255, 255);</string>
          <pointsize>16</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
         <string>Exercises:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-      <widget class="QLabel" name="editWorkoutTitle">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>10</y>
-         <width>281</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-         <pointsize>20</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>EDIT WORKOUT</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="editWorkoutNameLabel">
@@ -832,6 +854,9 @@ color: rgb(255, 255, 255);</string>
         <font>
          <pointsize>16</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
        </property>
        <property name="text">
         <string>Name:</string>
@@ -876,6 +901,35 @@ color: rgb(255, 255, 255);</string>
         <string>+</string>
        </property>
       </widget>
+      <widget class="QLabel" name="editWorkoutTitle">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>0</y>
+         <width>201</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
+       <property name="text">
+        <string>Edit Workout</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="addToWorkoutPage">
       <widget class="QListWidget" name="addToWorkoutList">
@@ -901,28 +955,6 @@ color: rgb(255, 255, 255);</string>
         <string>Add</string>
        </property>
       </widget>
-      <widget class="QLabel" name="addToWorkoutTitle">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>10</y>
-         <width>281</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-         <pointsize>20</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>ADD TO WORKOUT</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
       <widget class="QPushButton" name="addToWorkoutBackButton">
        <property name="geometry">
         <rect>
@@ -936,30 +968,37 @@ color: rgb(255, 255, 255);</string>
         <string>&lt;-</string>
        </property>
       </widget>
-     </widget>
-     <widget class="QWidget" name="performWorkoutPage">
-      <widget class="QLabel" name="performWorkoutTitle">
+      <widget class="QLabel" name="addToWorkoutTitle">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>301</width>
-         <height>31</height>
+         <x>60</x>
+         <y>0</y>
+         <width>201</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Helvetica Neue</family>
-         <pointsize>22</pointsize>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
-        <string>DYNAMIC TITLE</string>
+        <string>Add To Workout</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+     </widget>
+     <widget class="QWidget" name="performWorkoutPage">
       <widget class="QListWidget" name="performWorkoutExerciseList">
        <property name="geometry">
         <rect>
@@ -996,52 +1035,37 @@ color: rgb(255, 255, 255);</string>
         <string>Finish</string>
        </property>
       </widget>
+      <widget class="QLabel" name="performWorkoutTitle">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>0</y>
+         <width>281</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Agatha</family>
+         <pointsize>24</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
+       <property name="text">
+        <string>DYNAMIC TITLE</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="performExercisePage">
-      <widget class="QLabel" name="performExerciseTitle">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>301</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-         <pointsize>22</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>DYNAMIC TITLE</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QLabel" name="performExerciseCurrWorkoutTitle">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>3</y>
-         <width>301</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-         <pointsize>13</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>DYNAMIC TITLE</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
       <widget class="QListWidget" name="performExerciseHistoryList">
        <property name="geometry">
         <rect>
@@ -1066,6 +1090,10 @@ color: rgb(255, 255, 255);</string>
          <height>16</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);
+</string>
+       </property>
        <property name="text">
         <string>Previous Sets:</string>
        </property>
@@ -1079,6 +1107,10 @@ color: rgb(255, 255, 255);</string>
          <height>16</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);
+</string>
+       </property>
        <property name="text">
         <string>Weight:</string>
        </property>
@@ -1091,6 +1123,10 @@ color: rgb(255, 255, 255);</string>
          <width>62</width>
          <height>16</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);
+</string>
        </property>
        <property name="text">
         <string>Reps:</string>
@@ -1152,6 +1188,64 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>&lt;-</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="performExerciseTitle">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>281</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Agatha</family>
+         <pointsize>24</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
+       <property name="text">
+        <string>DYNAMIC TITLE</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="performExerciseCurrWorkoutTitle">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>-10</y>
+         <width>281</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Agatha</family>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
+       <property name="text">
+        <string>DYNAMIC TITLE</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </widget>
@@ -1248,7 +1342,8 @@ color: rgb(255, 255, 255);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));</string>
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
        </property>
        <property name="text">
         <string>Exercises</string>
@@ -1259,34 +1354,12 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </widget>
      <widget class="QWidget" name="addExercisePage">
-      <widget class="QLabel" name="addExerciseTitle">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>10</y>
-         <width>261</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-         <pointsize>20</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>EDIT EXERCISE</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
       <widget class="QLabel" name="addExerciseNameLabel">
        <property name="geometry">
         <rect>
          <x>30</x>
          <y>100</y>
-         <width>51</width>
+         <width>61</width>
          <height>31</height>
         </rect>
        </property>
@@ -1294,6 +1367,9 @@ color: rgb(255, 255, 255);</string>
         <font>
          <pointsize>16</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
        </property>
        <property name="text">
         <string>Name:</string>
@@ -1338,30 +1414,37 @@ color: rgb(255, 255, 255);</string>
         <string>CANCEL</string>
        </property>
       </widget>
-     </widget>
-     <widget class="QWidget" name="editExercisePage">
-      <widget class="QLabel" name="editExerciseTitle">
+      <widget class="QLabel" name="addExerciseTitle">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>10</y>
-         <width>261</width>
-         <height>31</height>
+         <x>20</x>
+         <y>0</y>
+         <width>281</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Helvetica Neue</family>
-         <pointsize>20</pointsize>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
-        <string>ADD EXERCISE</string>
+        <string>Add Exercise</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+     </widget>
+     <widget class="QWidget" name="editExercisePage">
       <widget class="QLabel" name="editExerciseLabel">
        <property name="geometry">
         <rect>
@@ -1376,11 +1459,11 @@ color: rgb(255, 255, 255);</string>
          <pointsize>16</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
         <string>Name:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLineEdit" name="editExerciseLine">
@@ -1417,6 +1500,35 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>CANCEL</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="editExerciseTitle">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>0</y>
+         <width>281</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
+       <property name="text">
+        <string>Edit Exercise</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </widget>
@@ -1456,11 +1568,13 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="font">
         <font>
-         <family>Helvetica Neue</family>
+         <family>MS Shell Dlg 2</family>
+         <pointsize>14</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>Exercise History</string>
+        <string>Exercise 
+History</string>
        </property>
       </widget>
       <widget class="QPushButton" name="workoutHistoryButton">
@@ -1474,11 +1588,13 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="font">
         <font>
-         <family>Helvetica Neue</family>
+         <family>MS Shell Dlg 2</family>
+         <pointsize>14</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>Workout History</string>
+        <string>Workout 
+History</string>
        </property>
       </widget>
       <widget class="QLabel" name="loginTitle_4">
@@ -1500,7 +1616,8 @@ color: rgb(255, 255, 255);</string>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));</string>
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
        </property>
        <property name="text">
         <string>History</string>
@@ -1511,28 +1628,6 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </widget>
      <widget class="QWidget" name="chooseExerciseHistoryPage">
-      <widget class="QLabel" name="chooseExerciseHistoryTitle">
-       <property name="geometry">
-        <rect>
-         <x>18</x>
-         <y>25</y>
-         <width>281</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-         <pointsize>20</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>EXERCISE HISTORY</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
       <widget class="QListWidget" name="chooseExerciseHistoryList">
        <property name="geometry">
         <rect>
@@ -1569,30 +1664,37 @@ color: rgb(255, 255, 255);</string>
         <string>&lt;-</string>
        </property>
       </widget>
-     </widget>
-     <widget class="QWidget" name="choseWorkoutHistoryPage">
-      <widget class="QLabel" name="chooseWorkoutHistoryTitle">
+      <widget class="QLabel" name="chooseExerciseHistoryTitle">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>281</width>
-         <height>21</height>
+         <x>40</x>
+         <y>0</y>
+         <width>241</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Helvetica Neue</family>
-         <pointsize>20</pointsize>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
-        <string>WORKOUT HISTORY</string>
+        <string>Exercise History</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+     </widget>
+     <widget class="QWidget" name="choseWorkoutHistoryPage">
       <widget class="QListWidget" name="chooseWorkoutHistoryList">
        <property name="geometry">
         <rect>
@@ -1629,30 +1731,37 @@ color: rgb(255, 255, 255);</string>
         <string>&lt;-</string>
        </property>
       </widget>
-     </widget>
-     <widget class="QWidget" name="exerciseHistoryPage">
-      <widget class="QLabel" name="exerciseHistoryTitle">
+      <widget class="QLabel" name="chooseWorkoutHistoryTitle">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>281</width>
-         <height>31</height>
+         <x>40</x>
+         <y>10</y>
+         <width>241</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Helvetica Neue</family>
-         <pointsize>20</pointsize>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
-        <string>EXERCISE HISTORY</string>
+        <string>Workout History</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+     </widget>
+     <widget class="QWidget" name="exerciseHistoryPage">
       <widget class="QLabel" name="exerciseSortByLabel">
        <property name="geometry">
         <rect>
@@ -1664,12 +1773,15 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="font">
         <font>
-         <family>Helvetica Neue</family>
-         <pointsize>15</pointsize>
+         <family>MS Shell Dlg 2</family>
+         <pointsize>12</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
-        <string>SORT BY:</string>
+        <string>Sort By:</string>
        </property>
       </widget>
       <widget class="QListWidget" name="exerciseHistoryList">
@@ -1767,34 +1879,41 @@ color: rgb(255, 255, 255);</string>
         <string>DONE</string>
        </property>
       </widget>
-     </widget>
-     <widget class="QWidget" name="workoutHistoryPage">
-      <widget class="QLabel" name="workoutHistoryTitle">
+      <widget class="QLabel" name="exerciseHistoryTitle">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>281</width>
-         <height>21</height>
+         <x>40</x>
+         <y>0</y>
+         <width>241</width>
+         <height>61</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Helvetica Neue</family>
-         <pointsize>20</pointsize>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
        <property name="text">
-        <string>WORKOUT HISTORY</string>
+        <string>Exercise History</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+     </widget>
+     <widget class="QWidget" name="workoutHistoryPage">
       <widget class="QLabel" name="workoutHistorySortByLabel">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>80</x>
          <y>70</y>
          <width>101</width>
          <height>21</height>
@@ -1802,12 +1921,16 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="font">
         <font>
-         <family>Helvetica Neue</family>
-         <pointsize>15</pointsize>
+         <family>MS Shell Dlg 2</family>
+         <pointsize>12</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);
+</string>
+       </property>
        <property name="text">
-        <string>SORT BY:</string>
+        <string>Sort By:</string>
        </property>
       </widget>
       <widget class="QPushButton" name="workoutSortByVolume">
@@ -1885,6 +2008,35 @@ color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>DONE</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="workoutHistoryTitle">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>0</y>
+         <width>241</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Agatha</family>
+         <pointsize>28</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
+       </property>
+       <property name="text">
+        <string>Workout History</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </widget>
@@ -2384,7 +2536,8 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));</string>
+      <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.494, y2:50, stop:0 rgba(197, 234, 241, 255), stop:1 rgba(255, 255, 255, 255));
+background-image: url(:/Assets/TempBackAlpha.png);</string>
      </property>
      <property name="text">
       <string>Statistics</string>
