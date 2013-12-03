@@ -349,6 +349,7 @@ void Widget::on_loginButton_clicked()
             return;
         }
         currUserID = bt->GetUserID(user);
+        ui->loginGraphic->setHidden(true);
         ui->workoutList->addItems(bt->GetWorkoutList(currUserID));
         ui->exerciseList->addItems(bt->GetExerciseList(currUserID));
 

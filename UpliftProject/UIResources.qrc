@@ -4,5 +4,6 @@
         <file>Assets/BackAlpha.png</file>
         <file>Assets/arrowLeft.png</file>
         <file>Assets/arrowRight.png</file>
+        <file>Assets/loginGraphic.png</file>
     </qresource>
 </RCC>

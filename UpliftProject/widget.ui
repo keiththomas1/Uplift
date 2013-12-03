@@ -56,7 +56,7 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="LoginPage">
     <property name="styleSheet">
@@ -393,7 +393,7 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>120</y>
+         <y>110</y>
          <width>261</width>
          <height>31</height>
         </rect>
@@ -403,7 +403,7 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>200</y>
+         <y>180</y>
          <width>261</width>
          <height>31</height>
         </rect>
@@ -416,7 +416,7 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>270</y>
+         <y>250</y>
          <width>261</width>
          <height>31</height>
         </rect>
@@ -429,7 +429,7 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
        <property name="geometry">
         <rect>
          <x>50</x>
-         <y>320</y>
+         <y>300</y>
          <width>221</width>
          <height>41</height>
         </rect>
@@ -447,7 +447,7 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>170</y>
+         <y>150</y>
          <width>101</width>
          <height>31</height>
         </rect>
@@ -473,7 +473,7 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>240</y>
+         <y>220</y>
          <width>171</width>
          <height>31</height>
         </rect>
@@ -499,7 +499,7 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>90</y>
+         <y>80</y>
          <width>101</width>
          <height>31</height>
         </rect>
@@ -525,7 +525,7 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
        <property name="geometry">
         <rect>
          <x>120</x>
-         <y>370</y>
+         <y>350</y>
          <width>81</width>
          <height>31</height>
         </rect>
@@ -567,16 +567,6 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <zorder>createAccountUsername</zorder>
-      <zorder>createAccountPassword1</zorder>
-      <zorder>createAccountPassword2</zorder>
-      <zorder>createAccountDoneButton</zorder>
-      <zorder>createAccountPasswordLabel1</zorder>
-      <zorder>createAccountPasswordLabel2</zorder>
-      <zorder>createAccountUsernameLabel</zorder>
-      <zorder>createAccountBackButton</zorder>
-      <zorder>loginTitle_6</zorder>
-      <zorder>createAccountLabel</zorder>
      </widget>
     </widget>
    </widget>
@@ -1102,6 +1092,11 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
          <height>16</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-image: url(:/Assets/TempBackAlpha.png);
 </string>
@@ -1148,9 +1143,9 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
        <property name="geometry">
         <rect>
          <x>180</x>
-         <y>180</y>
+         <y>170</y>
          <width>101</width>
-         <height>21</height>
+         <height>41</height>
         </rect>
        </property>
        <property name="text">
@@ -1165,6 +1160,9 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
          <width>49</width>
          <height>24</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);</string>
        </property>
        <property name="maximum">
         <number>999</number>
@@ -1181,6 +1179,9 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
          <width>49</width>
          <height>24</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);</string>
        </property>
        <property name="maximum">
         <number>999</number>
@@ -2658,11 +2659,37 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
     <string>Stats</string>
    </property>
   </widget>
+  <widget class="QGraphicsView" name="loginGraphic">
+   <property name="geometry">
+    <rect>
+     <x>-2</x>
+     <y>380</y>
+     <width>324</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/Assets/loginGraphic.png);</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="interactive">
+    <bool>false</bool>
+   </property>
+  </widget>
   <zorder>historyButton</zorder>
   <zorder>workoutsButton</zorder>
   <zorder>exercisesButton</zorder>
   <zorder>statsButton</zorder>
   <zorder>pagesStack</zorder>
+  <zorder>loginGraphic</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
