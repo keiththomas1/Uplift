@@ -1,4 +1,3 @@
-//#include "ExerciseStats.h"
 #include "BusinessLayer.h"
 
 QString BusinessTier::getFirstWorkoutDate(int user_id){
@@ -138,4 +137,20 @@ int BusinessTier::getAvgVolumePerWorkout(int user_id){
     return workoutVolTotal/workoutNum;
 
     return -1; //failed*/
+}
+
+int BusinessTier::GetWorkoutVolume(int workout_instance_id) {
+    QString command = "SELECT weight, reps FROM exercise_set_log WHERE workout_instance_id == "
+            + QString::number(workout_instance_id);
+    QSqlQuery result = dt->executeQuery(command);
+
+    int workoutVolume = 0;
+    int tmp1, tmp2;
+    while (result.next()) {
+        tmp1 = result.value(0).toInt();
+        tmp2 =result.value(1).toInt();
+        workoutVolume += (tmp1*tmp2);
+    }
+    return workoutVolume;
+
 }
