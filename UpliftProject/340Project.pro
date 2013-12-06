@@ -14,19 +14,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    exercise_set.cpp \
-    exercise.cpp \
     DataAccessLayer.cpp \
     BusinessLayer.cpp \
-    workout.cpp \
     widget.cpp \
-    ExerciseStats.cpp
+    stats.cpp
 
-HEADERS  += exercise_set.h \
-    exercise.h \
+HEADERS  += \
     DataAccessLayer.h \
     BusinessLayer.h \
-    workout.h \
     widget.h
 
 FORMS    += widget.ui
