@@ -135,8 +135,8 @@ private slots:
     void on_exerciseSortByWeight_clicked();
     void on_workoutHistoryDoneButton_clicked();
     void on_workoutSortByDate_clicked();
-    void on_workoutSortBySets_clicked();
-    void on_workoutSortByVolume_clicked();
+    //void on_workoutSortBySets_clicked();          //future function
+    //void on_workoutSortByVolume_clicked();        //future function
     void on_createAccountBackButton_clicked();
     void on_chooseExerciseHistoryBackButton_clicked();
     void on_chooseWorkoutHistoryBackButton_clicked();

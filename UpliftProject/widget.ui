@@ -56,7 +56,7 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="LoginPage">
     <property name="styleSheet">
@@ -541,9 +541,9 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
       <widget class="QLabel" name="createAccountLabel">
        <property name="geometry">
         <rect>
-         <x>50</x>
+         <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>301</width>
          <height>61</height>
         </rect>
        </property>
@@ -760,9 +760,9 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
       <widget class="QLabel" name="addWorkoutTitle">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>10</x>
          <y>10</y>
-         <width>201</width>
+         <width>301</width>
          <height>61</height>
         </rect>
        </property>
@@ -969,9 +969,9 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
       <widget class="QLabel" name="addToWorkoutTitle">
        <property name="geometry">
         <rect>
-         <x>60</x>
+         <x>10</x>
          <y>0</y>
-         <width>201</width>
+         <width>301</width>
          <height>61</height>
         </rect>
        </property>
@@ -1692,9 +1692,9 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
       <widget class="QLabel" name="chooseExerciseHistoryTitle">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>10</x>
          <y>0</y>
-         <width>241</width>
+         <width>301</width>
          <height>61</height>
         </rect>
        </property>
@@ -1767,9 +1767,9 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
       <widget class="QLabel" name="chooseWorkoutHistoryTitle">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>10</x>
          <y>10</y>
-         <width>241</width>
+         <width>301</width>
          <height>61</height>
         </rect>
        </property>
@@ -1966,42 +1966,6 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
         <string>Sort By:</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="workoutSortByVolume">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>70</y>
-         <width>51</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Volume</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="workoutSortBySets">
-       <property name="geometry">
-        <rect>
-         <x>200</x>
-         <y>70</y>
-         <width>51</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Helvetica Neue</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Sets</string>
-       </property>
-      </widget>
       <widget class="QListWidget" name="workoutHistoryList">
        <property name="geometry">
         <rect>
@@ -2046,9 +2010,9 @@ background-image: url(:/Assets/TempBackAlpha.png);</string>
       <widget class="QLabel" name="workoutHistoryTitle">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>10</x>
          <y>0</y>
-         <width>241</width>
+         <width>301</width>
          <height>61</height>
         </rect>
        </property>

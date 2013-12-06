@@ -410,7 +410,7 @@ QStringList BusinessTier::GetWorkoutHistory(QString workout, int user_id, QStrin
         name = result.value(1).toString();
         date = result.value(2).toString();
         historyList << date + "    " + name + "    " + QString::number(volume);
-        qDebug() << historyList;
+        //qDebug() << historyList;
 
     }
     return historyList;

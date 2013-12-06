@@ -35,10 +35,10 @@ double BusinessTier::getFirstToLastWorkout(int user_id){
         if(result2.next()){
             int recent = result.value(0).toInt();
             int first = result2.value(0).toInt();
-            qDebug() << recent;
-            qDebug() << first;
+            //qDebug() << recent;
+            //qDebug() << first;
             double difference = recent - first;
-            qDebug() << difference;
+            //qDebug() << difference;
             return ((difference)/60/60/24);
         }
     }
@@ -140,7 +140,7 @@ int BusinessTier::getTotalWeight(int user_id){
 
     if (result.next()){
         int returnVal = result.value(0).toInt();
-        qDebug() << returnVal;
+        //qDebug() << returnVal;
         return (returnVal);
     }
     return -1;  //failed*/
