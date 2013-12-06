@@ -213,6 +213,8 @@ void Widget::on_startWorkoutButton_clicked() {
 
     //log the workout
     bt->AddWorkoutLog(currWorkout, currUserID);
+    //get the workoutInstanceID back from DB
+    currWorkoutInstanceID = bt->GetWorkoutInstanceID();
     ui->performWorkoutExerciseList->clear();
     ui->performWorkoutExerciseList->addItems(bt->GetExercisesInWorkout(currWorkout,currUserID));
     ui->performWorkoutTitle->setText(currWorkout);
@@ -259,7 +261,7 @@ void Widget::on_finishWorkoutButton_clicked() {
 void Widget::on_performExerciseAddButton_clicked() {
     int weight = ui->performExerciseWeight->value();
     int reps = ui->performExerciseReps->value();
-    bt->AddSet(currUserID, currWorkout, currExercise, reps, weight);
+    bt->AddSet(currUserID, currWorkoutInstanceID, currWorkout, currExercise, reps, weight);
     ui->performExerciseHistoryList->clear();
     ui->performExerciseHistoryList->addItems(bt->GetExerciseHistory(currExercise, currUserID, "date"));
 
@@ -470,7 +472,7 @@ void Widget::on_chooseWorkoutHistoryDoneButton_clicked()
 {
     currWorkoutHistory = ui->chooseWorkoutHistoryList->currentItem()->text();
     ui->workoutHistoryList->clear();
-    ui->workoutHistoryList->addItems(bt->GetWorkoutHistory(currWorkoutHistory, currUserID));
+    ui->workoutHistoryList->addItems(bt->GetWorkoutHistory(currWorkoutHistory, currUserID, "date"));
     ui->historyStack->setCurrentIndex(4);
 }
 
