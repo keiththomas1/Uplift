@@ -66,7 +66,7 @@ public:
             //exit(0);
         }
         //don't pass in anything for set_id or time (especially not NULL). It will auto inc set_id and stamp time by default
-        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (set_id INTEGER PRIMARY KEY, workout_id INTEGER, exercise_id INTEGER, user_id INTEGER, time timestamp default (strftime('%s', 'now')), reps INTEGER, weight INTEGER, one_rep_max INTEGER)");
+        success = query.exec("CREATE TABLE IF NOT EXISTS exercise_set_log (set_id INTEGER PRIMARY KEY, workout_name_id INTEGER, workout_instance_id INTEGER, exercise_id INTEGER, user_id INTEGER, time timestamp default (strftime('%s', 'now')), reps INTEGER, weight INTEGER, one_rep_max INTEGER)");
         if (!success) {
             qDebug("Error creating exercise_table");
             qDebug("%s", qPrintable(db.lastError().text()));
