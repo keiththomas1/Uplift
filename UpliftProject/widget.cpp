@@ -32,6 +32,7 @@ Widget::Widget(QWidget *parent) :
     connect(ui->performWorkoutExerciseList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_performWorkout_buttons()));
     connect(ui->chooseExerciseHistoryList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_exerciseHistory_buttons()));
     connect(ui->chooseWorkoutHistoryList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_workoutHistory_buttons()));
+    connect(ui->addToWorkoutList, SIGNAL(itemSelectionChanged()), this, SLOT(manage_addToWorkout_buttons()));
 
 }
 ///Deletes the ui and bt objects
@@ -106,6 +107,13 @@ void Widget::manage_workoutHistory_buttons() {
     }
     else ui->chooseWorkoutHistoryDoneButton->setEnabled(true);
 }
+///Disables the add to workout buttons if no exercise has been chosen
+void Widget::manage_addToWorkout_buttons() {
+    if (ui->addToWorkoutList->currentRow() < 0) {
+        ui->addToWorkoutAddButton->setEnabled(false);
+    }
+    else ui->addToWorkoutAddButton->setEnabled(true);
+}
 ///Disables the exercise page buttons
 void Widget::disable_exercise_buttons() {
     ui->exerciseList->setCurrentRow(-1);
@@ -147,6 +155,11 @@ void Widget::set_exerciseSortBy_buttons(QString setButton) {
     else if (setButton == "weight") ui->exerciseSortByWeight->setDown(true);
     else if (setButton == "date") ui->exerciseSortByDate->setDown(true);
 }
+void Widget::disable_addToWorkout_buttons() {
+    ui->addToWorkoutList->setCurrentRow(-1);
+    ui->addToWorkoutList->itemSelectionChanged();
+}
+
 ///Disables the history sort by buttons
 void Widget::set_historySortBy_buttons(QString) {
 
@@ -251,6 +264,7 @@ void Widget::on_startWorkoutButton_clicked() {
 ///switches to the add to workout page when the add button is clicked
 void Widget::on_editWorkoutAddButton_clicked() {
     ui->addToWorkoutList->addItems(bt->GetExerciseList(currUserID));  //populate addToWorkoutList with all exercises availble
+    Widget::disable_addToWorkout_buttons();
     ui->workoutsStack->setCurrentIndex(3);                  //switch to addToWorkout page
 }
 ///swtiches to the workouts page when the done button is clicked
@@ -313,7 +327,6 @@ void Widget::on_addToWorkoutBackButton_clicked() {
     ui->editWorkoutExercisesList->addItems(bt->GetExercisesInWorkout(currWorkout,currUserID));
     ui->workoutsStack->setCurrentIndex(2);
 }
-//IN PROGRESS
 ///adds the exercise to the workout
 void Widget::on_addToWorkoutAddButton_clicked() {
     //last param is TEMPORARY!

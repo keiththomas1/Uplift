@@ -109,6 +109,8 @@ public slots:
     void disable_exerciseHistory_buttons();
     void manage_workoutHistory_buttons();
     void disable_workoutHistory_buttons();
+    void manage_addToWorkout_buttons();
+    void disable_addToWorkout_buttons();
     void set_exerciseSortBy_buttons(QString setButton);
     void set_historySortBy_buttons(QString setButton);
 
