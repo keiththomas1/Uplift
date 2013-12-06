@@ -4,10 +4,6 @@
 #include <vector>
 #include <QString>
 #include <QStringList>
-#include "exercise.h"
-#include "exercise_set.h"
-#include "workout.h"
-#include "user.h"
 #include "DataAccessLayer.h"
 
 using namespace std;
@@ -32,7 +28,7 @@ public:
     int AddWorkout      (QString, int user_id);
     int AddWorkoutPair  (QString, QString, int user_id, int order); // don't know why order is on here.
     int AddUser         (QString, QString);
-    int AddSet          (int userID, QString workout, QString exercise, int weight, int reps);
+    int AddSet          (int userID, int workoutInstanceID, QString workout, QString exercise, int weight, int reps);
     void AddWorkoutLog   (QString workoutName, int userID);
     int RemoveExercise  (QString, int user_id);
     int RemoveWorkout   (QString, int user_id);
@@ -45,10 +41,12 @@ public:
     void CloseDB();
     int GetWorkoutNameID(QString, int user_id);
     int GetExerciseNameID(QString, int user_id);
+    int GetWorkoutInstanceID();
     int GetUserID(QString);
+    int GetWorkoutVolume(int workout_instance_id);
     QStringList GetExercisesInWorkout(QString workoutName, int user_id);
     QStringList GetExerciseHistory(QString exercise, int user_id, QString sortBy);
-    QStringList GetWorkoutHistory(QString workout, int user_id);
+    QStringList GetWorkoutHistory(QString workout, int user_id, QString sortBy);
     QStringList GetWorkoutList(int user_id);
     QStringList GetExerciseList(int user_id);
     QStringList GetUserList();
