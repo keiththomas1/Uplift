@@ -63,7 +63,7 @@ public:
     int getTotalWeight(int user_id);
     int getTotalNumOfReps(int user_id);
     int getAvgVolumePerWorkout(int user_id);
-    int getFirstToLastWorkout(int user_id);
+    double getFirstToLastWorkout(int user_id);
     int getWorkoutFrequency(int user_id);
     int getTotalNumOfWorkouts(int user_id);
     int getTotalNumOfSets(int user_id);

@@ -24,12 +24,23 @@ QString BusinessTier::getLastWorkoutDate(int user_id){
 }
 //!Gets the time in days from the first to most recent workout.  Returns -1 on fail.
 //!\param user_id this tracks the current user.
-int BusinessTier::getFirstToLastWorkout(int user_id){
-    QString command = "SELECT (SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time DESC LIMIT 1) - (SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time ASC LIMIT 1)";
+double BusinessTier::getFirstToLastWorkout(int user_id){
+    //QString command = "SELECT (SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time DESC LIMIT 1) - (SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time ASC LIMIT 1)";
+    QString command = "SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time DESC LIMIT 1";
+    QString command2 = "SELECT time FROM workout_log WHERE user_id == '" + QString::number(user_id) + "' ORDER BY time ASC LIMIT 1";
     QSqlQuery result = dt->executeQuery(command);
+    QSqlQuery result2 = dt->executeQuery(command2);
 
     if (result.next()) {
-        return ((result.value(0).toInt())/60/60/24);
+        if(result2.next()){
+            int recent = result.value(0).toInt();
+            int first = result2.value(0).toInt();
+            qDebug() << recent;
+            qDebug() << first;
+            double difference = recent - first;
+            qDebug() << difference;
+            return ((difference)/60/60/24);
+        }
     }
     return -1; //failed*/
 }
@@ -128,7 +139,9 @@ int BusinessTier::getTotalWeight(int user_id){
     QSqlQuery result = dt->executeQuery(command);
 
     if (result.next()){
-        return (result.value(0).toInt());
+        int returnVal = result.value(0).toInt();
+        qDebug() << returnVal;
+        return (returnVal);
     }
     return -1;  //failed*/
 }
