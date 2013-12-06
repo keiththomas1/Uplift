@@ -25,6 +25,7 @@ public:
     QString currWorkoutHistory;
     QString currExerciseHistory;
     int currWorkoutID;
+    int currWorkoutInstanceID;
     int currExerciseID;
     int currUserID;
     void UpdateWorkoutList();
