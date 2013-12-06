@@ -11,31 +11,46 @@
 namespace Ui {
 class Widget;
 }
-
+/// The Widget class contains all the UI information and functions to operate buttons, fill litss, take input, and switch screens.
 class Widget : public QWidget
 {
     Q_OBJECT
 
 public:
+    ///A constructor
     explicit Widget(QWidget *parent = 0);
+    ///A destructor
     ~Widget();
-    //QStringList workoutExerciseList;
+    ///The current workout being performed
     QString currWorkout;
+    ///The current exercise being performed
     QString currExercise;
+    ///The current workout that history is being displayed for on the workout history page
     QString currWorkoutHistory;
+    ///The current exercise that history is being displayed for on the exercise history page
     QString currExerciseHistory;
+    ///The ID corresponding to the name of the current workout being performed
     int currWorkoutID;
+    ///The ID corresponding to the instance of the current workout being performed
     int currWorkoutInstanceID;
+    ///The ID corresponding to the name of the current exercise being performed
     int currExerciseID;
+    ///The ID of the current logged in user
     int currUserID;
+
+    //list management
     void UpdateWorkoutList();
     void UpdateExerciseList();
 
 
 private:
+    ///A Widget object pointer
     Ui::Widget *ui;
+    ///A BusinessTier object pointer
     BusinessTier *bt;
+    ///List of the names of workouts the current user has defined
     QStringList workoutList;
+    ///List of the name of exercises the current user has defined
     QStringList exerciseList;
 
 public slots:

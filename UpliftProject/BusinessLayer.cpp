@@ -1,13 +1,10 @@
-//  TODO:
-//  Are QSqlQuery objects automatically destructed?
-//  How do we tell if an insert failed?
-
 #include "BusinessLayer.h"
 
 using namespace std;
 
-//!This function retrieves the id of the workout for other database queries.
-//!/param name This string is the name of the corresponding workout.
+//!Retrieves the id of a workout using the name
+//!\param name string holding the name of the workout.
+//!\param user_id the current user
 int BusinessTier::GetWorkoutNameID(QString name, int user_id) // DONE
 {
     QString command = "SELECT workout_name_id FROM workout_table WHERE workout_name == '" + name + "' AND user_id == '" + QString::number(user_id) + "'";
@@ -30,8 +27,9 @@ int BusinessTier::GetWorkoutInstanceID() {
     return -1; //failed
 }
 
-//!This function retrieves the id of the exercise for other database queries.
-//!/param name This string represents the name of the exercise.
+//!Retrieves the id of an exercise using the name
+//!\param name This string represents the name of the exercise.
+//!\param user_id the current user
 int BusinessTier::GetExerciseNameID(QString name, int user_id) // DONE
 {
     QString command = "SELECT exercise_name_id FROM exercise_table WHERE exercise_name == '" + name + "' AND user_id == '" + QString::number(user_id) + "'";
@@ -43,8 +41,9 @@ int BusinessTier::GetExerciseNameID(QString name, int user_id) // DONE
     return -1; //failed
 }
 
-//!This function returns a list of exercises that belong to the user specified workout.
-//!/param workoutName This string is the name of the specific workout the exercises exist in.
+//!Returns a list of exercises that belong to the user specified workout.
+//!\param workoutName This string is the name of the specific workout the exercises exist in.
+//!\param user_id the current user
 QStringList BusinessTier::GetExercisesInWorkout(QString workoutName, int user_id)
 {
     int workout_id = GetWorkoutNameID(workoutName, user_id);
@@ -62,9 +61,10 @@ QStringList BusinessTier::GetExercisesInWorkout(QString workoutName, int user_id
 
 }
 
-//!This function changes the name of the workout upon request.
-//!/param oldName This string represents the old workout name.
-//!/param newMan This string represents the name to which the workout is being changed.
+//!Changes the name of a workout
+//!\param oldName This string represents the old workout name.
+//!\param newMan This string represents the name to which the workout is being changed.
+//!\param user_id the current user
 void BusinessTier::UpdateWorkout(QString oldName, QString newName, int user_id)
 {
     QString command = "UPDATE workout_table "
@@ -75,9 +75,10 @@ void BusinessTier::UpdateWorkout(QString oldName, QString newName, int user_id)
     QSqlQuery result = dt->executeQuery(command);
 }
 
-//!This function updates the name of the exercise.
-//!/param oldName This string represents the old exercise name.
-//!/param newMan This string represents the name to which the exercise is being changed.
+//!Updates the name of an exercise
+//!\param oldName This string represents the old exercise name.
+//!\param newMan This string represents the name to which the exercise is being changed.
+//!\param user_id the current user
 void BusinessTier::UpdateExercise(QString oldName, QString newName, int user_id)
 {
     //qDebug() << "oldName: " + oldName;
@@ -90,8 +91,8 @@ void BusinessTier::UpdateExercise(QString oldName, QString newName, int user_id)
     QSqlQuery result = dt->executeQuery(command);
 }
 
-//!This function retrieves the id of the user for other database queries.
-//!/param username This string represents the username.
+//!Retrieves the id of a user using the username
+//!\param username This string represents the username.
 int BusinessTier::GetUserID(QString username)
 {
     QString command = "SELECT user_id FROM user_table WHERE username == '" + username + "'";
@@ -104,8 +105,9 @@ int BusinessTier::GetUserID(QString username)
 
 }
 
-//!This function checks to see if an exercise exists and returns a boolean value - true if exercise exists.
-//!/param name This string represents the name of the exercise.
+//!Returns true if the supplied exercise name already exists in the database for a specified user
+//!\param name This string represents the name of the exercise to be checked for existance
+//!\param user_id the current user
 bool BusinessTier::DoesExerciseExist(QString name, int user_id) // DONE
 {
     int ID = GetExerciseNameID(name, user_id);
@@ -120,8 +122,9 @@ bool BusinessTier::DoesExerciseExist(QString name, int user_id) // DONE
     }
 }
 //returns true if the workout already exists
-//!This function checks to see if a workout exists before adding it to the databse, and returns a boolean value.
-//!/param name This represents the workout that is to be added to the database.
+//!Returns true if the supplied workout name already exists in the database for a specified user
+//!\param name holds the name of the workout to be checked for existance
+//!\param user_id the current user
 bool BusinessTier::DoesWorkoutExist(QString name, int user_id) // DONE
 {
     if (GetWorkoutNameID(name, user_id) < 0) {
@@ -130,9 +133,10 @@ bool BusinessTier::DoesWorkoutExist(QString name, int user_id) // DONE
     return true;
 }
 
-//!This function checks to see if an exercise pair and workout exists in the pair table.  It returns a boolean value.
-//!/param workoutName This string represents the name of the workout.
-//!/param exerciseName This string represents the name of the exercise.
+//!Returns true if an exercise to workout pair exists in the workout_pairs table of the database
+//!\param workoutName This string represents the name of the workout.
+//!\param exerciseName This string represents the name of the exercise.
+//!\param user_id the current user
 bool BusinessTier::DoesPairExist(QString workoutName, QString exerciseName, int user_id)
 {
     int workout_name_id = GetWorkoutNameID(workoutName, user_id);
@@ -143,8 +147,8 @@ bool BusinessTier::DoesPairExist(QString workoutName, QString exerciseName, int 
     return false;
 }
 
-//!This function checks to see if a user exists for login or addition purposes and returns a boolean value.
-//!/param username This string represents the desired or login username.
+//!Returns true if the supplied username already exists
+//!\param username string holding the username
 bool BusinessTier::DoesUserExist(QString username)
 {
     if (GetUserID(username) < 0) {
@@ -153,8 +157,9 @@ bool BusinessTier::DoesUserExist(QString username)
     return true;
 }
 
-//!This function adds a new exercise to the database and returns an int: 1 success, 0 if already exists.
-//!/param name This string represents the name of the exercise to be added to the database.
+//!Adds a new exercise to the database and returns an int: 1 success, 0 if already exists.
+//!\param name This string represents the name of the exercise to be added to the database.
+//!\param user_id the current user
 int BusinessTier::AddExercise(QString name, int user_id)
 {
     if (DoesExerciseExist(name, user_id)) return 0;
@@ -164,11 +169,11 @@ int BusinessTier::AddExercise(QString name, int user_id)
 }
 
 //!This function logs a set of an exercise within a workout for a specific user
-//!/param userID int holding the user ID of the user performing the set
-//!/param workout string holding the name of the workout the exercise is part of
-//!/param exercise string holding the name of the exercise the user is logging a set of
-//!/param reps int holding the number of repetitions performed of the exercise
-//!/param weight int holding the weight per repetition of the exercise
+//!\param userID int holding the user ID of the user performing the set
+//!\param workout string holding the name of the workout the exercise is part of
+//!\param exercise string holding the name of the exercise the user is logging a set of
+//!\param reps int holding the number of repetitions performed of the exercise
+//!\param weight int holding the weight per repetition of the exercise
 int BusinessTier::AddSet(int user_id, int workoutInstanceID, QString workout, QString exercise, int reps, int weight)
 {
     int workout_name_id = GetWorkoutNameID(workout, user_id);
@@ -182,8 +187,9 @@ int BusinessTier::AddSet(int user_id, int workoutInstanceID, QString workout, QS
 }
 
 
-//!This function adds a new workout to the database and returns an int: 1 on success, 0 on already exists.
-//!/param name This string represents the name of the workout to be added to the database.
+//!Adds a new workout to the database and returns an int: 1 on success, 0 on already exists.
+//!\param name This string represents the name of the workout to be added to the database.
+//!\param user_id the current user
 int BusinessTier::AddWorkout(QString name, int user_id)
 {
     if (DoesWorkoutExist(name, user_id)) return 0;
@@ -192,10 +198,10 @@ int BusinessTier::AddWorkout(QString name, int user_id)
     return 1;
 }
 
-//!This function adds an exercise to a specific workout (if it doesn't already exist in the workout)
-//!/param workoutName string containing the name of the workout the exercise is being added to
-//!/param exerciseName string containing the name of the exercise to be added to the workout
-//!/param order an integer containing the order the exercise should appear in the workout
+//!Adds an exercise to a specific workout (if it doesn't already exist in the workout)
+//!\param workoutName string containing the name of the workout the exercise is being added to
+//!\param exerciseName string containing the name of the exercise to be added to the workout
+//!\param order an integer containing the order the exercise should appear in the workout
 int BusinessTier::AddWorkoutPair(QString workoutName, QString exerciseName, int user_id, int)  //don't know what last parameter is for.
 {
     int workout_name_id = GetWorkoutNameID(workoutName, user_id);
@@ -215,9 +221,9 @@ void BusinessTier::AddWorkoutLog(QString workoutName, int userID) {
     dt->executeQuery(command);
 }
 
-//!This function adds a user to the database and returns an int: 1 on success, 0 on already exists.
-//!/param username This is the username to be added.
-//!/param password This is the new user's desired password.
+//!Adds a supplied username to the database and returns an int: 1 on success, 0 on already exists.
+//!\param username This is the username to be added.
+//!\param password This is the new user's desired password.
 int BusinessTier::AddUser(QString username, QString password)
 {
     if (DoesUserExist(username)) return 0;
@@ -226,8 +232,9 @@ int BusinessTier::AddUser(QString username, QString password)
     return 1;
 }
 
-//!This function removes an exercise from the database, and returns an int: 1 on success, 0 on already exists.
-//!/param name This string represents the name of the exercise to be removed.
+//!Removes an exercise from the database, and returns an int: 1 on success, 0 on already exists.
+//!\param name This string represents the name of the exercise to be removed.
+//!\param user_id the current user
 int BusinessTier::RemoveExercise(QString name, int user_id)
 {
     if (!DoesExerciseExist(name, user_id)) return 0; //can't remove, doesn't exist
@@ -236,9 +243,9 @@ int BusinessTier::RemoveExercise(QString name, int user_id)
     return 1;
 }
 
-//!This function removes a workout from the database.
-//!/param name This string represents the name of the workout.
-//NEEDS TO CHECK FOR USER ID.
+//!Removes a workout from the database.
+//!\param name This string represents the name of the workout.
+//!\param user_id the current user
 int BusinessTier::RemoveWorkout(QString name, int user_id)
 {
     if (!DoesWorkoutExist(name, user_id)) return 0; //can't remove, doesn't exist
@@ -247,9 +254,10 @@ int BusinessTier::RemoveWorkout(QString name, int user_id)
     return 1;
 }
 
-//!This function removes an exercise from a workout
-//!/param workoutName string that holds the name of the workout to remove the exercise from
-//!/param exerciseName string that holds the name of the exercise to remove from the workout
+//!Removes an exercise from a workout
+//!\param workoutName string that holds the name of the workout to remove the exercise from
+//!\param exerciseName string that holds the name of the exercise to remove from the workout
+//!\param user_id the current user
 int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName, int user_id)
 {
     int workout_name_id = GetWorkoutNameID(workoutName, user_id);
@@ -260,9 +268,9 @@ int BusinessTier::RemoveWorkoutPair(QString workoutName, QString exerciseName, i
     return 1;
 }
 
-//!This function removes a user from the database and returns an int: 1 on successful removal, 0 on failure.
-//!/param username This string contains the username to be removed.
-//!/param password This string contains the password to be removed.
+//!Removes a user from the database and returns an int: 1 on successful removal, 0 on failure.
+//!\param username This string contains the username to be removed.
+//!\param password This string contains the password to be removed.
 int BusinessTier::RemoveUser(QString username, QString password)
 {
     //TODO: temporarly store the user_id number, so all of his info can be killed off from the other tables.
@@ -310,8 +318,9 @@ int BusinessTier::RemoveUser(QString username, QString password)
 
 
 /***************** LISTS ********************/
-//!This function retreives the workout list from the database for display, and returns a QStringList object.
-QStringList BusinessTier::GetWorkoutList(int user_id)  //DO I NEED TO FREE LIST OBJECT SOMEWHERE?
+//!Returns a QStringList object holding the list of workouts a specific user has defined
+//!\param user_id the current user
+QStringList BusinessTier::GetWorkoutList(int user_id)
 {
     QString command = "SELECT workout_name FROM workout_table WHERE user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
@@ -324,8 +333,9 @@ QStringList BusinessTier::GetWorkoutList(int user_id)  //DO I NEED TO FREE LIST 
 
 }
 
-//!This function retreives the exercise list from the database for display, and returns a QStringList object.
-QStringList BusinessTier::GetExerciseList(int user_id) //DO I NEED TO FREE LIST OBJECT SOMEWHERE?
+//!Returns a QStringList object holding the list of exercises a specific user has defined
+//!\param user_id the current user
+QStringList BusinessTier::GetExerciseList(int user_id)
 {
     QString command = "SELECT exercise_name FROM exercise_table WHERE user_id == '" + QString::number(user_id) + "'";
     QSqlQuery result = dt->executeQuery(command);
@@ -337,10 +347,10 @@ QStringList BusinessTier::GetExerciseList(int user_id) //DO I NEED TO FREE LIST 
     return exerciseList;
 }
 
-//!This function returns a list holding the history of a specific exercise (date, weight, and reps)
-//!/param exercise string holding the name of the exercise to retrieve history for
-//!/param user_id int holding the user to get history for
-//!/param sortBy string holding the column to sort by (date, reps, weight, 1RM)
+//!Returns a QStringList object holding the history of a specific exercise (date, weight, and reps) for a specific user
+//!\param exercise string holding the name of the exercise to retrieve history for
+//!\param user_id int holding the user to get history for
+//!\param sortBy string holding the column to sort by (date, reps, weight, 1RM)
 QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id, QString sortBy)
 {
     int exerciseID = GetExerciseNameID(exercise, user_id);
@@ -375,6 +385,10 @@ QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id, QStr
     return historyList;
 }
 
+///Returns a QStringList holding the workout history for a specified workout defined within a specified user_id
+///\param workout string holding the name of the workout
+///\param user_id the current user
+///\param sortBy string containing a column name to sort by
 QStringList BusinessTier::GetWorkoutHistory(QString workout, int user_id, QString sortBy) {
     int workoutID = GetWorkoutNameID(workout, user_id);
     QString command;
@@ -402,49 +416,7 @@ QStringList BusinessTier::GetWorkoutHistory(QString workout, int user_id, QStrin
     return historyList;
 }
 
-/*
- * WORKOUT HISTORY FUNCTION
-//TODO: get volume from specific workout
-//!This function returns a list holding the history of a specific workout (date, weight, and reps)
-//!/param exercise string holding the name of the workout to retrieve history for
-//!/param user_id int holding the user to get history for
-//!/param sortBy string holding the column to sort by (date, volume, sets)
-QStringList BusinessTier::GetWorkoutHistory(QString exercise, int user_id, QString sortBy)
-{
-    int exerciseID = GetExerciseNameID(exercise, user_id);
-    QString command;
-    if (sortBy == "date") {
-        command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
-            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY time DESC" ;
-    }
-    else if (sortBy == "reps") {
-        command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
-            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY reps ASC" ;
-    }
-    else if (sortBy == "weight") {
-        command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
-            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY weight ASC" ;
-    }
-    else if (sortBy == "1RM") {
-        command = "SELECT exercise_id, reps, weight, date(time, 'unixepoch', 'localtime') as datetime, one_rep_max FROM exercise_set_log "
-            "WHERE exercise_id == '" + QString::number(exerciseID) + "' AND user_id == '" + QString::number(user_id) + "' ORDER BY one_rep_max DESC" ;
-    }
-    QSqlQuery result = dt->executeQuery(command);
-    QStringList historyList;
-    QString name, weight, reps, date, oneRepMax;
-    while (result.next()) {
-        reps = result.value(1).toString();
-        weight = result.value(2).toString();
-        date = result.value(3).toString();
-        oneRepMax = result.value(4).toString();
-
-        historyList << date + "\t" + weight + " x " + reps + "\t" + oneRepMax + " (1RM)";
-    }
-    return historyList;
-}
-*/
-
-//!This function returns a list of all usernames currently in the database
+//!Returns a QStringList of all usernames currently in the database
 QStringList BusinessTier::GetUserList()
 {
     QString command = "SELECT username FROM user_table";
@@ -456,13 +428,16 @@ QStringList BusinessTier::GetUserList()
     //qDebug() << userList;
     return userList;
 }
-//!This function returns an estimate one rep max for the given reps and weight
-//!/param reps double holding the number of reps
-//!/param weight double holding the weight
+//!Returns an estimated one rep max for the given reps and weight
+//!\param reps double holding the number of reps
+//!\param weight double holding the weight
 int BusinessTier::OneRepMax(double reps, double weight) {
      double max = weight * (1 + (reps/30));
      return (int)(max + 0.5); //+0.5 will properly round after truncate
 }
+///Returns true if the user and password combo exist in the database, false otherwise
+///\param user string holding the username
+///\param pass string holding the password
 bool BusinessTier::ValidateUser(QString user, QString pass) {
     QString command = "SELECT username FROM user_table WHERE"
             " username == '" + user + "' AND password == '" + pass + "'";
@@ -472,13 +447,13 @@ bool BusinessTier::ValidateUser(QString user, QString pass) {
     else return false;
 }
 
-//!This function closes the database connection
+//!Closes the database connection
 void BusinessTier::CloseDB() {
     dt->closeDatabase();
 }
 
 /***************** TESTING ********************/
-//!This function validates the functionality by printing 'true' for all functions that perform as expected, 'false' otherwise
+//!Validates the functionality by printing 'true' for all functions that perform as expected, 'false' otherwise
 void BusinessTier::ValidateBusinessTier() {
 
     /* '//' MEANS TESTED BELOW, ELSE UNTESTED
@@ -506,7 +481,6 @@ void BusinessTier::ValidateBusinessTier() {
     //int RemoveWorkoutPair (QString, QString);
     //int RemoveUser      (QString, QString);
     int RemoveSet();
-    int ModifySet(); //not sure how to implement this
     //void UpdateWorkout   (QString, QString);
     //void UpdateExercise  (QString, QString);
     */

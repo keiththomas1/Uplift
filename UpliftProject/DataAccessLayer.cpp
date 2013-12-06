@@ -4,6 +4,8 @@ using namespace std;
 
 //you will know query failed in business tier if
 //query.next() == false
+///Executes queries on the database and outputs debugging info if they fail
+///\param command the sql query to be executed
 QSqlQuery DBaseMan::executeQuery(QString command){
     if (!query.exec(command)) {
         qDebug("QUERY FAILED: %s", qPrintable(command));
@@ -11,7 +13,7 @@ QSqlQuery DBaseMan::executeQuery(QString command){
     }
     return query;
 }
-//!This is used to close the database on exit of the program.
+///Closes the database connection
 void DBaseMan::closeDatabase() {
     db.close();
 }

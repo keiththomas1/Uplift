@@ -12,11 +12,12 @@
 
 using namespace std;
 
-//!This class manages the fundamentals of the database storage of the information.
+
+///The DBaseMan class manages the sqlite database and executes queries on it.
 class DBaseMan
 {
 public:
-    //!This constuctor makes a persisting instance of the database.
+    //!A constuctor that makes a persisting instance of the database.
     DBaseMan()
     {
         db = QSqlDatabase::addDatabase("QSQLITE", "Connection");
@@ -88,23 +89,18 @@ public:
         }
     }
 
-    //!This destructor frees up the query information which is kept on the heap.
+    //!A destructor
     ~DBaseMan() {}
 
-    //!This function is a debugging function which runs queries on the database to test its functionality.
-    void testDatabase();
-    //!This function executes a given database query and returns the result.
     QSqlQuery executeQuery(QString);
-    //!This function closes the database connection.
     void closeDatabase();
-    //UNUSED: database currently managing IDs
-    void StoreIDs(int, int, int, int, int, int);
+
 
 private:
-    //!This variable manages the database connection on the stack.
-    QSqlDatabase db; //change name to m_db
-    //!This variable manages the database query results
-    QSqlQuery query; //change name to m_query
+    //!Manages the database connection on the stack.
+    QSqlDatabase db;
+    //!Manages the database query results
+    QSqlQuery query;
 
 };
 
