@@ -19,7 +19,18 @@ int BusinessTier::GetWorkoutNameID(QString name, int user_id) // DONE
     return -1; //failed
 }
 
-//!This funciton retrieves the id of the exercise for other database queries.
+//!Gets the instance_id of the most recent workout
+int BusinessTier::GetWorkoutInstanceID() {
+    QString command = "SELECT MAX(workout_instance_id) FROM workout_log";
+    QSqlQuery result = dt->executeQuery(command);
+
+    if (result.next()) {
+        return result.value(0).toInt();
+    }
+    return -1; //failed
+}
+
+//!This function retrieves the id of the exercise for other database queries.
 //!/param name This string represents the name of the exercise.
 int BusinessTier::GetExerciseNameID(QString name, int user_id) // DONE
 {
@@ -158,13 +169,13 @@ int BusinessTier::AddExercise(QString name, int user_id)
 //!/param exercise string holding the name of the exercise the user is logging a set of
 //!/param reps int holding the number of repetitions performed of the exercise
 //!/param weight int holding the weight per repetition of the exercise
-int BusinessTier::AddSet(int user_id, QString workout, QString exercise, int reps, int weight)
+int BusinessTier::AddSet(int user_id, int workoutInstanceID, QString workout, QString exercise, int reps, int weight)
 {
     int workout_name_id = GetWorkoutNameID(workout, user_id);
     int exercise_name_id = GetExerciseNameID(exercise, user_id);
     int max = OneRepMax(reps, weight);
-    QString command = "INSERT INTO exercise_set_log (set_id, workout_id, exercise_id, user_id, reps, weight, one_rep_max) "
-            "VALUES (NULL, " + QString::number(workout_name_id) + ", " + QString::number(exercise_name_id) + ", " + QString::number(user_id) +
+    QString command = "INSERT INTO exercise_set_log (set_id, workout_name_id, workout_instance_id, exercise_id, user_id, reps, weight, one_rep_max) "
+            "VALUES (NULL, " + QString::number(workout_name_id) + ", " + QString::number(workoutInstanceID) +", " + QString::number(exercise_name_id) + ", " + QString::number(user_id) +
             ", " + QString::number(reps) + ", " + QString::number(weight) + ", " + QString::number(max) + ")";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
@@ -176,7 +187,7 @@ int BusinessTier::AddSet(int user_id, QString workout, QString exercise, int rep
 int BusinessTier::AddWorkout(QString name, int user_id)
 {
     if (DoesWorkoutExist(name, user_id)) return 0;
-    QString command = "INSERT INTO workout_table VALUES (NULL, '" + name + "', '" + QString::number(user_id) + "')";
+    QString command = "INSERT INTO workout_table (workout_name, user_id) VALUES ('" + name + "', '" + QString::number(user_id) + "')";
     QSqlQuery result = dt->executeQuery(command);
     return 1;
 }
@@ -364,25 +375,29 @@ QStringList BusinessTier::GetExerciseHistory(QString exercise, int user_id, QStr
     return historyList;
 }
 
-QStringList BusinessTier::GetWorkoutHistory(QString workout, int user_id){
+QStringList BusinessTier::GetWorkoutHistory(QString workout, int user_id, QString sortBy) {
     int workoutID = GetWorkoutNameID(workout, user_id);
     QString command;
-    //if (sortBy == "date") {
+
+    //get all the records for this workout
+    if (sortBy == "date") {
         command = "SELECT workout_instance_id, t.workout_name, date(time, 'unixepoch', 'localtime') as datetime "
                   "FROM workout_log as w JOIN workout_table as t ON w.workout_name_id = t.workout_name_id "
                   "WHERE w.workout_name_id == '" + QString::number(workoutID) + "' AND w.user_id == '" + QString::number(user_id) + "'"
                   "ORDER BY time DESC";
-    //}
-    //more sorting options can go here.
-
+    }
     QSqlQuery result = dt->executeQuery(command);
+
     QStringList historyList;
     QString name, date;
+    int volume;
     while (result.next()) {
+        volume = GetWorkoutVolume(result.value(0).toInt());
         name = result.value(1).toString();
         date = result.value(2).toString();
+        historyList << date + "    " + name + "    " + QString::number(volume);
+        qDebug() << historyList;
 
-        historyList << "Exercise Name: " + name + "\tDate:" + date;
     }
     return historyList;
 }
