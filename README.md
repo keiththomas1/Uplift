@@ -1,4 +1,9 @@
-340-project
+UPLIFT
 ===========
+A mobile weightlifting app built by students at the University of Illinois at Chicago.
 
-A depot for the mobile app which is a student project at University of Illinois at Chicago. 
+**Credits:**<br>
+Erik Boyle<br>
+Jake Vercimak<br>
+Keith Thomas<br>
+Tamer Dissi
