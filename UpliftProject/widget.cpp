@@ -194,13 +194,18 @@ void Widget::on_statsButton_clicked() {
     ui->pagesStack->setCurrentIndex(4);
     ui->firstWorkoutDateVal->setText(QString(bt->getFirstWorkoutDate(currUserID)));
     ui->lastWorkoutDateVal->setText(QString(bt->getLastWorkoutDate(currUserID)));
-    ui->firstLastSpanVal->setText(QString::number(bt->getFirstToLastWorkout(currUserID)));
-    ui->totalWorkoutsVal->setText(QString::number(bt->getTotalNumOfWorkouts(currUserID)));
-    ui->avgWorkoutFreqVal->setText(QString::number(bt->getWorkoutFrequency(currUserID)));
+    ui->firstLastSpanVal->setText(QString::number(bt->getFirstToLastWorkout(currUserID), 'f', 2)+QString(" Days"));
+    ui->totalWorkoutsVal->setText(QString::number(bt->getTotalNumOfWorkouts(currUserID))+QString(" Workouts"));
+    if(bt->getWorkoutFrequency(currUserID) == -1){
+        ui->avgWorkoutFreqVal->setText(QString("N/A"));
+    }
+    else{
+        ui->avgWorkoutFreqVal->setText(QString::number(bt->getWorkoutFrequency(currUserID))+QString(" Workouts/Day"));
+    }
     ui->avgVolWorkoutVal->setText(QString::number(bt->getAvgVolumePerWorkout(currUserID)));
     ui->avgSetsWorkoutVal->setText(QString::number(bt->getAvgSetsPerWorkout(currUserID)));
     ui->avgRepsSetVal->setText(QString::number(bt->getAvgRepsPerSet(currUserID)));
-    ui->totalRepsVal->setText(QString::number(bt->getTotalWeight(currUserID)));
+    ui->totalWeightLiftedVal->setText(QString::number(bt->getTotalWeight(currUserID)));
     ui->totalSetsVal->setText(QString::number(bt->getTotalNumOfSets(currUserID)));
     ui->totalRepsVal->setText(QString::number(bt->getTotalNumOfReps(currUserID)));
 }
@@ -560,17 +565,8 @@ void Widget::on_workoutHistoryDoneButton_clicked()
 ///sorts the entries and refreshes the list
 void Widget::on_workoutSortByDate_clicked()
 {
-
-}
-///sorts the entries and refreshes the list
-void Widget::on_workoutSortBySets_clicked()
-{
-
-}
-///sorts the entries and refreshes the list
-void Widget::on_workoutSortByVolume_clicked()
-{
-
+    ui->workoutHistoryList->clear();
+    ui->workoutHistoryList->addItems(bt->GetWorkoutHistory(currWorkoutHistory, currUserID, "date"));
 }
 
 
